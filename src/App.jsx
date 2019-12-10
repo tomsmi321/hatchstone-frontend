@@ -1,14 +1,13 @@
 import React from 'react';
-import {PrimaryButton} from './uiKit/button'
-import styled from 'styled-components'
+import { ExampleContext } from './contexts/ExampleContext';
+import { LandingPage } from './components/LandingPage/LandingPage'
 
 function App() {
   return (
-    <>
-      <PrimaryButton variant="contained">
-        Send message
-      </PrimaryButton>
-    </>
+    // providing context values and wrapping components so they have access to the provided values
+    <ExampleContext.Provider value={{exampleValue: "I am a context value"}}>
+      <LandingPage />
+    </ExampleContext.Provider>
   );
 }
 
