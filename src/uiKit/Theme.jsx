@@ -1,4 +1,5 @@
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import './../assets/fonts/leaguespartan-bold.ttf'
 
 const theme = createMuiTheme({
   palette: {
@@ -15,6 +16,14 @@ const theme = createMuiTheme({
       contrastText: '#FFFFFF',
     },
     // error: will us the default color
+  },
+  typography: {
+    fontFamily: [
+      'leaguespartan-bold',
+      'Lato',
+      'Roboto',
+      'sans-serif'
+    ].join(','),
   },
 });
 
