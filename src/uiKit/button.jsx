@@ -7,6 +7,7 @@ export const PrimaryButton = styled(Button)`
   &&& {
     font-weight: 600;
     color: #FFFFFF;
-    background-color: #326FBB;
+    text-transform: none;
+    /* background-color: #326FBB; */
   }
 `
