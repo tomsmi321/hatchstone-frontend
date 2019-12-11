@@ -19,7 +19,7 @@ export const LandingPage = () => {
       </Typography>
       </BackgroundOverlay>
     </Background>
-    <PrimaryButton variant="contained">
+    <PrimaryButton variant="contained" color="secondary">
       {exampleContextValue.exampleValue}
     </PrimaryButton>
     </>
