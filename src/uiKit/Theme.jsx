@@ -19,7 +19,6 @@ const theme = createMuiTheme({
   },
   typography: {
     fontFamily: [
-      'leaguespartan-bold',
       'Lato',
       'Roboto',
       'sans-serif'
