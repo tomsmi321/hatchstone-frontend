@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import { PrimaryButton, SecondaryButton, TertiaryButton } from '../uiKit/Button'
-import Link from '../uiKit/Link'
+import { PrimaryLink, SecondaryLink } from '../uiKit/Link'
 
 const Wrapper = styled.div`
     display: flex;
@@ -15,8 +15,8 @@ const UIKit = () => {
       <PrimaryButton>Primary</PrimaryButton>
       <SecondaryButton>Secondary</SecondaryButton>
       <TertiaryButton>Tertiary</TertiaryButton>
-      <Link >I am primary link</Link>
-      <Link underline="always">I am secondary link</Link>
+      <PrimaryLink >PrimaryLink</PrimaryLink>
+      <SecondaryLink underline="always">SecondaryLink</SecondaryLink>
     </Wrapper>
   )
 }
