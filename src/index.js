@@ -5,11 +5,17 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createGlobalStyle } from 'styled-components';
+import LeagueSpartanBold from './assets/fonts/LeagueSpartan-Bold.otf';
 
 const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: LeagueSpartan-Bold;
+    src: url('${LeagueSpartanBold}') format('opentype');
+  }
   * {
     margin: 0px;
     padding: 0px;
+    font-family: Lato;
   }
   html {
     font-size: 16px;
