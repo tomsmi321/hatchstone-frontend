@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from 'styled-components'
 import { PrimaryButton, SecondaryButton, TertiaryButton, ApprovedButton } from '../uiKit/Button'
-// import { ApprovedButton } from '../uiKit/buttons/ApprovedButton'
 import { PrimaryLink, SecondaryLink } from '../uiKit/Link'
 import { TextField } from '../uiKit/userInput/TextField'
 import { TextArea } from '../uiKit/userInput/TextArea'
+import { Footer } from '../uiKit/Footer'
 
 const Wrapper = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    flex-wrap: wrap;
     height: 100vh;
     background-color: #FAFAFA;
 `
@@ -25,6 +26,7 @@ const UIKit = () => {
       <SecondaryLink underline="always">SecondaryLink</SecondaryLink>
       <TextField labelValue="Input field"></TextField>
       <TextArea placeholder="Type your message here..."/>
+      <Footer />
     </Wrapper>
   )
 }
