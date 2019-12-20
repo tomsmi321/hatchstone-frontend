@@ -4,7 +4,7 @@ import { PrimaryButton, SecondaryButton, TertiaryButton, ApprovedButton } from '
 import { PrimaryLink, SecondaryLink } from '../uiKit/Link'
 import { TextField } from '../uiKit/userInput/TextField'
 import { TextArea } from '../uiKit/userInput/TextArea'
-import { Footer } from '../uiKit/Footer'
+import { Footer, DarkFooter } from '../uiKit/Footer'
 
 const Wrapper = styled.div`
     display: flex;
@@ -27,6 +27,7 @@ const UIKit = () => {
       <TextField labelValue="Input field"></TextField>
       <TextArea placeholder="Type your message here..."/>
       <Footer />
+      <DarkFooter />
     </Wrapper>
   )
 }

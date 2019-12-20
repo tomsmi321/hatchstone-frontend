@@ -16,10 +16,24 @@ const Wrapper = styled.div`
   padding-right: 5vw;
 `
 
+const DarkWrapper = styled(Wrapper)`
+  background: #1A1C1F;
+  box-shadow: none;
+  color: #FFFFFF;
+`
+
 export const Footer = () => {
   return(
     <Wrapper>
       <Typography variant="h6">© 2018-2019 Hatchstone Capital Pty Ltd</Typography>
     </Wrapper>
+    )
+}
+
+export const DarkFooter = () => {
+  return(
+    <DarkWrapper>
+      <Typography variant="h6">© 2018-2019 Hatchstone Capital Pty Ltd</Typography>
+    </DarkWrapper>
     )
 }
