@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Typography } from '@material-ui/core';
+import { useLocation } from "react-router-dom";
+import { OUTER_APP_PATHS } from '../common/constants'
 
 const Wrapper = styled.div`
   height: 55px;
@@ -30,11 +31,12 @@ const Text = styled.div`
 `
 
 export const Footer = () => {
-  return(
+  const { pathname } = useLocation()
+  return !OUTER_APP_PATHS.includes(pathname) ? (
     <Wrapper>
       <Text>© 2018-2019 Hatchstone Capital Pty Ltd</Text>
     </Wrapper>
-    )
+  ) : null
 }
 
 export const DarkFooter = () => {

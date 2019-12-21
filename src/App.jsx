@@ -8,14 +8,13 @@ import UIKit from './components/UIKit'
 import NavBar from './uiKit/navbars/appNav';
 import { Footer } from './uiKit/Footer';
 
-const PATHS_TO_HIDE_APP_NAV = ["/", "/ui-kit"]
-
 const App = () => {
   const { pathname } = useLocation()
+  console.log('IN APP', pathname)
   return (
     // wrapping components in custom MuiThemeProvider to match Hatchstone style guide
     <MuiThemeProvider theme={theme}>
-      { !PATHS_TO_HIDE_APP_NAV.includes(pathname) && <NavBar /> }
+      <NavBar />
       <Router>
         <Switch>
           <Route path='/ui-kit'>
@@ -31,7 +30,7 @@ const App = () => {
           <Route path="/sign-up" component={() => <div>SIGN UP</div>}/>
         </Switch>
       </Router>
-      { !PATHS_TO_HIDE_APP_NAV.includes(pathname) && <Footer /> }
+      <Footer />
     </MuiThemeProvider>
   );
 }

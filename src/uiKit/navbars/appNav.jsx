@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useHistory, useLocation } from "react-router-dom";
 import logo from '../../assets/hatchstoneAssets/hatchstone-logo-black.svg'
 import { PrimaryLink } from '../Link'
+import { OUTER_APP_PATHS } from '../../common/constants'
 
 const LOG_IN_PATH = "/log-in"
 const SIGN_UP_PATH = "/sign-up"
@@ -42,8 +43,8 @@ const LogInText = styled.div`
 
 const NavBar = () => {
   const { pathname } = useLocation()
-  console.log('PATHNAME', pathname)
-  return (
+
+  return !OUTER_APP_PATHS.includes(pathname) ? (
   <Container>
     <Inner>
       <Logo/>
@@ -51,7 +52,7 @@ const NavBar = () => {
       { pathname === SIGN_UP_PATH && <LogInLink /> }
     </Inner>
   </Container>
-  )
+  ) : null
 }
 
 const SignUpLink = () => {
