@@ -16,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0px;
     padding: 0px;
     font-family: Lato;
+    box-sizing: border-box;
   }
   html {
     font-size: 16px;
