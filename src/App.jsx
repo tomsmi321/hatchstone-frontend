@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Switch, Route, useLocation } from "react-route
 import { ExampleContext } from './contexts/ExampleContext';
 import { LandingPage } from './components/LandingPage/LandingPage';
 import LogInPage from './components/LogIn';
-import SignUpPage from './components/SignUp';
+import SignUpPage from './components/SignUp/sign-up';
+import CreateProfilePage from './components/SignUp/create-profile';
 import { theme, MuiThemeProvider } from './uiKit/Theme'
 import UIKit from './components/UIKit'
 import NavBar from './uiKit/navbars/appNav';
@@ -28,6 +29,7 @@ const App = () => {
           </Route>
           <Route path="/log-in" component={LogInPage}/>
           <Route path="/sign-up" component={SignUpPage}/>
+          <Route path="/create-profile" component={CreateProfilePage}/>
         </Switch>
       </Router>
       <Footer />

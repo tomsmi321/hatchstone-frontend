@@ -7,6 +7,7 @@ import { OUTER_APP_PATHS } from '../../common/constants'
 
 const LOG_IN_PATH = "/log-in"
 const SIGN_UP_PATH = "/sign-up"
+const CREATE_PROFILE_PATH = "/create-profile"
 
 const Container = styled.div`
   width: 100%;
@@ -50,6 +51,7 @@ const NavBar = () => {
       <Logo/>
       { pathname === LOG_IN_PATH && <SignUpLink /> }
       { pathname === SIGN_UP_PATH && <LogInLink /> }
+      { pathname === CREATE_PROFILE_PATH && <SignOutLink /> }
     </Inner>
   </Container>
   ) : null
@@ -75,6 +77,15 @@ const LogInLink = () => {
       Login
     </PrimaryLink>
     </LogInContainer>
+  )
+}
+
+const SignOutLink = () => {
+  const history = useHistory()
+  return (
+    <PrimaryLink onClick={() => history.push("/")}>
+      Sign out
+    </PrimaryLink>
   )
 }
 

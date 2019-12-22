@@ -28,17 +28,23 @@ const DoneCircleIcon = styled(CheckCircleOutlineIcon)`
 `
 
 
-export const PrimaryButton = ({ children }) => (
-  <BaseButton variant="contained" color="primary">{children}</BaseButton>
+export const PrimaryButton = ({ children, onClick }) => (
+  <BaseButton variant="contained" color="primary" onClick={onClick}>{children}</BaseButton>
 )
 
 export const SecondaryButton = ({ children }) => (
   <BaseButton variant="contained" color="secondary">{children}</BaseButton>
 )
 
-export const TertiaryButton = ({ children }) => (
-  <BaseButton variant="contained" color="default">{children}</BaseButton>
-)
+export const TertiaryButton = styled(Button).attrs({ variant: "contained", color: "default"})`
+  &&& {
+    color: #000000;
+    background-color: #bdbdbd;
+    padding: 4px 22px;
+    font-size: 12px;
+    text-transform: none;
+  }
+`
 
 export const ApprovedButton = ({ children }) => (
   <ApprovedBaseButton variant="contained" color="#01BE85">

@@ -18,7 +18,7 @@ const Container = styled.div`
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
 `
 
-const NoAccountText = styled.div`
+const HaveAnAccountText = styled.div`
   margin-right: 5px;
 `
 
@@ -48,13 +48,13 @@ const SignUpPage = () => {
         <TextField labelValue="Password" />
       </TextFieldContainer>
       <ButtonContainer>
-        <PrimaryButton>Sign up</PrimaryButton>
+        <PrimaryButton onClick={() => history.push("/create-profile")}>Sign up</PrimaryButton>
       </ButtonContainer>
       <PrimaryLink onClick={() => console.log('forgot password')}>
         Forgot password?
       </PrimaryLink>
       <LogInPrompt>
-        <NoAccountText>Already have an account?</NoAccountText>
+        <HaveAnAccountText>Already have an account?</HaveAnAccountText>
         <PrimaryLink onClick={() => history.push("/log-in")}>
           Log in
         </PrimaryLink>
