@@ -11,6 +11,7 @@ const BaseButton = styled(Button)`
     font-weight: 600;
     color: #FFFFFF;
     text-transform: none;
+    padding: 8px 28px;
   }
 `
 
