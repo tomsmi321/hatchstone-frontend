@@ -4,9 +4,12 @@ import styled from 'styled-components'
 
 
 const BaseTextField = styled(MUITextField)`
-  &&& :hover {
-    .MuiOutlinedInput-notchedOutline {
-      border: 1px solid #326FBB;
+  &&& {
+    width: 100%;
+    :hover {
+      .MuiOutlinedInput-notchedOutline {
+        border: 1px solid #326FBB;
+      }
     }
   }
 `

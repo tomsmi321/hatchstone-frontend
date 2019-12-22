@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Switch, Route, useLocation } from "react-route
 import { ExampleContext } from './contexts/ExampleContext';
 import { LandingPage } from './components/LandingPage/LandingPage';
 import LogInPage from './components/LogIn';
+import SignUpPage from './components/SignUp/sign-up';
+import CreateProfilePage from './components/SignUp/create-profile';
 import { theme, MuiThemeProvider } from './uiKit/Theme'
 import UIKit from './components/UIKit'
 import NavBar from './uiKit/navbars/appNav';
@@ -10,7 +12,6 @@ import { Footer } from './uiKit/Footer';
 
 const App = () => {
   const { pathname } = useLocation()
-  console.log('IN APP', pathname)
   return (
     // wrapping components in custom MuiThemeProvider to match Hatchstone style guide
     <MuiThemeProvider theme={theme}>
@@ -27,7 +28,8 @@ const App = () => {
             </ExampleContext.Provider>
           </Route>
           <Route path="/log-in" component={LogInPage}/>
-          <Route path="/sign-up" component={() => <div>SIGN UP</div>}/>
+          <Route path="/sign-up" component={SignUpPage}/>
+          <Route path="/create-profile" component={CreateProfilePage}/>
         </Switch>
       </Router>
       <Footer />
