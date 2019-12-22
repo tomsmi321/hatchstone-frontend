@@ -22,9 +22,10 @@ const NoAccountText = styled.div`
   margin-right: 5px;
 `
 
-const SignUpPrompt = styled.div`
+const LogInPrompt = styled.div`
   display: flex;
   flex-direction: row;
+  margin-top: 12px;
 `
 
 const TextFieldContainer = styled.div`
@@ -36,7 +37,7 @@ const ButtonContainer = styled.div`
   margin: 28px 0px;
 `
 
-const LogInPage = () => {
+const SignUpPage = () => {
   const history = useHistory()
   return (
     <Container>
@@ -47,16 +48,19 @@ const LogInPage = () => {
         <TextField labelValue="Password" />
       </TextFieldContainer>
       <ButtonContainer>
-        <PrimaryButton>Login</PrimaryButton>
+        <PrimaryButton>Sign up</PrimaryButton>
       </ButtonContainer>
-      <SignUpPrompt>
-        <NoAccountText>No account?</NoAccountText>
-        <PrimaryLink onClick={() => history.push("/sign-up")}>
-          Create account
+      <PrimaryLink onClick={() => console.log('forgot password')}>
+        Forgot password?
+      </PrimaryLink>
+      <LogInPrompt>
+        <NoAccountText>Already have an account?</NoAccountText>
+        <PrimaryLink onClick={() => history.push("/log-in")}>
+          Log in
         </PrimaryLink>
-      </SignUpPrompt>
+      </LogInPrompt>
     </Container>
   )
 }
 
-export default LogInPage
+export default SignUpPage
