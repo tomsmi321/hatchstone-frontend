@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, useLocation } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import { ExampleContext } from './contexts/ExampleContext';
 import { LandingPage } from './components/LandingPage/LandingPage';
 import LogInPage from './components/LogIn';
@@ -16,7 +16,6 @@ const App = () => {
     // wrapping components in custom MuiThemeProvider to match Hatchstone style guide
     <MuiThemeProvider theme={theme}>
       <NavBar />
-      <Router>
         <Switch>
           <Route path='/ui-kit'>
             <UIKit />
@@ -31,7 +30,6 @@ const App = () => {
           <Route path="/sign-up" component={SignUpPage}/>
           <Route path="/create-profile" component={CreateProfilePage}/>
         </Switch>
-      </Router>
       <Footer />
     </MuiThemeProvider>
   );
