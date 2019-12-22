@@ -12,4 +12,5 @@ export const TextArea = styled.textarea.attrs(props => ({
   display: flex;
   padding: 15px;
   font-size: 1rem;
+  outline: 0;
 `
