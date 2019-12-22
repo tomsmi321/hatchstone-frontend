@@ -7,18 +7,6 @@ body {
   min-height: 100vh;
 }
 
-body #landingPageHeading {
-  font-weight: 500;
-}
-
-body #LandingPageTopNav {
-  width: 100%;
-}
-
-body #LandingPageTopNav header {
-  background-color: transparent;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

@@ -5,6 +5,7 @@ import { PrimaryLink, SecondaryLink } from '../uiKit/Link'
 import { TextField } from '../uiKit/userInput/TextField'
 import { TextArea } from '../uiKit/userInput/TextArea'
 import { Footer, DarkFooter } from '../uiKit/Footer'
+import { SimpleModal } from '../uiKit/Modal';
 
 const Wrapper = styled.div`
     display: flex;
@@ -26,6 +27,7 @@ const UIKit = () => {
       <SecondaryLink underline="always">SecondaryLink</SecondaryLink>
       <TextField labelValue="Input field"></TextField>
       <TextArea placeholder="Type your message here..."/>
+      <SimpleModal />
       <Footer />
       <DarkFooter />
     </Wrapper>
