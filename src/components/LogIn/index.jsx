@@ -4,8 +4,12 @@ import styled from 'styled-components'
 import { PrimaryLink } from '../../uiKit/Link'
 import { PrimaryButton } from '../../uiKit/Button'
 import { TextField } from '../../uiKit/userInput/TextField'
+import { Formik } from "formik"
+import * as Yup from "yup"
+// import axios from "axios"
+import Error from "./Error"
 
-const Container = styled.div`
+const FormContainer = styled.form`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,27 +40,92 @@ const ButtonContainer = styled.div`
   margin: 28px 0px;
 `
 
+const ValidationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Must be an email address")
+    .max(255, "Too Long!")
+    .required("Required"),
+  password: Yup.string()
+    .min(2, "Too Short!")
+    .max(255, "Too Long!")
+    .required("Required")
+})
+
 const LogInPage = () => {
+
   const history = useHistory()
   return (
-    <Container>
-    <TextFieldContainer>
-      <TextField labelValue="Email" />
-    </TextFieldContainer>
-      <TextFieldContainer>
-        <TextField labelValue="Password" />
-      </TextFieldContainer>
-      <ButtonContainer>
-        <PrimaryButton>Login</PrimaryButton>
-      </ButtonContainer>
-      <SignUpPrompt>
-        <NoAccountText>No account?</NoAccountText>
-        <PrimaryLink onClick={() => history.push("/sign-up")}>
-          Create account
-        </PrimaryLink>
-      </SignUpPrompt>
-    </Container>
-  )
+    <Formik
+      initialValues={{
+        email: "",
+        password: ""
+      }}
+
+      validationSchema={ValidationSchema}
+      
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        setSubmitting(true);
+
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          resetForm();
+          setSubmitting(false);
+        }, 500);
+      }}
+    >
+      {({
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting,
+        setFieldValue
+      }) => (
+        <FormContainer>
+
+          <TextFieldContainer>
+            <TextField 
+            labelValue="Email"
+            type="text"
+            name="email"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.email}
+            className={touched.email && errors.email ? "has-error" : null}
+            />
+            <Error touched={touched.email} message={errors.email} />
+          </TextFieldContainer>
+
+          <TextFieldContainer>
+            <TextField 
+            labelValue="Password" 
+            type="text"
+            name="password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.password}
+            className={touched.password && errors.password ? "has-error" : null}
+            />
+            <Error touched={touched.password} message={errors.password} />
+          </TextFieldContainer>
+          
+          <ButtonContainer>
+            <PrimaryButton type="submit" disabled={isSubmitting}>Login</PrimaryButton>
+          </ButtonContainer>
+
+          <SignUpPrompt>
+            <NoAccountText>No account?</NoAccountText>
+            <PrimaryLink onClick={() => history.push("/sign-up")}>
+              Create account
+            </PrimaryLink>
+
+          </SignUpPrompt>
+        </FormContainer>
+      )}
+    </Formik>
+  );
 }
 
 export default LogInPage
