@@ -1,15 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 import { PrimaryLink } from '../../uiKit/Link'
 import { PrimaryButton } from '../../uiKit/Button'
 import { TextField } from '../../uiKit/userInput/TextField'
-import { Formik } from "formik"
+import { Formik } from 'formik'
 import * as Yup from "yup"
 // import axios from "axios"
-import Error from "./Error"
 
-const FormContainer = styled.form`
+const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,6 +19,14 @@ const FormContainer = styled.form`
   background-color: #ffffff;
   border-radius: 4px;
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
+`
+
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
 `
 
 const NoAccountText = styled.div`
@@ -43,89 +50,98 @@ const ButtonContainer = styled.div`
 const ValidationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Must be an email address")
-    .max(255, "Too Long!")
-    .required("Required"),
+    .required("This field is required"),
   password: Yup.string()
-    .min(2, "Too Short!")
-    .max(255, "Too Long!")
-    .required("Required")
+    .min(6, "Too Short!")
+    .required("This field is required")
 })
 
 const LogInPage = () => {
-
   const history = useHistory()
   return (
-    <Formik
-      initialValues={{
-        email: "",
-        password: ""
-      }}
+    <Container>
+      <Formik
+        initialValues={{
+          email: "",
+          password: ""
+        }}
+        validationSchema={ValidationSchema}
+        onSubmit={(values, { setSubmitting, resetForm }) => {
+          setSubmitting(true);
 
-      validationSchema={ValidationSchema}
-      
-      onSubmit={(values, { setSubmitting, resetForm }) => {
-        setSubmitting(true);
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            resetForm();
+            setSubmitting(false);
+          }, 500);
+        }}
+      >
+        {(props) => <LogInForm {...props} />}
+      </Formik>
+      <SignUpPrompt>
+        <NoAccountText>No account?</NoAccountText>
+        <PrimaryLink onClick={() => history.push("/sign-up")}>
+          Create account
+        </PrimaryLink>
 
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          resetForm();
-          setSubmitting(false);
-        }, 500);
-      }}
-    >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting,
-        setFieldValue
-      }) => (
-        <FormContainer>
-
-          <TextFieldContainer>
-            <TextField 
-            labelValue="Email"
-            type="text"
-            name="email"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.email}
-            className={touched.email && errors.email ? "has-error" : null}
-            />
-            <Error touched={touched.email} message={errors.email} />
-          </TextFieldContainer>
-
-          <TextFieldContainer>
-            <TextField 
-            labelValue="Password" 
-            type="text"
-            name="password"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.password}
-            className={touched.password && errors.password ? "has-error" : null}
-            />
-            <Error touched={touched.password} message={errors.password} />
-          </TextFieldContainer>
-          
-          <ButtonContainer>
-            <PrimaryButton type="submit" disabled={isSubmitting}>Login</PrimaryButton>
-          </ButtonContainer>
-
-          <SignUpPrompt>
-            <NoAccountText>No account?</NoAccountText>
-            <PrimaryLink onClick={() => history.push("/sign-up")}>
-              Create account
-            </PrimaryLink>
-
-          </SignUpPrompt>
-        </FormContainer>
-      )}
-    </Formik>
+      </SignUpPrompt>
+    </Container>
   );
+}
+
+const LogInForm = ({
+  values,
+  errors,
+  touched,
+  handleChange,
+  handleBlur,
+  handleSubmit,
+  isSubmitting,
+  isValid,
+  validateForm
+}) => {
+  useEffect(() => {
+    (() => validateForm())();
+  }, []);
+
+  console.log(touched)
+  console.log(errors)
+  console.log(values)
+  console.log(isValid)
+  return (
+    <Form onSubmit={handleSubmit}>
+
+      <TextFieldContainer>
+        <TextField 
+          labelValue="Email"
+          type="text"
+          name="email"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.email}
+          touched={touched.email}
+          error={errors.email}
+        />
+      </TextFieldContainer>
+
+      <TextFieldContainer>
+        <TextField 
+          labelValue="Password" 
+          type="text"
+          name="password"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.password}
+          touched={touched.password}
+          error={errors.password}
+        />
+      </TextFieldContainer>
+      
+      <ButtonContainer>
+        <PrimaryButton type="submit" disabled={isSubmitting || (!isValid && touched !== {})}>Login</PrimaryButton>
+      </ButtonContainer>
+    </Form>
+  )
 }
 
 export default LogInPage

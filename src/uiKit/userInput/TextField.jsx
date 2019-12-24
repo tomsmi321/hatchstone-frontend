@@ -14,6 +14,20 @@ const BaseTextField = styled(MUITextField)`
   }
 `
 
-export const TextField = ({ labelValue }) => (
-  <BaseTextField id="outlined-basic" label={labelValue} variant="outlined"></BaseTextField>
+const ErrorMessage = styled.div`
+  margin-top: 15px;
+  font-weight: bold;
+  color: red;
+`
+
+export const TextField = ({ labelValue, onChange, onBlur, name, touched, error }) => (
+  <>
+    <BaseTextField
+      name={name}
+      label={labelValue}
+      onChange={onChange}
+      onBlur={onBlur}
+      variant="outlined" />
+    { touched && error && <ErrorMessage>{error}</ErrorMessage> }
+  </>
 )
