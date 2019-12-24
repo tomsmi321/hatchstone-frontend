@@ -1,1 +1,1 @@
-export { ExpandMore, ExpandLess } from '@material-ui/icons';
+export { ExpandMore, ExpandLess, AccountCircle } from '@material-ui/icons';
