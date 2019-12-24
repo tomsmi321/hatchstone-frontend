@@ -42,10 +42,10 @@ const SignUpPage = () => {
   return (
     <Container>
     <TextFieldContainer>
-      <TextField labelValue="Email" />
+      <TextField label="Email" />
     </TextFieldContainer>
       <TextFieldContainer>
-        <TextField labelValue="Password" />
+        <TextField label="Password" />
       </TextFieldContainer>
       <ButtonContainer>
         <PrimaryButton onClick={() => history.push("/create-profile")}>Sign up</PrimaryButton>

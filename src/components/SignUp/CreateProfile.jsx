@@ -55,16 +55,16 @@ const CreateProfilePage = () => {
     <Container>
     <Title>Please complete your profile</Title>
     <TextFieldContainer>
-      <TextField labelValue="First Name" />
+      <TextField label="First Name" />
     </TextFieldContainer>
       <TextFieldContainer>
-        <TextField labelValue="Last Name" />
+        <TextField label="Last Name" />
       </TextFieldContainer>
       <TextFieldContainer>
-        <TextField labelValue="Address" />
+        <TextField label="Address" />
       </TextFieldContainer>
       <TextFieldContainer>
-        <TextField labelValue="Contact Number" />
+        <TextField label="Contact Number" />
       </TextFieldContainer>
       <UploadPictureContainer>
         Profile Picture (optional)
