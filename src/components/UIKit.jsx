@@ -25,7 +25,7 @@ const UIKit = () => {
       <ApprovedButton>Approved</ApprovedButton>
       <PrimaryLink >PrimaryLink</PrimaryLink>
       <SecondaryLink underline="always">SecondaryLink</SecondaryLink>
-      <TextField labelValue="Input field"></TextField>
+      <TextField label="Input field"></TextField>
       <TextArea placeholder="Type your message here..."/>
       <SimpleModal />
       <Footer />

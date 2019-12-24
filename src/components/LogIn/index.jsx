@@ -41,10 +41,10 @@ const LogInPage = () => {
   return (
     <Container>
     <TextFieldContainer>
-      <TextField labelValue="Email" />
+      <TextField label="Email" />
     </TextFieldContainer>
       <TextFieldContainer>
-        <TextField labelValue="Password" />
+        <TextField label="Password" />
       </TextFieldContainer>
       <ButtonContainer>
         <PrimaryButton>Login</PrimaryButton>
