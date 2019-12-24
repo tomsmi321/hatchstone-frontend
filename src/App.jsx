@@ -30,6 +30,8 @@ const App = () => {
           <Route path="/sign-up" component={SignUpPage}/>
           <Route path="/create-profile" component={CreateProfilePage}/>
           <Route path="/approved-clients" component={() => <div>APPROVED CLIENTS</div>}/>
+          <Route path="/onboarding-clients" component={() => <div>ONBOARDING CLIENTS</div>}/>
+          <Route path="/conversations" component={() => <div>CONVERSATIONS</div>}/>
         </Switch>
       <Footer />
     </MuiThemeProvider>

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useLocation } from "react-router-dom";
 import logo from 'assets/hatchstoneAssets/hatchstone-logo-black.svg'
 import { OUTER_APP_PATHS } from 'common/constants'
-import { SignUpLink, LogInLink, SignOutLink } from './Links'
+import { SignUpLink, LogInLink, SignOutLink, AdminLinks } from './Links'
 import ProfileDropdown from './ProfileDropdown'
 
 const LOG_IN_PATH = "/log-in"
@@ -35,17 +35,30 @@ const Logo = styled.div`
   width: 197px;
 `
 
+const LeftNavContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+
 const NavBar = () => {
   const { pathname } = useLocation()
+  const isLoggedIn = !PRE_APP_PATHS.includes(pathname) && !PRE_APP_PATHS.includes(pathname)
+  // TODO replace this
+  const isAdmin = true
 
   return !OUTER_APP_PATHS.includes(pathname) ? (
   <Container>
     <Inner>
-      <Logo/>
+      <LeftNavContainer>
+        <Logo/>
+        { isLoggedIn && isAdmin && <AdminLinks /> }
+      </LeftNavContainer>
+
       { pathname === LOG_IN_PATH && <SignUpLink /> }
       { pathname === SIGN_UP_PATH && <LogInLink /> }
       { pathname === CREATE_PROFILE_PATH && <SignOutLink /> }
-      { !PRE_APP_PATHS.includes(pathname) && !PRE_APP_PATHS.includes(pathname) && <ProfileDropdown /> }
+      { isLoggedIn && <ProfileDropdown /> }
     </Inner>
   </Container>
   ) : null
