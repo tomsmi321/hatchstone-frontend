@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useLocation } from "react-router-dom";
-import { OUTER_APP_PATHS } from '../common/constants'
+import { OUTER_APP_PATHS } from 'common/constants'
 
 const Wrapper = styled.div`
   height: 55px;

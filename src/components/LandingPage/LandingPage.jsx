@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { PrimaryButton } from '../../uiKit/Button';
-import { ExampleContext } from '../../contexts/ExampleContext';
+import { ExampleContext } from 'src/contexts/ExampleContext';
 import { Background, BackgroundOverlay } from './Background';
-import { DarkFooter } from '../../uiKit/Footer'
-import NavBar from '../../uiKit/navbars/LandingPageNav'
+import { DarkFooter } from 'uiKit/Footer'
+import NavBar from 'uiKit/navbars/LandingPageNav'
 
 const Heading = styled.h1`
   font-family: Lato;

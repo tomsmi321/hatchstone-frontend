@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components'
-import { PrimaryButton, SecondaryButton, TertiaryButton, ApprovedButton } from '../uiKit/Button'
-import { PrimaryLink, SecondaryLink } from '../uiKit/Link'
-import { TextField } from '../uiKit/userInput/TextField'
-import { TextArea } from '../uiKit/userInput/TextArea'
-import { Footer, DarkFooter } from '../uiKit/Footer'
-import { SimpleModal } from '../uiKit/Modal';
+import { PrimaryButton, SecondaryButton, TertiaryButton, ApprovedButton } from 'uiKit/Button'
+import { PrimaryLink, SecondaryLink } from 'uiKit/Link'
+import { TextField } from 'uiKit/userInput/TextField'
+import { TextArea } from 'uiKit/userInput/TextArea'
+import { Footer, DarkFooter } from 'uiKit/Footer'
+import { SimpleModal } from 'uiKit/Modal';
 
 const Wrapper = styled.div`
     display: flex;

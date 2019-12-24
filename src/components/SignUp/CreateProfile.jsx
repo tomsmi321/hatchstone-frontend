@@ -1,8 +1,8 @@
 import React from 'react'
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
-import { PrimaryButton, TertiaryButton } from '../../uiKit/Button'
-import { TextField } from '../../uiKit/userInput/TextField'
+import { PrimaryButton, TertiaryButton } from 'uiKit/Button'
+import { TextField } from 'uiKit/userInput/TextField'
 
 const Container = styled.div`
   display: flex;

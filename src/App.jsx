@@ -1,14 +1,14 @@
 import React from 'react';
 import { Switch, Route, useLocation } from "react-router-dom";
-import { ExampleContext } from './contexts/ExampleContext';
-import { LandingPage } from './components/LandingPage/LandingPage';
-import LogInPage from './components/LogIn';
-import SignUpPage from './components/SignUp/sign-up';
-import CreateProfilePage from './components/SignUp/create-profile';
-import { theme, MuiThemeProvider } from './uiKit/Theme'
-import UIKit from './components/UIKit'
-import NavBar from './uiKit/navbars/appNav';
-import { Footer } from './uiKit/Footer';
+import { ExampleContext } from 'src/contexts/ExampleContext';
+import { LandingPage } from 'components/LandingPage/LandingPage';
+import LogInPage from 'components/LogIn';
+import SignUpPage from 'components/SignUp/SignUp';
+import CreateProfilePage from 'components/SignUp/CreateProfile';
+import { theme, MuiThemeProvider } from 'uiKit/Theme'
+import UIKit from 'components/UIKit'
+import NavBar from 'uiKit/navbars/AppNav';
+import { Footer } from 'uiKit/Footer';
 
 const App = () => {
   const { pathname } = useLocation()

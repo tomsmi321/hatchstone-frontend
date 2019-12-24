@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import backgroundImage from './../../assets/images/hatchstone-stock-image.jpeg'
+import backgroundImage from 'assets/images/hatchstone-stock-image.jpeg'
 
 const Background = styled.div`
   height: 100vh;
