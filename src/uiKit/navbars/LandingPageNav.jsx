@@ -1,12 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useHistory, useLocation } from "react-router-dom";
-import logo from '../../assets/hatchstoneAssets/hatchstone-logo-white.svg'
+import logo from 'assets/hatchstoneAssets/hatchstone-logo-white.svg'
 import { Link } from '@material-ui/core';
-import { OUTER_APP_PATHS } from '../../common/constants'
-
-const LOG_IN_PATH = "/log-in"
-const SIGN_UP_PATH = "/sign-up"
 
 const Container = styled.div`
   width: 100vw;
@@ -61,8 +57,6 @@ const Login = styled(BaseLink)`
 `
 
 const NavBar = () => {
-  const { pathname } = useLocation()
-
   return (
   <Container>
     <Inner>

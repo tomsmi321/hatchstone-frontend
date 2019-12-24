@@ -1,5 +1,5 @@
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import './../assets/fonts/leaguespartan-bold.ttf'
+import 'assets/fonts/leaguespartan-bold.ttf'
 
 const theme = createMuiTheme({
   palette: {
