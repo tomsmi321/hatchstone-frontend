@@ -31,7 +31,7 @@ const App = () => {
           <Route path="/create-profile" component={CreateProfilePage}/>
           <Route path="/approved-clients" component={ApprovedClientsPage}/>
           <Route path="/onboarding-clients" component={() => <div>ONBOARDING CLIENTS</div>}/>
-          <Route path="/conversations" component={() => <div>CONVERSATIONS</div>}/>
+          <Route path="/conversations/:clientID?" component={() => <div>CONVERSATIONS</div>}/>
         </Switch>
       <Footer />
     </MuiThemeProvider>
