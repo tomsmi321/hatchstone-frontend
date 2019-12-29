@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
-import { PrimaryLink } from '../../uiKit/Link'
-import { PrimaryButton } from '../../uiKit/Button'
-import { TextField } from '../../uiKit/userInput/TextField'
+import { PrimaryLink } from 'uiKit/Link'
+import { PrimaryButton } from 'uiKit/Button'
+import { TextField } from 'uiKit/userInput/TextField'
 import { Formik } from 'formik'
 import * as Yup from "yup"
 // import axios from "axios"
@@ -113,7 +113,7 @@ const LogInForm = ({
 
       <TextFieldContainer>
         <TextField 
-          labelValue="Email"
+          label="Email"
           type="text"
           name="email"
           onChange={handleChange}
@@ -126,7 +126,7 @@ const LogInForm = ({
 
       <TextFieldContainer>
         <TextField 
-          labelValue="Password" 
+          label="Password" 
           type="text"
           name="password"
           onChange={handleChange}

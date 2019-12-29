@@ -1,9 +1,10 @@
 import React from 'react'
-import { TextField as MUITextField } from '@material-ui/core';
+import { TextField as MUITextField, InputAdornment } from '@material-ui/core';
+import { Search } from 'uiKit/Icon'
 import styled from 'styled-components'
 
 
-const BaseTextField = styled(MUITextField)`
+const BaseTextField = styled(MUITextField).attrs({ variant: "outlined" })`
   &&& {
     width: 100%;
     :hover {
@@ -20,14 +21,48 @@ const ErrorMessage = styled.div`
   color: red;
 `
 
-export const TextField = ({ labelValue, onChange, onBlur, name, touched, error }) => (
+export const TextField = ({ label, onChange, onBlur, name, touched, error }) => (
   <>
     <BaseTextField
       name={name}
-      label={labelValue}
+      label={label}
       onChange={onChange}
       onBlur={onBlur}
       variant="outlined" />
     { touched && error && <ErrorMessage>{error}</ErrorMessage> }
   </>
+)
+
+const BaseSearchField = styled(BaseTextField).attrs({
+  id: "outlined-start-adornment",
+  type: "search",
+})`
+  &&& {
+    width: 100%;
+    .MuiOutlinedInput-input {
+      padding: 12px 16px;
+    }
+    .MuiInputLabel-outlined {
+      transform: translate(12px, 15px) scale(1);
+    }
+    :hover {
+      .MuiOutlinedInput-notchedOutline {
+        border: 1px solid #326FBB;
+      }
+    }
+  }
+`
+
+const StyledSearchIcon = styled(Search)`
+  color: rgba(0, 0, 0, 0.55);
+`
+
+export const SearchField = ({ placeholder, onChange }) => (
+  <BaseSearchField
+    placeholder={placeholder}
+    onChange={onChange}
+    InputProps={{
+      startAdornment: <InputAdornment position="start"><StyledSearchIcon /></InputAdornment>,
+    }}
+  />
 )

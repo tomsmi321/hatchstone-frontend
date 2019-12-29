@@ -1,9 +1,9 @@
 import React from 'react'
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
-import { PrimaryLink } from '../../uiKit/Link'
-import { PrimaryButton } from '../../uiKit/Button'
-import { TextField } from '../../uiKit/userInput/TextField'
+import { PrimaryLink } from 'uiKit/Link'
+import { PrimaryButton } from 'uiKit/Button'
+import { TextField } from 'uiKit/userInput/TextField'
 
 const Container = styled.div`
   display: flex;
@@ -42,10 +42,10 @@ const SignUpPage = () => {
   return (
     <Container>
     <TextFieldContainer>
-      <TextField labelValue="Email" />
+      <TextField label="Email" />
     </TextFieldContainer>
       <TextFieldContainer>
-        <TextField labelValue="Password" />
+        <TextField label="Password" />
       </TextFieldContainer>
       <ButtonContainer>
         <PrimaryButton onClick={() => history.push("/create-profile")}>Sign up</PrimaryButton>
