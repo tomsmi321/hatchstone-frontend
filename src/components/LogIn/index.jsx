@@ -6,7 +6,7 @@ import { PrimaryButton } from 'uiKit/Button'
 import { TextField } from 'uiKit/userInput/TextField'
 import { Formik } from 'formik'
 import * as Yup from "yup"
-// import axios from "axios"
+import axios from "axios"
 
 const Container = styled.div`
   display: flex;
@@ -58,6 +58,18 @@ const ValidationSchema = Yup.object().shape({
 
 const LogInPage = () => {
   const history = useHistory()
+
+  const loginUser = async (email, password) => {
+    try {
+      const response = await axios.post('http://localhost:5000/auth/login', {
+        email,
+        password
+      })
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <Container>
       <Formik
@@ -68,12 +80,14 @@ const LogInPage = () => {
         validationSchema={ValidationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
+          loginUser(values.email, values.password)
+          resetForm()
 
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            resetForm();
-            setSubmitting(false);
-          }, 500);
+          // setTimeout(() => {
+          //   alert(JSON.stringify(values, null, 2));
+          //   resetForm();
+          //   setSubmitting(false);
+          // }, 500);
         }}
       >
         {(props) => <LogInForm {...props} />}
