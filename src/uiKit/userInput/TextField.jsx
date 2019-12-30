@@ -15,6 +15,24 @@ const BaseTextField = styled(MUITextField).attrs({ variant: "outlined" })`
   }
 `
 
+const ErrorMessage = styled.div`
+  margin-top: 15px;
+  font-weight: bold;
+  color: red;
+`
+
+export const TextField = ({ label, onChange, onBlur, name, touched, error }) => (
+  <>
+    <BaseTextField
+      name={name}
+      label={label}
+      onChange={onChange}
+      onBlur={onBlur}
+      variant="outlined" />
+    { touched && error && <ErrorMessage>{error}</ErrorMessage> }
+  </>
+)
+
 const BaseSearchField = styled(BaseTextField).attrs({
   id: "outlined-start-adornment",
   type: "search",
@@ -39,15 +57,10 @@ const StyledSearchIcon = styled(Search)`
   color: rgba(0, 0, 0, 0.55);
 `
 
-export const TextField = ({ label }) => (
-  <BaseTextField id="outlined-basic" label={label} />
-)
-
 export const SearchField = ({ placeholder, onChange }) => (
   <BaseSearchField
     placeholder={placeholder}
     onChange={onChange}
-    // startAdornment={<InputAdornment position="start">7</InputAdornment>}
     InputProps={{
       startAdornment: <InputAdornment position="start"><StyledSearchIcon /></InputAdornment>,
     }}
