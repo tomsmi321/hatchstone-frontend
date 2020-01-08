@@ -29,8 +29,9 @@ const MessagesTable = () => {
         <Wrapper>
             <WrapperMessageItems>
                 <WrapperMessagePartnerName>
-                    Jack Greaves
+                    Ashley Thompson
                 </WrapperMessagePartnerName>
+                <MessageItem />
                 <MessageItem />
             </WrapperMessageItems>
             <NewMessage />

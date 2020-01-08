@@ -70,14 +70,14 @@ const ConvoItem = () => {
                 </WrapperAccountCircleIcon>
                 <WrapperConvoContent>
                     <WrapperConvoPartner>
-                        Jack Greaves
+                        Ashley Thompson
                     </WrapperConvoPartner>
                     <WrapperConvoSnippet>
-                        Good morning Lisa, how are you today? Could you please send through...
+                        If required then I can have them to you end of ....
                     </WrapperConvoSnippet>
                 </WrapperConvoContent>
                 <WrapperConvoTime>
-                        2:15pm
+                        4:37pm
                 </WrapperConvoTime>
             </WrapperInner>
         </WrapperOuter>

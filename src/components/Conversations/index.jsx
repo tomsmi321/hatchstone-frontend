@@ -9,6 +9,8 @@ const Wrapper = styled.div`
 `
 
 const ConversationsPage = () => {
+    // TODO - consume context here
+
     return (
         <Wrapper>
             <ConversationsTable />

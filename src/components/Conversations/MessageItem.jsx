@@ -70,12 +70,12 @@ const MessageItem = () => {
                 <WrapperAccountCircleIcon>
                     <AccountCircleIcon /> 
                     <WrapperAccountCircleIconFname>
-                        Jack
+                        Ashley
                     </WrapperAccountCircleIconFname>
                 </WrapperAccountCircleIcon>
                 <WrapperMessageBox>
                     <WrapperMessageContent>
-                        Good morning Lisa, how are you today? Could you please send through your documents for verification
+                        Hi Jack, how are you today? Could you please confirm if my docs need to be certified? Thanks
                     </WrapperMessageContent>
                     <WrapperMessageTimeOuter>
                         <WrapperMessageTimeInner>
