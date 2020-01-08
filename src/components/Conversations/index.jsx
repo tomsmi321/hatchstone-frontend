@@ -4,16 +4,16 @@ import ConversationsTable from './ConversationsTable';
 import MessagesTable from './MessagesTable';
 
 // fix this
-const OuterContainer = styled.div`
+const Wrapper = styled.div`
   display: flex;
 `
 
 const ConversationsPage = () => {
     return (
-        <OuterContainer>
+        <Wrapper>
             <ConversationsTable />
             <MessagesTable />
-        </OuterContainer>
+        </Wrapper>
     )
 }
 
