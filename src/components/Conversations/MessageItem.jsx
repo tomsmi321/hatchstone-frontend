@@ -6,6 +6,7 @@ const WrapperOuter = styled.div`
     /* background-color: teal; */
     margin: 0 9vw 19px 2.3vw;
     display: flex;
+    justify-content: ${props => props.alignRight ? "flex-end" : "flex-start"};
     align-items: center;
 `
 
@@ -16,7 +17,7 @@ const WrapperInner = styled.div`
 
 const WrapperMessageBox = styled.div`
     /* background-color: burlywood; */
-    background-color: #F2F5FC;
+    background-color: ${props => props.alignRight ? "#D6E2FF" : "#F2F5FC"} ;
     width: 18.5vw;
     border-radius: 30px;
     display: flex;
@@ -56,6 +57,7 @@ const WrapperAccountCircleIcon = styled.div`
     justify-content: flex-start;
     align-items: center;
     margin-right: 12px;
+    display: ${props => props.alignRight ? "none" : ""};
 `
 
 const WrapperAccountCircleIconFname = styled.div`
@@ -63,17 +65,17 @@ const WrapperAccountCircleIconFname = styled.div`
     font-size: 12px;
 `
 
-const MessageItem = () => {
+const MessageItem = ({ alignRight }) => {
     return (
-        <WrapperOuter>
+        <WrapperOuter alignRight={alignRight}>
             <WrapperInner>
-                <WrapperAccountCircleIcon>
+                <WrapperAccountCircleIcon alignRight={alignRight}>
                     <AccountCircleIcon /> 
                     <WrapperAccountCircleIconFname>
                         Ashley
                     </WrapperAccountCircleIconFname>
                 </WrapperAccountCircleIcon>
-                <WrapperMessageBox>
+                <WrapperMessageBox alignRight={alignRight}>
                     <WrapperMessageContent>
                         Hi Jack, how are you today? Could you please confirm if my docs need to be certified? Thanks
                     </WrapperMessageContent>

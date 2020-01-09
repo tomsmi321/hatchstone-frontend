@@ -31,8 +31,9 @@ const MessagesTable = () => {
                 <WrapperMessagePartnerName>
                     Ashley Thompson
                 </WrapperMessagePartnerName>
-                <MessageItem />
-                <MessageItem />
+                <MessageItem alignRight={false}/>
+                {/* align right should be set to true if the message is from the current user */}
+                <MessageItem alignRight={true}/>
             </WrapperMessageItems>
             <NewMessage />
         </Wrapper>
