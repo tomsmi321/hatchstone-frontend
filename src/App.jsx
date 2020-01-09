@@ -7,6 +7,7 @@ import SignUpPage from 'components/SignUp/SignUp';
 import CreateProfilePage from 'components/SignUp/CreateProfile';
 import ApprovedClientsPage from 'components/ApprovedClients'
 import ConversationsPage from 'components/Conversations';
+import ClientDetailPage from 'components/ClientDetails';
 import { theme, MuiThemeProvider } from 'uiKit/Theme'
 import UIKit from 'components/UIKit'
 import NavBar from 'uiKit/navbars/AppNav';
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/approved-clients" component={ApprovedClientsPage}/>
           <Route path="/onboarding-clients" component={() => <div>ONBOARDING CLIENTS</div>}/>
           <Route path="/conversations/" component={ConversationsPage}/>
+          <Route path="/client-details/:userId" component={ClientDetailPage}/>
         </Switch>
       <Footer />
     </MuiThemeProvider>
