@@ -4,11 +4,21 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import styled from 'styled-components';
+
+
+const StyledSelect = styled(Select)`
+  &&& {
+    height: 4.3vh;
+    width: 10.5vw;
+    font-size: 14px;
+  }
+`
 
 const useStyles = makeStyles(theme => ({
     formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
+      // margin: theme.spacing(1),
+      // minWidth: 152,
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
@@ -18,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 
 export function SimpleSelect() {
     const classes = useStyles();
-    const [age, setAge] = React.useState('');
+    const [filter, setFilter] = React.useState('');
   
     const inputLabel = React.useRef(null);
     const [labelWidth, setLabelWidth] = React.useState(0);
@@ -27,30 +37,29 @@ export function SimpleSelect() {
     }, []);
   
     const handleChange = event => {
-      setAge(event.target.value);
+      setFilter(event.target.value);
     };
 
     return (
-        <div>
+      <div>
         <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-            Age
+            Filter
             </InputLabel>
-            <Select
+            <StyledSelect
             labelId="demo-simple-select-outlined-label"
             id="demo-simple-select-outlined"
-            value={age}
+            value={filter}
             onChange={handleChange}
             labelWidth={labelWidth}
+            labelHeight={100}
             >
             <MenuItem value="">
                 <em>None</em>
             </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
+            <MenuItem value="Progress">Sort By: Progress</MenuItem>
+            </StyledSelect>
         </FormControl>
-        </div>
+      </div>
     )
 }  

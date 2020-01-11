@@ -2,15 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import { SearchField } from 'uiKit/userInput/TextField'
 import ClientsTable from './ClientsTable'
+import { SimpleSelect} from '../../uiKit/SimpleSelect';
 
-const Container = styled.div`
+const Wrapper = styled.div`
   margin: 60px auto 0px auto;
   max-width: 1004px;
   text-align: center;
 `
 
-const SearchContainer = styled.div`
+const WrapperSearchField = styled.div`
   width: 33%;
+`
+
+const WrapperSearchAndFilterFields =styled.div`
+  display: flex;
+  justify-content: space-between;
 `
 
 const OnboardingClientsPage = () => {
@@ -49,18 +55,21 @@ const OnboardingClientsPage = () => {
       ]
       
     return (
-        <Container>
+        <Wrapper>
             { clients.length ? (
               <>
-                <SearchContainer>
-                  <SearchField placeholder="Search your clients" />
-                </SearchContainer>
+                <WrapperSearchAndFilterFields>
+                  <SimpleSelect />
+                  <WrapperSearchField>
+                    <SearchField placeholder="Search your clients" />
+                  </WrapperSearchField>
+                </WrapperSearchAndFilterFields>
                 <ClientsTable clients={clients} />
               </>
             ) : (
               <div>There are no approved clients</div>
             )}
-        </Container>
+        </Wrapper>
       )
 }
 
