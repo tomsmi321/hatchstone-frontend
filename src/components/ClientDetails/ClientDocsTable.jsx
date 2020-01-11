@@ -47,12 +47,10 @@ const WrapperClientDocFieldDowloadField = styled.div`
     border-radius: 4px;
     height: 4vh;
     padding: 12px 25px;
+    font-size: 14px;
     &:hover {
         cursor: pointer;
-    } 
-        p {
-            font-size: 14px;
-        }
+    }
 `
 
 const StyledGetAppIcon = styled(GetAppIcon)`
@@ -93,7 +91,7 @@ const StyledLink = styled(Link)`
 `
 
 
-const ClientDocField = ({fieldDesc, docTitle}) => {
+const ClientDocField = ({docType, docName}) => {
 
     const dowloadDoc = () => {
         console.log('downloading document');
@@ -102,34 +100,28 @@ const ClientDocField = ({fieldDesc, docTitle}) => {
     return (
         <WrapperClientDocsField>
             <WrapperClientDocsFieldDesc>
-                {fieldDesc}
+                {docType}
             </WrapperClientDocsFieldDesc> 
             <WrapperClientDocFieldDowloadField onClick={dowloadDoc}>
-                <p>{docTitle}</p>
+                {docName}
                 <StyledGetAppIcon />
             </WrapperClientDocFieldDowloadField>
         </WrapperClientDocsField>
     )
 }
 
-const ClientDocsTable = () => {
-    // remove all of these variable for demo purposes only, use context
-    const approved = true;
-    const fieldDesc1 = "Company verification"
-    const docTitle1 = "company_verification.doc"
-    const fieldDesc2 = "Owner identification"
-    const docTitle2 = "id.png"
-    const fieldDes3 = "Wholesaler investor certification"
-    const docTitle3 = "certification.doc"
+const ClientDocsTable = (props) => {
+    const { documents, approved } = props.client;
 
     return (
         <Wrapper>
             <WrapperClientDocsFieldsOuter>
                 <WrapperClientDocsFieldsInner>
-                    {/* need to use .map here */}
-                    <ClientDocField fieldDesc={fieldDesc1} docTitle={docTitle1}/>
-                    <ClientDocField fieldDesc={fieldDesc2} docTitle={docTitle2}/>
-                    <ClientDocField fieldDesc={fieldDes3} docTitle={docTitle3}/>
+                    {documents.map((document, i) => 
+                    <ClientDocField docType={document.docType} 
+                                    docName={document.docName} 
+                                    index={i}/>
+                    )}
                 </WrapperClientDocsFieldsInner>
             </WrapperClientDocsFieldsOuter>
             <WrapperButtonsOuter>
