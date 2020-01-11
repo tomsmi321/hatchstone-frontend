@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   text-align: left;
 `
 
+
 const WrapperHeader = styled.div`
   /* background-color: lightgreen; */
   padding: 16px 40px;
