@@ -2,7 +2,7 @@ import React from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const DropdownMenu = ({ isOpen, onClose, anchorEl, menuItems }) => {
+export const DropdownMenu = ({ isOpen, onClose, anchorEl, menuItems }) => {
   return (
     <Menu
       anchorEl={anchorEl}
