@@ -7,7 +7,7 @@ import * as Yup from "yup"
 import axios from "axios"
 
 const Wrapper = styled.div`
-    background-color: lightskyblue;
+    /* background-color: lightskyblue; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,7 +21,7 @@ const Wrapper = styled.div`
 `
 
 const WrapperHeader = styled.div`
-    background-color: lightcoral;
+    /* background-color: lightcoral; */
     font-size: 16px;
     margin-bottom: 18px;
 `
@@ -73,12 +73,6 @@ const EditProfileAdminPage = () => {
           setSubmitting(true);
           updateProfile(userId, values.firstName, values.lastName, values.profileImage )
           resetForm()
-
-          // setTimeout(() => {
-          //   alert(JSON.stringify(values, null, 2));
-          //   resetForm();
-          //   setSubmitting(false);
-          // }, 500);
         }}
       >
         {(props) => <EditProfileForm {...props} />}

@@ -5,7 +5,7 @@ import { TextField } from 'uiKit/userInput/TextField'
 import { UploadPictureField } from 'uiKit/UploadPictureField';
 
 const Form = styled.form`
-    background-color: lightpink;
+    /* background-color: lightpink; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,13 +13,13 @@ const Form = styled.form`
     width: 100%;
 `
 const WrapperTextField = styled.div`
-    background-color: lightyellow;
+    /* background-color: lightyellow; */
     margin: 16px 0;
     width: 100%;
 `
 
 const WrapperButton = styled.div`
-    background-color: cadetblue;
+    /* background-color: cadetblue; */
     margin: 28px 0px;
 `
 
