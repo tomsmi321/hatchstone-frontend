@@ -1,8 +1,9 @@
 import React from 'react'
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
-import { PrimaryButton, TertiaryButton } from 'uiKit/Button'
+import { PrimaryButton } from 'uiKit/Button'
 import { TextField } from 'uiKit/userInput/TextField'
+import { UploadPictureField } from 'uiKit/UploadPictureField';
 
 const Container = styled.div`
   display: flex;
@@ -31,24 +32,6 @@ const ButtonContainer = styled.div`
   margin: 28px 0px;
 `
 
-const UploadPictureContainer = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: flex-start;
-  flex-direction: column;
-  margin-top: 18px;
-`
-
-const UploadButtonContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 8px;
-  font-size: 12px;
-    & > button {
-      margin-right: 20px;
-    }
-`
-
 const CreateProfilePage = () => {
   const history = useHistory()
   return (
@@ -66,13 +49,7 @@ const CreateProfilePage = () => {
       <TextFieldContainer>
         <TextField label="Contact Number" />
       </TextFieldContainer>
-      <UploadPictureContainer>
-        Profile Picture (optional)
-        <UploadButtonContainer>
-          <TertiaryButton>Choose File</TertiaryButton>
-          No file chosen
-        </UploadButtonContainer>
-      </UploadPictureContainer>
+      <UploadPictureField />
       <ButtonContainer>
         <PrimaryButton>Submit</PrimaryButton>
       </ButtonContainer>
