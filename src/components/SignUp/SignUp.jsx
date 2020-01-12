@@ -63,6 +63,20 @@ const ValidationSchema = Yup.object().shape({
 const SignUpPage = () => {
   
   const history = useHistory()
+  const createAccount = async (email, password) => {
+    try {
+      const response = await axios.post('http://localhost:5000/auth/register', {
+        email,
+        password,
+        // admin and isActive required to be sent in body for backend validation middleware
+        admin: false,
+        isActive: true
+      })
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <Container>
@@ -72,15 +86,23 @@ const SignUpPage = () => {
           password: ""
         }}
         validationSchema={ValidationSchema}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
-          setSubmitting(true);
-          // resetForm()
+        onSubmit={(values, {setSubmitting, setErrors, setStatus, resetForm}) => {
+          try {
+            setSubmitting(true);
+            createAccount(values.email, values.password)
+            resetForm()
+            setStatus({success: true})
+          } catch (error) {
+            setStatus({success: false})
+            setSubmitting(false)
+            setErrors({submit: error.message})
+          }
 
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            resetForm();
-            setSubmitting(false);
-          }, 500);
+          // setTimeout(() => {
+          //   alert(JSON.stringify(values, null, 2));
+          //   resetForm();
+          //   setSubmitting(false);
+          // }, 500);
         }}
       >
         {(props) => <SignUpForm {...props} />}
