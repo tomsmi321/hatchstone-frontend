@@ -21,7 +21,7 @@ const ErrorMessage = styled.div`
   color: red;
 `
 
-export const TextField = ({ label, onChange, onBlur, name, touched, error, size, inputProps, InputLabelProps }) => (
+export const TextField = ({ label, onChange, onBlur, name, touched, error, size, value, inputProps, InputLabelProps }) => (
   <>
     <BaseTextField
       name={name}
