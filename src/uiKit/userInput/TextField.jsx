@@ -4,7 +4,7 @@ import { Search } from 'uiKit/Icon'
 import styled from 'styled-components'
 
 
-const BaseTextField = styled(MUITextField).attrs({ variant: "outlined" })`
+export const BaseTextField = styled(MUITextField).attrs({ variant: "outlined" })`
   &&& {
     width: 100%;
     :hover {
@@ -21,14 +21,17 @@ const ErrorMessage = styled.div`
   color: red;
 `
 
-export const TextField = ({ label, onChange, onBlur, name, touched, error }) => (
+export const TextField = ({ label, onChange, onBlur, name, touched, error, size, inputProps, InputLabelProps }) => (
   <>
     <BaseTextField
       name={name}
       label={label}
       onChange={onChange}
       onBlur={onBlur}
-      variant="outlined" />
+      variant="outlined" 
+      size={size}
+      inputProps={inputProps}
+      InputLabelProps={InputLabelProps}/>
     { touched && error && <ErrorMessage>{error}</ErrorMessage> }
   </>
 )

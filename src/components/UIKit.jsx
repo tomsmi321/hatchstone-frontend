@@ -8,6 +8,7 @@ import { Footer, DarkFooter } from 'uiKit/Footer'
 import { SimpleModal } from 'uiKit/Modal';
 import { ProgressBar } from 'uiKit/ProgressBar';
 import { SimpleSelect } from 'uiKit/SimpleSelect';
+import FileUploadWrapper from './DocumentsUpload/UploadFileWrapper';
 
 const Wrapper = styled.div`
     display: flex;
@@ -21,6 +22,7 @@ const Wrapper = styled.div`
 const UIKit = () => {
   return(
     <Wrapper>
+      <FileUploadWrapper />
       <PrimaryButton>Primary</PrimaryButton>
       <SecondaryButton>Secondary</SecondaryButton>
       <TertiaryButton>Tertiary</TertiaryButton>

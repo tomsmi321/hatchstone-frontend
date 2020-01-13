@@ -1,5 +1,5 @@
 import React from "react";
-import FileUpload from "./FileUpload";
+import FileUpload from "./UploadFile";
 
 const FileUploadWrapper = () => {
   return (

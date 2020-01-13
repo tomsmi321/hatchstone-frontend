@@ -1,7 +1,7 @@
 import React from "react";
 import "react-dropzone-uploader/dist/styles.css";
 import Dropzone from "react-dropzone-uploader";
-import "../App.css";
+// import "../App.css";
 import styled from 'styled-components';
 import Typography from '../../uiKit/Typography';
 
