@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { PrimaryButton } from 'uiKit/Button'
 import { TextField } from 'uiKit/userInput/TextField'
 import { UploadPictureField } from 'uiKit/UploadPictureField';
+import { SelectInvestorType } from 'uiKit/userInput/SelectInvestorType'
 import { Formik } from 'formik'
 import * as Yup from "yup"
 import axios from "axios"
@@ -52,7 +53,9 @@ const ValidationSchema = Yup.object().shape({
   address: Yup.string()
     .required("This field is required"),
   contactNumber: Yup.string()
-    .required("This field is required")
+    .required("This field is required"),
+  investorType: Yup.string()
+    .required("Please select an investor type")
 })
 
 const CreateProfilePage = () => {
@@ -65,7 +68,8 @@ const CreateProfilePage = () => {
           firstName: "",
           lastName: "",
           address: "",
-          contactNumber: ""
+          contactNumber: "",
+          investorType: ""
         }}
         validationSchema={ValidationSchema}
         onSubmit={(values, {setSubmitting, setErrors, setStatus, resetForm}) => {
@@ -155,6 +159,14 @@ const CreateProfileForm = ({
           error={errors.contactNumber}
         />
       </TextFieldContainer>
+      <TextFieldContainer>
+        <SelectInvestorType 
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.investorType}
+          touched={touched.investorType}
+          error={errors.investorType} />
+        </TextFieldContainer>
       <UploadPictureField />
       <ButtonContainer>
         <PrimaryButton type="submit" disabled={isSubmitting || (!isValid && touched !== {})}>Submit</PrimaryButton>
