@@ -1,4 +1,5 @@
 import React from 'react';
+import AuthContextProvider from './contexts/AuthContext'
 import { Switch, Route } from "react-router-dom";
 import { ExampleContext } from 'src/contexts/ExampleContext';
 import { LandingPage } from 'components/LandingPage/LandingPage';
@@ -30,14 +31,16 @@ const App = () => {
               <LandingPage />
             </ExampleContext.Provider>
           </Route>
-          <Route path="/log-in" component={LogInPage}/>
-          <Route path="/sign-up" component={SignUpPage}/>
-          <Route path="/create-profile" component={CreateProfilePage}/>
-          <Route path="/edit-profile-admin/:id" component={EditProfileAdminPage} />
-          <Route path="/approved-clients" component={ApprovedClientsPage}/>
-          <Route path="/onboarding-clients" component={OnboardingClientsPage}/>
-          <Route path="/conversations/:id" component={ConversationsPage}/>
-          <Route path="/client-details/:userId" component={ClientDetailPage}/>
+          <AuthContextProvider>
+            <Route path="/log-in" component={LogInPage}/>
+            <Route path="/sign-up" component={SignUpPage}/>
+            <Route path="/create-profile" component={CreateProfilePage}/>
+            <Route path="/edit-profile-admin/:id" component={EditProfileAdminPage} />
+            <Route path="/approved-clients" component={ApprovedClientsPage}/>
+            <Route path="/onboarding-clients" component={OnboardingClientsPage}/>
+            <Route path="/conversations/:id" component={ConversationsPage}/>
+            <Route path="/client-details/:userId" component={ClientDetailPage}/>
+          </AuthContextProvider>
         </Switch>
       <Footer />
     </MuiThemeProvider>

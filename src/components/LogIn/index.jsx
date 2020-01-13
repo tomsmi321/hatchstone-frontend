@@ -7,6 +7,7 @@ import { TextField } from 'uiKit/userInput/TextField'
 import { Formik } from 'formik'
 import * as Yup from "yup"
 import axios from "axios"
+import { AuthContext } from '../../contexts/AuthContext'
 
 const Container = styled.div`
   display: flex;
@@ -61,6 +62,7 @@ const ValidationSchema = Yup.object().shape({
 
 const LogInPage = () => {
   const history = useHistory()
+  const { isAuthenticated, currentUser, loginUser, logout } = useContext(AuthContext)
 
   const loginUser = async (email, password) => {
     try {
