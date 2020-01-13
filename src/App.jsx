@@ -14,6 +14,7 @@ import { theme, MuiThemeProvider } from 'uiKit/Theme'
 import UIKit from 'components/UIKit'
 import NavBar from 'uiKit/navbars/AppNav';
 import { Footer } from 'uiKit/Footer';
+import UploadFileWrapper from './components/DocumentsUpload/UploadFileWrapper';
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/log-in" component={LogInPage}/>
           <Route path="/sign-up" component={SignUpPage}/>
           <Route path="/create-profile" component={CreateProfilePage}/>
+          <Route path ="/upload-documents" component={UploadFileWrapper} />
           <Route path="/edit-profile-admin/:id" component={EditProfileAdminPage} />
           <Route path="/approved-clients" component={ApprovedClientsPage}/>
           <Route path="/onboarding-clients" component={OnboardingClientsPage}/>
