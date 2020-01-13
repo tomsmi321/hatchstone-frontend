@@ -43,7 +43,7 @@ const FileUpload = params => {
     <Dropzone
       label={documentId}
       className="dzu-dropzone"
-      styles={{ dropzone: { minHeight: 80, maxHeight: 200, border: "dashed 1px", overflow: "visible", margin: 20 } }}
+      styles={{ dropzone: { minHeight: 80, maxHeight: 200, border: "dashed 1px", overflow: "visible" } }}
       inputlabel={`Upload ${documentId}`}
       getUploadParams={getUploadParams}
       onChangeStatus={handleChangeStatus}
