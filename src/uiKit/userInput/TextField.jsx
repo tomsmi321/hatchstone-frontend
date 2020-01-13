@@ -26,6 +26,7 @@ export const TextField = ({ label, onChange, onBlur, name, touched, error, size,
     <BaseTextField
       name={name}
       label={label}
+      value={value}
       onChange={onChange}
       onBlur={onBlur}
       variant="outlined" 

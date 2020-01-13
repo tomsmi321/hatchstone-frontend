@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 import { PrimaryLink } from 'uiKit/Link'
 import { PrimaryButton } from 'uiKit/Button'
 import { TextField } from 'uiKit/userInput/TextField'
+import { Formik } from 'formik'
+import * as Yup from "yup"
+import axios from "axios"
 
 const Container = styled.div`
   display: flex;
@@ -37,19 +40,73 @@ const ButtonContainer = styled.div`
   margin: 28px 0px;
 `
 
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+`
+
+const ValidationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Must be an email address")
+    .required("This field is required"),
+  password: Yup.string()
+    .required("This field is required")
+    .matches(
+      /^(?=.{8,})(?=.*[1-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[(!@#$%^&*()_+|~\- =\`{}[\]:”;'<>?,.\/, )])(?!.*(.)\1{2,}).+$/,
+      "Must contain 8 Characters, minimum 1 Number and 1 Special Case Character"
+    )
+})
+
 const SignUpPage = () => {
+  
   const history = useHistory()
+  const createAccount = async (email, password) => {
+    try {
+      const response = await axios.post('http://localhost:5000/auth/register', {
+        email,
+        password,
+        // admin and isActive required to be sent in body for backend validation middleware
+        admin: false,
+        isActive: true
+      })
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Container>
-    <TextFieldContainer>
-      <TextField label="Email" />
-    </TextFieldContainer>
-      <TextFieldContainer>
-        <TextField label="Password" />
-      </TextFieldContainer>
-      <ButtonContainer>
-        <PrimaryButton onClick={() => history.push("/create-profile")}>Sign up</PrimaryButton>
-      </ButtonContainer>
+      <Formik
+        initialValues={{
+          email: "",
+          password: ""
+        }}
+        validationSchema={ValidationSchema}
+        onSubmit={(values, {setSubmitting, setErrors, setStatus, resetForm}) => {
+          try {
+            setSubmitting(true);
+            createAccount(values.email, values.password)
+            resetForm()
+            setStatus({success: true})
+          } catch (error) {
+            setStatus({success: false})
+            setSubmitting(false)
+            setErrors({submit: error.message})
+          }
+
+          // setTimeout(() => {
+          //   alert(JSON.stringify(values, null, 2));
+          //   resetForm();
+          //   setSubmitting(false);
+          // }, 500);
+        }}
+      >
+        {(props) => <SignUpForm {...props} />}
+      </Formik>
       <PrimaryLink onClick={() => console.log('forgot password')}>
         Forgot password?
       </PrimaryLink>
@@ -62,5 +119,63 @@ const SignUpPage = () => {
     </Container>
   )
 }
+
+
+
+const SignUpForm = ({
+  values,
+  errors,
+  touched,
+  handleChange,
+  handleBlur,
+  handleSubmit,
+  isSubmitting,
+  isValid,
+  validateForm
+}) => {
+  useEffect(() => {
+    (() => validateForm())();
+  }, []);
+
+  console.log(touched)
+  console.log(errors)
+  console.log(values)
+  console.log(isValid)
+  return (
+    <Form onSubmit={handleSubmit}>
+
+      <TextFieldContainer>
+        <TextField 
+          label="Email"
+          type="text"
+          name="email"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.email}
+          touched={touched.email}
+          error={errors.email}
+        />
+      </TextFieldContainer>
+
+      <TextFieldContainer>
+        <TextField 
+          label="Password" 
+          type="text"
+          name="password"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.password}
+          touched={touched.password}
+          error={errors.password}
+        />
+      </TextFieldContainer>
+      
+      <ButtonContainer>
+        <PrimaryButton type="submit" disabled={isSubmitting || (!isValid && touched !== {})}>Sign up</PrimaryButton>
+      </ButtonContainer>
+    </Form>
+  )
+}
+
 
 export default SignUpPage
