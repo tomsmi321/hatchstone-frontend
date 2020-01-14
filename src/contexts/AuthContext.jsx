@@ -60,8 +60,37 @@ const AuthContextProvider = ({ children }) => {
     history.push(`/`)
   }
 
+  const createAccount = async (email, password) => {
+    try {
+      console.log('in AuthContext createAccount function');
+      const response = await axios.post('http://localhost:5000/auth/register', {
+        email,
+        password,
+        // admin and isActive required to be sent in body for backend validation middleware
+        admin: false,
+        isActive: true
+      })
+      console.log(response.data)
+      const token = response.data.token
+      // This line will need to be changed to response.data.user once backend is also sending user to client
+      const user = response.data
+      if (token) {
+        setIsAuthenticated(true)
+        setCurrentUser({
+          email: user.email,
+          token
+        })
+        localStorage.setItem('currentUser', JSON.stringify(currentUser))
+        history.push(`/create-profile`)
+        return true;
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
-  <AuthContext.Provider value={{isAuthenticated, currentUser, loginUser, logout}}>
+  <AuthContext.Provider value={{isAuthenticated, currentUser, loginUser, logout, createAccount}}>
     {children}
   </AuthContext.Provider>
   )
