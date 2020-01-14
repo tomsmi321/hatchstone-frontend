@@ -1,7 +1,6 @@
 import React from 'react';
 import AuthContextProvider from './contexts/AuthContext'
 import { Switch, Route } from "react-router-dom";
-import { ExampleContext } from 'src/contexts/ExampleContext';
 import { LandingPage } from 'components/LandingPage/LandingPage';
 import LogInPage from 'components/LogIn';
 import SignUpPage from 'components/SignUp/SignUp';
@@ -26,10 +25,7 @@ const App = () => {
             <UIKit />
           </Route>
           <Route exact path="/">
-            {/* providing context values and wrapping components so they have access to the provided values */}
-            <ExampleContext.Provider value={{exampleValue: "I am a context value"}}>
-              <LandingPage />
-            </ExampleContext.Provider>
+            <LandingPage />
           </Route>
           <AuthContextProvider>
             <Route path="/log-in" component={LogInPage}/>
