@@ -11,35 +11,27 @@ const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(`in useEffect() currentUser - email: ${currentUser.email} password: ${currentUser.password}, isAuthenticated: ${isAuthenticated}`);
-    // if (user) {
-    //     setIsAuthenticated(true)
-    //     setCurrentUser({
-  //         email: user.email,
-  //         token: user.token
-    //     })
-    // }
-    // console.log(`in useEffect() currentUser: ${currentUser}, isAuthenticated: ${isAuthenticated}`);
+    console.log(`in useEffect() currentUser - email: ${currentUser.email} ID: ${currentUser._id}, isAuthenticated: ${isAuthenticated}`);
   })
 
   const loginUser = async (email, password) => {
-    console.log(`attempting to log in user`)
+    console.log(`in AuthContext loginUser function`)
     try {
-        const result = await axios.post('http://localhost:5000/auth/login', {
+        const response = await axios.post('http://localhost:5000/auth/login', {
         email,
         password
       })
-      console.log(result.data)
-      const user = result.data
+      console.log(response.data)
+      const user = response.data.user
+      const token = response.data.token
       console.log(user)
       if (user) {
         setIsAuthenticated(true)
         setCurrentUser({
+          _id: user._id,
           email: user.email,
           token: user.token
         })
-        // console.log(isAuthenticated)
-        // console.log(currentUser)
         localStorage.setItem('currentUser', JSON.stringify(currentUser))
         history.push(`/conversations/`)
         return true;
@@ -54,8 +46,9 @@ const AuthContextProvider = ({ children }) => {
     localStorage.removeItem('currentUser');
     setIsAuthenticated(false)
     setCurrentUser({
-        email: '',
-        token: ''
+        _id: null,
+        email: null,
+        token: null
     })
     history.push(`/`)
   }
@@ -72,11 +65,11 @@ const AuthContextProvider = ({ children }) => {
       })
       console.log(response.data)
       const token = response.data.token
-      // This line will need to be changed to response.data.user once backend is also sending user to client
-      const user = response.data
+      const user = response.data.user
       if (token) {
         setIsAuthenticated(true)
         setCurrentUser({
+          _id: user._id,
           email: user.email,
           token
         })

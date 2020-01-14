@@ -65,22 +65,6 @@ const SignUpPage = () => {
   const history = useHistory()
   const { createAccount } = useContext(AuthContext)
 
-  // const createAccount = async (email, password) => {
-  //   try {
-  //     console.log('in AuthContext createAccount function');
-  //     const response = await axios.post('http://localhost:5000/auth/register', {
-  //       email,
-  //       password,
-  //       // admin and isActive required to be sent in body for backend validation middleware
-  //       admin: false,
-  //       isActive: true
-  //     })
-  //     console.log(response.data)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
   return (
     <Container>
       <Formik
@@ -100,12 +84,6 @@ const SignUpPage = () => {
             setSubmitting(false)
             setErrors({submit: error.message})
           }
-
-          // setTimeout(() => {
-          //   alert(JSON.stringify(values, null, 2));
-          //   resetForm();
-          //   setSubmitting(false);
-          // }, 500);
         }}
       >
         {(props) => <SignUpForm {...props} />}
