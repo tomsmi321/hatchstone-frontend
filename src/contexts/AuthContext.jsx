@@ -1,29 +1,27 @@
-import React, { createContext, Component, useState, useEffect } from 'react';
-import axios from 'axios';
-​
+import React, { createContext, useState, useEffect } from 'react';
+import axios from 'axios'
+
 export const AuthContext = createContext();
-​
+
 const AuthContextProvider = ({ children }) => {
   const [ isAuthenticated, setIsAuthenticated ] = useState(false)
   const [ currentUser, setCurrentUser ] = useState({})
-​
+
   useEffect(() => {
-      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      console.log(`in componentDidMount currentUser: ${currentUser}, isAuthenticated: ${this.state.isAuthenticated}`);
-      if (currentUser) {
-          setIsAuthenticated({
-            isAuthenticated: true
-          })
-          setCurrentUser({
-            currentUser: {
-              email: currentUser.email,
-              token: currentUser.token
-            }
-          })
-      }
-      console.log(`in componentDidMount currentUser: ${this.state.currentUser.email}, isAuthenticated: ${this.state.isAuthenticated}`);
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      console.log(`in useEffect() currentUser: ${currentUser}, isAuthenticated: ${isAuthenticated}`);
+      // if (user) {
+      //     setIsAuthenticated(true)
+      //     setCurrentUser({
+      //       user: {
+      //         email: user.email,
+      //         token: user.token
+      //       }
+      //     })
+      // }
+      // console.log(`in useEffect() currentUser: ${currentUser}, isAuthenticated: ${isAuthenticated}`);
   })
-​
+
   const loginUser = async (email, password) => {
       console.log(`attempting to log in user`)
       try {
@@ -31,19 +29,19 @@ const AuthContextProvider = ({ children }) => {
           email,
           password
         })
-        console.log(result.data);
-        const currentUser = result.data
-        if (currentUser) {
-          setIsAuthenticated({
-            isAuthenticated: true
-          })
+        console.log(result.data)
+        const user = result.data
+        console.log(user)
+        if (user) {
+          setIsAuthenticated(true)
           setCurrentUser({
-            currentUser: {
-              email: currentUser.email,
-              token: currentUser.token
+            user: {
+              email: user.email,
+              token: user.token
             }
           })
-          console.log(this.state.currentUser); 
+          // console.log(isAuthenticated)
+          // console.log(currentUser)
           localStorage.setItem('currentUser', JSON.stringify(currentUser))
           return true;
         }
@@ -51,15 +49,13 @@ const AuthContextProvider = ({ children }) => {
           console.log(err);
       }  
   }
-​
+
   const logout = async () => {
       console.log('in logout function');
       localStorage.removeItem('currentUser');
-      setIsAuthenticated({
-          isAuthenticated: false
-      })
+      setIsAuthenticated(false)
       setCurrentUser({
-        currentUser: {
+        user: {
             email: '',
             token: ''
         }
@@ -72,5 +68,5 @@ const AuthContextProvider = ({ children }) => {
     </AuthContext.Provider>
   )
 }
-​
+
 export default AuthContextProvider;
