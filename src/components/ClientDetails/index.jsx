@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 `
 
 const ClientDetailPage = () => {
-    const { profiles } = useContext(UsersContext)
+    // const { profiles } = useContext(UsersContext)
 
     const client = {
         firstName: "Ashley",
@@ -32,7 +32,6 @@ const ClientDetailPage = () => {
 
         return (
             <Wrapper> 
-                {profiles.length ? `${profiles[0].approved}` : false}
                 <ClientProfileTable client={client}/>
                 <ClientDocsTable client={client}/>
             </Wrapper>

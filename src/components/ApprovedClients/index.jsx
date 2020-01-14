@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { SearchField } from 'uiKit/userInput/TextField'
 import ClientsTable from './ClientsTable'
+import { UsersContext } from '../../contexts/UsersContext';
 
 const Container = styled.div`
   margin: 60px auto 0px auto;
@@ -16,6 +17,15 @@ const SearchContainer = styled.div`
 const ApprovedClientsPage = () => {
   // TODO - replace these
   // const clients = []
+
+  // consume context 
+  const { approvedClients, getApprovedClients } = useContext(UsersContext);
+
+  useEffect(() => {
+    console.log('in useEffect');
+    getApprovedClients();
+  }, [])
+
   const clients = [
     {
       id: 1,
@@ -45,12 +55,12 @@ const ApprovedClientsPage = () => {
   
   return (
     <Container>
-        { clients.length ? (
+        { approvedClients.length ? (
           <>
             <SearchContainer>
               <SearchField placeholder="Search your clients" />
             </SearchContainer>
-            <ClientsTable clients={clients} />
+            <ClientsTable approvedClients={approvedClients} />
           </>
         ) : (
           <div>There are no approved clients</div>

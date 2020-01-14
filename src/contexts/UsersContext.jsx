@@ -9,11 +9,13 @@ export const UsersContext = createContext({})
 class UsersContextProvider extends Component {
     // set some inital state for users
     state = {
-        profiles: []
+        profiles: [],
+        approvedClients: [],
+        onboardingClients: []
     }
 
     componentDidMount = async () => {
-        console.log('in component did mount start');
+        console.log('in componentDidMount');
         try {
             const result = await axios.get('/profiles');
             if(result.data) {
@@ -24,12 +26,44 @@ class UsersContextProvider extends Component {
         } catch(err) {
             console.log(err);
         } 
-        console.log('in component did mount end');
     }
+
+    getApprovedClients = async () => {
+        console.log('in getApprovedClients');
+        try {
+            const result = await axios.get('/profiles/profilesApproved');
+            if(result.data) {
+                this.setState({
+                    approvedClients: result.data
+                })
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }
+    
+    getOnboardingClients = async () => {
+        console.log('in getOnboardingClients');
+        try {
+            const result = await axios.get('/profiles/profilesOnboarding');
+            if(result.data) {
+                this.setState({
+                    onboardingClients: result.data
+                })
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
 
     render() {
         return (
-            <UsersContext.Provider value={{...this.state}}>
+            <UsersContext.Provider value={{
+                ...this.state, 
+                getApprovedClients: this.getApprovedClients, 
+                getOnboardingClients: this.getOnboardingClients
+            }}>
                 {this.props.children}
             </UsersContext.Provider>
         )

@@ -55,18 +55,23 @@ const MoreIcon = styled(MoreHoriz).attrs({ style: { fontSize: 30 } })`
   cursor: pointer;
 `
 
-const Client = ({ client, isLastItem }) => {
+const Client = ({ approvedClient, isLastItem }) => {
   const [menuIsShowing, toggleMenuIsShowing] = useState(false)
   const menuIcon = useRef()
   const history = useHistory()
 
   const toggleShowMenu = () => toggleMenuIsShowing(!menuIsShowing)
 
+  const clientName = `${approvedClient.firstName[0].toUpperCase() + 
+                      approvedClient.firstName.slice(1, approvedClient.firstName.length)} 
+                      ${approvedClient.lastName[0].toUpperCase() + 
+                      approvedClient.lastName.slice(1, approvedClient.lastName.length)}`
+                      
   return (
-    <TableItem client={client} isLastItem={isLastItem}>
+    <TableItem approvedClient={approvedClient} isLastItem={isLastItem}>
       <ClientInfo>
-        { client.profile_photo ? <ProfileImage imageSrc={client.profile_photo} /> : <AccountCircleIcon /> }
-        {`${client.first_name} ${client.last_name}`}
+        { approvedClient.profileImage ? <ProfileImage imageSrc={approvedClient.profileImage} /> : <AccountCircleIcon /> }
+        {clientName}
       </ClientInfo>
       <MoreIcon onClick={toggleShowMenu} ref={menuIcon} />
       <DropdownMenu
@@ -79,7 +84,9 @@ const Client = ({ client, isLastItem }) => {
             label: 'View'
           },
           {
-            onClick: () => history.push(`/conversations/${client.id}`),
+            // note that in this case _id is the profile id that is being passed on the route
+            // because it is nested using populate userId is an object
+            onClick: () => history.push(`/conversations/${approvedClient.userId._id}`),
             label: 'Send a message'
           },
         ]}
@@ -88,11 +95,12 @@ const Client = ({ client, isLastItem }) => {
   )
 }
 
-const ClientsTable = ({ clients }) => {
+const ClientsTable = ({ approvedClients }) => {
+  console.log(approvedClients);
   return (
     <Container>
-      <Header>Clients ({clients.length})</Header>
-      { clients.map((client, i) => <Client key={i} client={client} isLastItem={clients.length - 1 === i} />)}
+      <Header>Clients ({approvedClients.length})</Header>
+      { approvedClients.map((approvedClient, i) => <Client key={i} approvedClient={approvedClient} isLastItem={approvedClients.length - 1 === i} />)}
     </Container>
   )
 }
