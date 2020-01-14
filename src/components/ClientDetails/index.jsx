@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { UsersContext } from '../../contexts/UsersContext';
 import styled from 'styled-components';
 import ClientProfileTable from './ClientProfileTable'
 import ClientDocsTable from './ClientDocsTable';
@@ -13,6 +14,11 @@ const Wrapper = styled.div`
 
 const ClientDetailPage = () => {
 // replace dummy date with context
+const { profile } = useContext(UsersContext);
+console.log(`profile ${profile}`);
+
+use
+
 const client = {
     firstName: "Ashley",
     lastName: "Thompson",
