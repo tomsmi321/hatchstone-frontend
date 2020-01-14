@@ -66,7 +66,7 @@ const Client = ({ approvedClient, isLastItem }) => {
                       approvedClient.firstName.slice(1, approvedClient.firstName.length)} 
                       ${approvedClient.lastName[0].toUpperCase() + 
                       approvedClient.lastName.slice(1, approvedClient.lastName.length)}`
-                      
+
   return (
     <TableItem approvedClient={approvedClient} isLastItem={isLastItem}>
       <ClientInfo>
@@ -84,8 +84,6 @@ const Client = ({ approvedClient, isLastItem }) => {
             label: 'View'
           },
           {
-            // note that in this case _id is the profile id that is being passed on the route
-            // because it is nested using populate userId is an object
             onClick: () => history.push(`/conversations/${approvedClient.userId._id}`),
             label: 'Send a message'
           },
