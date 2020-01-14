@@ -80,7 +80,7 @@ const Client = ({ approvedClient, isLastItem }) => {
         onClose={toggleShowMenu}
         menuItems={[
           {
-            onClick: () => {console.log('go to Profile')},
+            onClick: () => history.push(`/client-details/${approvedClient.userId._id}`),
             label: 'View'
           },
           {
