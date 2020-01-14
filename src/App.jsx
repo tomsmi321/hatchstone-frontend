@@ -17,7 +17,6 @@ import UploadFileWrapper from './components/DocumentsUpload/UploadFileWrapper';
 // import contexts here
 import { ExampleContext } from 'src/contexts/ExampleContext';
 import UsersContextProvider from './contexts/UsersContext';
-import FilteredPage from './components/ApprovedClients/FilteredListPractice';
 
 const App = () => {
   return (
@@ -32,7 +31,6 @@ const App = () => {
           <Route path="/log-in" component={LogInPage}/>
           <Route path="/sign-up" component={SignUpPage}/>
           <UsersContextProvider>
-            <Route path="/filtered" component={FilteredPage}/>
             <Route path="/create-profile" component={CreateProfilePage}/>
             <Route path ="/upload-documents" component={UploadFileWrapper} />
             <Route path="/edit-profile-admin/:id" component={EditProfileAdminPage} />
