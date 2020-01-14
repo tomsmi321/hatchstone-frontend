@@ -19,15 +19,15 @@ const App = () => {
   return (
     // wrapping components in custom MuiThemeProvider to match Hatchstone style guide
     <MuiThemeProvider theme={theme}>
-      <NavBar />
-        <Switch>
-          <Route path='/ui-kit'>
-            <UIKit />
-          </Route>
-          <Route exact path="/">
-            <LandingPage />
-          </Route>
-          <AuthContextProvider>
+      <AuthContextProvider>
+        <NavBar />
+          <Switch>
+            <Route path='/ui-kit'>
+              <UIKit />
+            </Route>
+            <Route exact path="/">
+              <LandingPage />
+            </Route>
             <Route path="/log-in" component={LogInPage}/>
             <Route path="/sign-up" component={SignUpPage}/>
             <Route path="/create-profile" component={CreateProfilePage}/>
@@ -36,9 +36,9 @@ const App = () => {
             <Route path="/onboarding-clients" component={OnboardingClientsPage}/>
             <Route path="/conversations/:id" component={ConversationsPage}/>
             <Route path="/client-details/:userId" component={ClientDetailPage}/>
-          </AuthContextProvider>
-        </Switch>
-      <Footer />
+          </Switch>
+        <Footer />
+      </AuthContextProvider>
     </MuiThemeProvider>
   );
 }

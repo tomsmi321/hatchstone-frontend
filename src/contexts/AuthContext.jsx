@@ -11,14 +11,12 @@ const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(`in useEffect() currentUser: ${currentUser}, isAuthenticated: ${isAuthenticated}`);
+    console.log(`in useEffect() currentUser - email: ${currentUser.email} password: ${currentUser.password}, isAuthenticated: ${isAuthenticated}`);
     // if (user) {
     //     setIsAuthenticated(true)
     //     setCurrentUser({
-    //       user: {
-    //         email: user.email,
-    //         token: user.token
-    //       }
+  //         email: user.email,
+  //         token: user.token
     //     })
     // }
     // console.log(`in useEffect() currentUser: ${currentUser}, isAuthenticated: ${isAuthenticated}`);
@@ -37,10 +35,8 @@ const AuthContextProvider = ({ children }) => {
       if (user) {
         setIsAuthenticated(true)
         setCurrentUser({
-          user: {
-            email: user.email,
-            token: user.token
-          }
+          email: user.email,
+          token: user.token
         })
         // console.log(isAuthenticated)
         // console.log(currentUser)
@@ -54,14 +50,12 @@ const AuthContextProvider = ({ children }) => {
   }
 
   const logout = async () => {
-    console.log('in logout function');
+    console.log('in AuthContext logout function');
     localStorage.removeItem('currentUser');
     setIsAuthenticated(false)
     setCurrentUser({
-      user: {
-          email: '',
-          token: ''
-      }
+        email: '',
+        token: ''
     })
     history.push(`/`)
   }

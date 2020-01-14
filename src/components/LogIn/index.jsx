@@ -62,7 +62,7 @@ const ValidationSchema = Yup.object().shape({
 
 const LogInPage = () => {
   const history = useHistory()
-  const { isAuthenticated, currentUser, loginUser, logout } = useContext(AuthContext)
+  const { isAuthenticated, currentUser, loginUser } = useContext(AuthContext)
   
   return (
     <Container>
