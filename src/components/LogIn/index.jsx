@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 import { PrimaryLink } from 'uiKit/Link'
@@ -7,6 +7,7 @@ import { TextField } from 'uiKit/userInput/TextField'
 import { Formik } from 'formik'
 import * as Yup from "yup"
 import axios from "axios"
+import { AuthContext } from '../../contexts/AuthContext'
 
 const Container = styled.div`
   display: flex;
@@ -61,18 +62,8 @@ const ValidationSchema = Yup.object().shape({
 
 const LogInPage = () => {
   const history = useHistory()
-
-  const loginUser = async (email, password) => {
-    try {
-      const response = await axios.post('http://localhost:5000/auth/login', {
-        email,
-        password
-      })
-      console.log(response.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const { isAuthenticated, currentUser, loginUser } = useContext(AuthContext)
+  
   return (
     <Container>
       <Formik

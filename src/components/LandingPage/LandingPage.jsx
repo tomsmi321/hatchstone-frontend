@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { ExampleContext } from 'src/contexts/ExampleContext';
 import { Background, BackgroundOverlay } from './Background';
 import { DarkFooter } from 'uiKit/Footer'
 import NavBar from 'uiKit/navbars/LandingPageNav'
@@ -15,10 +14,6 @@ const Heading = styled.h1`
 `
 
 export const LandingPage = () => {
-
-  // Consuming context
-  const exampleContextValue = useContext(ExampleContext);
-
   return(
     <>
       <Background>
@@ -30,10 +25,6 @@ export const LandingPage = () => {
           <DarkFooter />
         </BackgroundOverlay>
       </Background>
-      {/* Example of pulling context values from consumed context
-      <PrimaryButton variant="contained" color="secondary">
-        {exampleContextValue.exampleValue}
-      </PrimaryButton> */}
     </>
   )
 }

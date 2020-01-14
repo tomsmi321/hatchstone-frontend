@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 import { PrimaryLink } from 'uiKit/Link'
@@ -7,6 +7,7 @@ import { TextField } from 'uiKit/userInput/TextField'
 import { Formik } from 'formik'
 import * as Yup from "yup"
 import axios from "axios"
+import { AuthContext } from '../../contexts/AuthContext'
 
 const Container = styled.div`
   display: flex;
@@ -61,22 +62,8 @@ const ValidationSchema = Yup.object().shape({
 })
 
 const SignUpPage = () => {
-  
   const history = useHistory()
-  const createAccount = async (email, password) => {
-    try {
-      const response = await axios.post('http://localhost:5000/auth/register', {
-        email,
-        password,
-        // admin and isActive required to be sent in body for backend validation middleware
-        admin: false,
-        isActive: true
-      })
-      console.log(response.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const { createAccount } = useContext(AuthContext)
 
   return (
     <Container>
@@ -97,12 +84,6 @@ const SignUpPage = () => {
             setSubmitting(false)
             setErrors({submit: error.message})
           }
-
-          // setTimeout(() => {
-          //   alert(JSON.stringify(values, null, 2));
-          //   resetForm();
-          //   setSubmitting(false);
-          // }, 500);
         }}
       >
         {(props) => <SignUpForm {...props} />}
