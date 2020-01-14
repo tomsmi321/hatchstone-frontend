@@ -14,6 +14,7 @@ import { theme, MuiThemeProvider } from 'uiKit/Theme'
 import UIKit from 'components/UIKit'
 import NavBar from 'uiKit/navbars/AppNav';
 import { Footer } from 'uiKit/Footer';
+import UploadFileWrapper from './components/DocumentsUpload/UploadFileWrapper';
 
 const App = () => {
   return (
