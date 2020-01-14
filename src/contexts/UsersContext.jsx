@@ -1,35 +1,40 @@
-import React from 'react';
-import { createContext, useState, useEffect } from 'react';
+import React, { Component } from 'react';
+import { createContext } from 'react';
 import axios from '../config/axiosConfig';
 
 // create the context object
 export const UsersContext = createContext({})
 
-
 // create context provider
-const UsersContextProvider = (props) => {
+class UsersContextProvider extends Component {
     // set some inital state for users
-    const [ profiles, setProfiles ] = useState([]);
+    state = {
+        profiles: []
+    }
 
-    const getProfiles = async () => {
-        console.log('getting profiles');
+    componentDidMount = async () => {
+        console.log('in component did mount start');
         try {
             const result = await axios.get('/profiles');
-            setProfiles(result.data);
+            if(result.data) {
+                this.setState({
+                    profiles: result.data
+                })
+            }
         } catch(err) {
             console.log(err);
         } 
+        console.log('in component did mount end');
     }
 
-    useEffect(() => {
-        getProfiles(profiles)
-    }, [])
+    render() {
+        return (
+            <UsersContext.Provider value={{...this.state}}>
+                {this.props.children}
+            </UsersContext.Provider>
+        )
+    }
 
-    return (
-        <UsersContext.Provider value={{profile: profiles[0]}}>
-            {props.children}
-        </UsersContext.Provider>
-    )
 }
 
 export default UsersContextProvider;
