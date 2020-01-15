@@ -50,14 +50,16 @@ const ValidationSchema = Yup.object().shape({
     .min(2, "Must be at least 2 characters")
     .required("This field is required"),
   lastName: Yup.string()
+    .min(2, "Must be at least 2 characters")
     .required("This field is required"),
   address: Yup.string()
     .required("This field is required"),
   contactNumber: Yup.string()
     .matches(/^[0-9]+$/, 'Must be only digits')
     .required("This field is required"),
-  investorType: Yup.string()
-    .required("Please select an investor type")
+    investorType: Yup.string()
+    .oneOf(['individual', 'individualTrustee', 'company', 'corporateTrustee'])
+    .required('Please select an investor type')
 })
 
 const CreateProfilePage = () => {
