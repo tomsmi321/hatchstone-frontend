@@ -104,7 +104,7 @@ const WrapperNoDocs = styled.div`
 
 const ClientDocField = ({docType, docName}) => {
 
-    const downLoadDoc = () => {
+    const downloadDoc = () => {
         console.log('downloading document');
     }
 
@@ -113,7 +113,7 @@ const ClientDocField = ({docType, docName}) => {
             <WrapperClientDocsFieldDesc>
                 {docType}
             </WrapperClientDocsFieldDesc> 
-            <WrapperClientDocFieldDowloadField onClick={downLoadDoc}>
+            <WrapperClientDocFieldDowloadField onClick={downloadDoc}>
                 {docName}
                 <StyledGetAppIcon />
             </WrapperClientDocFieldDowloadField>
