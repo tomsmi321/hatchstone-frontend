@@ -76,6 +76,27 @@ class UsersContextProvider extends Component {
         }
     }
 
+    // updates the approved status of a user
+    updateApproveStatus  = async (userId, newApproveVal) => {
+        try {
+            console.log(userId);
+            const result = await axios.put(`profiles/updateByUser/${userId}`, {approved: newApproveVal});
+            console.log('in updateApproveStatus, printing result.data');
+            console.log(result.data);
+            if(result.data) {
+                this.setState({
+                    profileDetails: {
+                        ...this.state.profileDetails,
+                        approved: newApproveVal
+                    } 
+                })
+            }
+            // this.setState({ someProperty: { ...this.state.someProperty, flag: false} });
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
 
     render() {
         return (
@@ -83,7 +104,8 @@ class UsersContextProvider extends Component {
                 ...this.state, 
                 getApprovedClients: this.getApprovedClients, 
                 getOnboardingClients: this.getOnboardingClients,
-                getProfileDetails: this.getProfileDetails
+                getProfileDetails: this.getProfileDetails,
+                updateApproveStatus: this.updateApproveStatus
             }}>
                 {this.props.children}
             </UsersContext.Provider>

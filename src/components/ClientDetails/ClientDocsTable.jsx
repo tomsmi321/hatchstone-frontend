@@ -124,6 +124,7 @@ const ClientDocField = ({docType, docName}) => {
 
 const ClientDocsTable = (props) => {
     const { documents, approved, userId } = props.client;
+    const { updateApproveStatus } = props;
     const [ approveButtonDisabled, setApproveButtonDisabled ] = useState(false);
     const [ documentsActive, setDocumentsActive ] = useState(false);
 
@@ -155,6 +156,12 @@ const ClientDocsTable = (props) => {
         return doc.split(',')[1];
     }
 
+    const toggleApproveStatus = () => {
+        console.log('in toggleApproveStatus');
+        console.log(approved);
+        updateApproveStatus(userId._id, !approved);
+    }
+
     return (
         <Wrapper>
             {documentsActive ? (
@@ -175,8 +182,8 @@ const ClientDocsTable = (props) => {
             <WrapperButtonsOuter>
                 <WrapperButtonsInner>
                     <WrapperApproveButton>
-                        {approved ? <ApprovedButton>Approved</ApprovedButton> : 
-                            <PrimaryButton disabled={approveButtonDisabled}>Approve</PrimaryButton>
+                        {approved ? <ApprovedButton onClick={toggleApproveStatus}>Approved</ApprovedButton> : 
+                            <PrimaryButton onClick={toggleApproveStatus} disabled={approveButtonDisabled}>Approve</PrimaryButton>
                         }
                     </WrapperApproveButton>
                     <WrapperSendMessageButton>

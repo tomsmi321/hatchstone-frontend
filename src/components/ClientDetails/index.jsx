@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 `
 
 const ClientDetailPage = (props) => {
-    const { profileDetails, getProfileDetails } = useContext(UsersContext);
+    const { profileDetails, getProfileDetails, updateApproveStatus } = useContext(UsersContext);
 
     useEffect(() => {
         const { userId } =  props.match.params;
@@ -27,7 +27,7 @@ const ClientDetailPage = (props) => {
                    
                     <Wrapper> 
                         <ClientProfileTable client={profileDetails}/>
-                        <ClientDocsTable client={profileDetails}/>
+                        <ClientDocsTable client={profileDetails} updateApproveStatus={updateApproveStatus}/>
                     </Wrapper>
                 ) : (
                     
