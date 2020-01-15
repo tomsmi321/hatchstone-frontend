@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 import { PrimaryButton } from 'uiKit/Button'
@@ -8,6 +8,7 @@ import { SelectInvestorType } from 'uiKit/userInput/SelectInvestorType'
 import { Formik } from 'formik'
 import * as Yup from "yup"
 import axios from "axios"
+import { AuthContext } from '../../contexts/AuthContext'
 
 const Container = styled.div`
   display: flex;
@@ -53,13 +54,37 @@ const ValidationSchema = Yup.object().shape({
   address: Yup.string()
     .required("This field is required"),
   contactNumber: Yup.string()
+    .matches(/^[0-9]+$/, 'Must be only digits')
     .required("This field is required"),
   investorType: Yup.string()
     .required("Please select an investor type")
 })
 
 const CreateProfilePage = () => {
+  const { currentUser, currentUserProfile, setCurrentUserProfile } = useContext(AuthContext)
   const history = useHistory()
+
+  const createProfile = async (firstName, lastName, address, contactNumber, investorType) => {
+    try {
+      console.log('in AuthContext createProfile function')
+      const response = await axios.post('http://localhost:5000/profiles', {
+        userId: currentUser._id,
+        firstName,
+        lastName,
+        address,
+        phone: contactNumber,
+        investorType,
+        appProgress: 0,
+        approved: false,
+        dateStarted: new Date(),
+      })
+      console.log(response.data)
+      const profile = response.data
+      setCurrentUserProfile(profile)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
   return (
     <Container>
@@ -73,12 +98,16 @@ const CreateProfilePage = () => {
         }}
         validationSchema={ValidationSchema}
         onSubmit={(values, {setSubmitting, setErrors, setStatus, resetForm}) => {
-
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            resetForm();
-            setSubmitting(false);
-          }, 500);
+          try {
+            setSubmitting(true);
+            createProfile(values.firstName, values.lastName, values.address, values.contactNumber, values.investorType)
+            resetForm()
+            setStatus({success: true})
+          } catch (error) {
+            setStatus({success: false})
+            setSubmitting(false)
+            setErrors({submit: error.message})
+          }
         }}
       >
         {(props) => <CreateProfileForm {...props} />}
@@ -160,13 +189,15 @@ const CreateProfileForm = ({
         />
       </TextFieldContainer>
       <TextFieldContainer>
-        <SelectInvestorType 
+        <SelectInvestorType
+          name="investorType" 
           onChange={handleChange}
           onBlur={handleBlur}
           value={values.investorType}
           touched={touched.investorType}
-          error={errors.investorType} />
-        </TextFieldContainer>
+          error={errors.investorType}
+        />
+      </TextFieldContainer>
       <UploadPictureField />
       <ButtonContainer>
         <PrimaryButton type="submit" disabled={isSubmitting || (!isValid && touched !== {})}>Submit</PrimaryButton>

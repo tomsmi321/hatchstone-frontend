@@ -36,6 +36,7 @@ const App = () => {
             <Route path="/sign-up" component={SignUpPage}/>
             <UsersContextProvider>
               <Route path="/create-profile" component={CreateProfilePage}/>
+              <Route path="/submit-documents/:id" component={UploadFileWrapper}/>
               <Route path="/edit-profile-admin/:id" component={EditProfileAdminPage} />
               <Route path="/approved-clients" component={ApprovedClientsPage}/>
               <Route path="/onboarding-clients" component={OnboardingClientsPage}/>
