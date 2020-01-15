@@ -43,7 +43,7 @@ export const SecondaryButton = ({ children }) => (
   <BaseButton variant="contained" color="secondary">{children}</BaseButton>
 )
 
-export const TertiaryButton = styled(Button).attrs({ variant: "contained", color: "default"})`
+export const TertiaryBaseButton = styled(Button).attrs({ variant: "contained", color: "default"})`
   &&& {
     color: #000000;
     background-color: #bdbdbd;
@@ -52,6 +52,10 @@ export const TertiaryButton = styled(Button).attrs({ variant: "contained", color
     text-transform: none;
   }
 `
+export const TertiaryButton = ({ children, onClick, disabled }) => (
+  <TertiaryBaseButton onClick={onClick} disabled={disabled}>{children}</TertiaryBaseButton>
+)
+
 
 export const ApprovedButton = ({ children, onClick }) => (
   <ApprovedBaseButton variant="contained" color="#01BE85" onClick={onClick}>

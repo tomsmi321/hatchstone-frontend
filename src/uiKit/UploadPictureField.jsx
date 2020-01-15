@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { TertiaryButton } from 'uiKit/Button'
 
 const UploadPictureContainer = styled.div`
-    /* background-color: sandybrown; */
     display: flex;
     width: 100%;
     align-items: flex-start;
@@ -26,7 +25,7 @@ export const UploadPictureField = () => {
         <UploadPictureContainer>
             Profile Picture (optional)
             <UploadButtonContainer>
-                <TertiaryButton>Choose File</TertiaryButton>
+                <TertiaryButton onClick={() => console.log('Logging from profile piction button onClick function')}>Choose File</TertiaryButton>
                 No file chosen
             </UploadButtonContainer>
         </UploadPictureContainer>
