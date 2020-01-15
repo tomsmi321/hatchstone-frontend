@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { PrimaryButton, SecondaryButton, ApprovedButton } from '../../uiKit/Button';
@@ -90,10 +90,21 @@ const StyledLink = styled(Link)`
     }
 `
 
+const WrapperNoDocs = styled.div`
+    background-color: #E8EAF6;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 155px;
+    font-weight: bold;
+    border-radius: 4px;
+`
+
 
 const ClientDocField = ({docType, docName}) => {
 
-    const dowloadDoc = () => {
+    const downLoadDoc = () => {
         console.log('downloading document');
     }
 
@@ -102,7 +113,7 @@ const ClientDocField = ({docType, docName}) => {
             <WrapperClientDocsFieldDesc>
                 {docType}
             </WrapperClientDocsFieldDesc> 
-            <WrapperClientDocFieldDowloadField onClick={dowloadDoc}>
+            <WrapperClientDocFieldDowloadField onClick={downLoadDoc}>
                 {docName}
                 <StyledGetAppIcon />
             </WrapperClientDocFieldDowloadField>
@@ -110,30 +121,70 @@ const ClientDocField = ({docType, docName}) => {
     )
 }
 
+
 const ClientDocsTable = (props) => {
-    const { documents, approved } = props.client;
+    const { documents, approved, userId } = props.client;
+    const [ approveButtonDisabled, setApproveButtonDisabled ] = useState(false);
+    const [ documentsActive, setDocumentsActive ] = useState(false);
+
+
+    // refactor this later. This can be simplified
+    useEffect(() => {
+        console.log('in useEffect: ClientDocsTable ');
+        if(documents) {
+            if(documents.length === 0) {
+                setDocumentsActive(false) 
+                setApproveButtonDisabled(true);
+            } else if(documents.length > 0) {
+                setDocumentsActive(true) 
+                setApproveButtonDisabled(false);
+            }
+        } else {
+            setDocumentsActive(false) 
+            setApproveButtonDisabled(false);
+        }
+    })
+
+    const getDocType = (doc) => {
+        // replace this with logic to parse a amazon s3 url
+        return doc.split(',')[0];
+    }
+
+    const getDocName = (doc) => {
+        // replace this with logic to parse a amazon s3 url
+        return doc.split(',')[1];
+    }
 
     return (
         <Wrapper>
-            <WrapperClientDocsFieldsOuter>
-                <WrapperClientDocsFieldsInner>
-                    {documents.map((document, i) => 
-                    <ClientDocField docType={document.docType} 
-                                    docName={document.docName} 
-                                    key={i}/>
-                    )}
-                </WrapperClientDocsFieldsInner>
-            </WrapperClientDocsFieldsOuter>
+            {documentsActive ? (
+                <WrapperClientDocsFieldsOuter>
+                    <WrapperClientDocsFieldsInner>
+                        {documents.map((document, i) => 
+                        <ClientDocField docType={getDocType(document)} 
+                                        docName={getDocName(document)} 
+                                        key={i}/>
+                        )}
+                    </WrapperClientDocsFieldsInner>
+                </WrapperClientDocsFieldsOuter>
+            ) : (
+                <WrapperNoDocs>
+                    {'No documents have been submitted'}
+                </WrapperNoDocs>         
+            )}  
             <WrapperButtonsOuter>
                 <WrapperButtonsInner>
                     <WrapperApproveButton>
                         {approved ? <ApprovedButton>Approved</ApprovedButton> : 
-                        <PrimaryButton>Approve</PrimaryButton>}
+                            <PrimaryButton disabled={approveButtonDisabled}>Approve</PrimaryButton>
+                        }
                     </WrapperApproveButton>
                     <WrapperSendMessageButton>
-                    <StyledLink to="/conversations/:id">
-                        <SecondaryButton>Send a message</SecondaryButton>
-                    </StyledLink>
+                    {userId ? (
+                        <StyledLink to={`/conversations/${userId._id}`}>
+                            <SecondaryButton>Send a message</SecondaryButton>
+                        </StyledLink>
+                    ) : null }
                     </WrapperSendMessageButton>
                 </WrapperButtonsInner>
             </WrapperButtonsOuter>
