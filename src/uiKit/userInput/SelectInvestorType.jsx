@@ -9,10 +9,14 @@ import styled from 'styled-components';
 
 const StyledSelect = styled(Select)`
   &&& {
-    height: 4.3vh;
-    width: 10.5vw;
     font-size: 14px;
   }
+`
+
+const ErrorMessage = styled.div`
+  margin-top: 15px;
+  font-weight: bold;
+  color: red;
 `
 
 const useStyles = makeStyles(theme => ({
@@ -26,9 +30,8 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export const SelectInvestorType = () => {
+export const SelectInvestorType = ({ name, onChange, onBlur, value, touched, error }) => {
   const classes = useStyles();
-  const [filter, setFilter] = React.useState('');
 
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
@@ -36,22 +39,20 @@ export const SelectInvestorType = () => {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
-  const handleChange = event => {
-    setFilter(event.target.value);
-  };
-
   return (
     <FormControl variant="outlined" className={classes.formControl} fullWidth>
         <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
         Type of Investor
         </InputLabel>
         <StyledSelect
-        labelId="demo-simple-select-outlined-label"
-        id="demo-simple-select-outlined"
-        value={filter}
-        onChange={handleChange}
-        labelWidth={labelWidth}
-        labelHeight={100}
+          name={name}
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={value}
+          onChange={onChange}
+          onOpen={onBlur}
+          labelWidth={labelWidth}
+          labelHeight={100}
         >
         <MenuItem value="">
             <em>None</em>
@@ -61,6 +62,7 @@ export const SelectInvestorType = () => {
         <MenuItem value="company">Company</MenuItem>
         <MenuItem value="corporateTrustee">Corporate Trustee</MenuItem>
         </StyledSelect>
+        { touched && error && <ErrorMessage>{error}</ErrorMessage> }
     </FormControl>
   )
 }
