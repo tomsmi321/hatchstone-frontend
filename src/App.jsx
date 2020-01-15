@@ -10,6 +10,7 @@ import ConversationsPage from 'components/Conversations';
 import ClientDetailPage from 'components/ClientDetails';
 import OnboardingClientsPage from 'components/OnboardingClients';
 import EditProfileAdminPage from 'components/EditProfileAdmin';
+import EditProfileClientPage from 'components/EditProfileClient';
 import { theme, MuiThemeProvider } from 'uiKit/Theme'
 import UIKit from 'components/UIKit'
 import NavBar from 'uiKit/navbars/AppNav';
@@ -37,6 +38,7 @@ const App = () => {
             <UsersContextProvider>
               <Route path="/create-profile" component={CreateProfilePage}/>
               <Route path="/edit-profile-admin/:id" component={EditProfileAdminPage} />
+              <Route path="/edit-profile-client/:id" component={EditProfileClientPage} />
               <Route path="/approved-clients" component={ApprovedClientsPage}/>
               <Route path="/onboarding-clients" component={OnboardingClientsPage}/>
               <Route path="/conversations/:id" component={ConversationsPage}/>

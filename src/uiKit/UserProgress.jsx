@@ -29,7 +29,7 @@ const CircleBlue = styled.div`
   justify-content: center;
   display: flex;
   align-items: center;
-  colour: white;
+  color: white;
   /* border: 2px white solid; */
 `;
 
@@ -41,7 +41,7 @@ const CircleGrey = styled.div`
   justify-content: center;
   display: flex;
   align-items: center;
-  colour: white;
+  color: white;
   /* border: 2px white solid; */
 `;
 
