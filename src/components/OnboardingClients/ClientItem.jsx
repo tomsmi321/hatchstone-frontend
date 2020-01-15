@@ -66,11 +66,16 @@ const ClientItem = ({ client, isLastItem, appProgress }) => {
 
     const toggleShowMenu = () => toggleMenuIsShowing(!menuIsShowing)
 
+    const clientName = `${client.firstName[0].toUpperCase() + 
+                        client.firstName.slice(1, client.firstName.length)} 
+                        ${client.lastName[0].toUpperCase() + 
+                        client.lastName.slice(1, client.lastName.length)}`
+
     return (
         <Wrapper client={client} isLastItem={isLastItem}>
             <WrapperClientInfo>
-                { client.profile_photo ? <ProfileImage imageSrc={client.profile_photo} /> : <AccountCircleIcon /> }
-                {`${client.first_name} ${client.last_name}`}
+                { client.profileImage ? <ProfileImage imageSrc={client.profileImage} /> : <AccountCircleIcon /> }
+                { clientName } 
             </WrapperClientInfo>
             <WrapperProgressBar>
                 <ProgressBar appProgress={appProgress}/>
@@ -84,11 +89,11 @@ const ClientItem = ({ client, isLastItem, appProgress }) => {
                 onClose={toggleShowMenu}
                 menuItems={[
                 {
-                    onClick: () => {console.log('go to Profile')},
+                    onClick: () => history.push(`/client-details/${client.userId._id}`),
                     label: 'View'
                 },
                 {
-                    onClick: () => history.push(`/conversations/${client.id}`),
+                    onClick: () => history.push(`/conversations/${client.userId._id}`),
                     label: 'Send a message'
                 },
                 ]}
