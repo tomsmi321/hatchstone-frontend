@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -30,7 +30,8 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export const SelectInvestorType = ({ name, onChange, onBlur, value, touched, error }) => {
+export const SelectInvestorType = ({ name, onChange, value, error }) => {
+  const [touched, setTouched] = useState(false)
   const classes = useStyles();
 
   const inputLabel = React.useRef(null);
@@ -41,26 +42,22 @@ export const SelectInvestorType = ({ name, onChange, onBlur, value, touched, err
 
   return (
     <FormControl variant="outlined" className={classes.formControl} fullWidth>
-        <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-        Type of Investor
+        <InputLabel ref={inputLabel}>
+          Type of Investor
         </InputLabel>
         <StyledSelect
           name={name}
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
           value={value}
           onChange={onChange}
-          onOpen={onBlur}
+          onOpen={() => setTouched(false)}
+          onClose={() => setTouched(true)}
           labelWidth={labelWidth}
           labelHeight={100}
         >
-        <MenuItem value="">
-            <em>None</em>
-        </MenuItem>
-        <MenuItem value="individual">Individual</MenuItem>
-        <MenuItem value="individualTrustee">Individual Trustee</MenuItem>
-        <MenuItem value="company">Company</MenuItem>
-        <MenuItem value="corporateTrustee">Corporate Trustee</MenuItem>
+        <MenuItem value="individual" label="individual">Individual</MenuItem>
+        <MenuItem value="individualTrustee" label="individualTrustee">Individual Trustee</MenuItem>
+        <MenuItem value="company" label="company">Company</MenuItem>
+        <MenuItem value="corporateTrustee" label="corporateTrustee">Corporate Trustee</MenuItem>
         </StyledSelect>
         { touched && error && <ErrorMessage>{error}</ErrorMessage> }
     </FormControl>
