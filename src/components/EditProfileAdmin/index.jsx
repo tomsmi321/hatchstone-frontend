@@ -1,10 +1,10 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components'
 import { Formik } from 'formik'
 import EditProfileForm from './EditProfileForm';
-import * as Yup from "yup"
-import axios from "axios"
+import * as Yup from 'yup';
+import axios from '../../config/axiosConfig';
 
 const Wrapper = styled.div`
     /* background-color: lightskyblue; */
