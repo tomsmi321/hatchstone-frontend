@@ -7,11 +7,13 @@ export const AuthContext = createContext();
 const AuthContextProvider = ({ children }) => {
   const [ isAuthenticated, setIsAuthenticated ] = useState(false)
   const [ currentUser, setCurrentUser ] = useState({})
+  const [ currentUserProfile, setCurrentUserProfile ] = useState({})
   const history = useHistory()
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('currentUser'));
     console.log(`in useEffect() currentUser - email: ${currentUser.email} ID: ${currentUser._id}, isAuthenticated: ${isAuthenticated}`);
+    console.log(`current user's profile: ${currentUserProfile}`, currentUserProfile)
   })
 
   const loginUser = async (email, password) => {
@@ -24,7 +26,6 @@ const AuthContextProvider = ({ children }) => {
       console.log(response.data)
       const user = response.data.user
       const token = response.data.token
-      console.log(user)
       if (user) {
         setIsAuthenticated(true)
         setCurrentUser({
@@ -83,7 +84,7 @@ const AuthContextProvider = ({ children }) => {
   }
 
   return (
-  <AuthContext.Provider value={{isAuthenticated, currentUser, loginUser, logout, createAccount}}>
+  <AuthContext.Provider value={{isAuthenticated, currentUser, loginUser, logout, createAccount, currentUserProfile, setCurrentUserProfile }}>
     {children}
   </AuthContext.Provider>
   )
