@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { AccountCircle } from 'uiKit/Icon'
 
@@ -48,39 +48,61 @@ const FieldData = styled.p`
 `
 
 const ClientProfileTable = (props) => {
-    const { firstName, 
+    let { firstName, 
             lastName, 
             phone, 
             address, 
             investorType, 
             profileImage } = props.client;
-            
+
+    const capitaliseString = (str) => {
+        return `${str[0].toUpperCase() + str.slice(1, str.length)}`
+    }
+
+    const capitaliseAddress = (strOfWords) => {
+        const arrOfWords = strOfWords.split(' ');
+        const arrOfWordsCapitalised = arrOfWords.map((word) => {
+            return word[0].toUpperCase() + word.substr(1);
+        })
+        return arrOfWordsCapitalised.join(' ');
+    }
+
+    const isEmpty = (obj) => {
+        return Object.keys(obj).length === 0;
+    }
+
     return (
-        <Wrapper>
-            <WrapperAccountCircleIcon> 
-                {profileImage ? <ProfileImage imageSrc={profileImage}/> : <AccountCircleIcon />}
-            </WrapperAccountCircleIcon>
-            <WrapperClientProfileDetailsItem>
-                <FieldTitle>First name: </FieldTitle>
-                <FieldData>{firstName}</FieldData>
-            </WrapperClientProfileDetailsItem>
-            <WrapperClientProfileDetailsItem>
-                <FieldTitle>Last name: </FieldTitle>
-                <FieldData>{lastName}</FieldData>
-            </WrapperClientProfileDetailsItem>
-            <WrapperClientProfileDetailsItem>
-                <FieldTitle>Contact number: </FieldTitle>
-                <FieldData>{phone}</FieldData>
-            </WrapperClientProfileDetailsItem>
-            <WrapperClientProfileDetailsItem>
-                <FieldTitle>Address: </FieldTitle>
-                <FieldData>{address}</FieldData>
-            </WrapperClientProfileDetailsItem>
-            <WrapperClientProfileDetailsItem>
-                <FieldTitle>Investor type: </FieldTitle>
-                <FieldData>{investorType}</FieldData>
-            </WrapperClientProfileDetailsItem>
-        </Wrapper>
+        <>  
+            {!isEmpty(props.client) ? (
+                 <Wrapper>
+                    <WrapperAccountCircleIcon> 
+                        {profileImage ? <ProfileImage imageSrc={profileImage}/> : <AccountCircleIcon />}
+                    </WrapperAccountCircleIcon>
+                    <WrapperClientProfileDetailsItem>
+                        <FieldTitle>First name: </FieldTitle>
+                        <FieldData>{firstName ? capitaliseString(firstName) : 'NA'}</FieldData>
+                    </WrapperClientProfileDetailsItem>
+                    <WrapperClientProfileDetailsItem>
+                        <FieldTitle>Last name: </FieldTitle>
+                        <FieldData>{lastName ? capitaliseString(lastName) : 'NA'}</FieldData>
+                    </WrapperClientProfileDetailsItem>
+                    <WrapperClientProfileDetailsItem>
+                        <FieldTitle>Contact number: </FieldTitle>
+                        <FieldData>{phone ? phone : 'NA'}</FieldData>
+                    </WrapperClientProfileDetailsItem>
+                    <WrapperClientProfileDetailsItem>
+                        <FieldTitle>Address: </FieldTitle>
+                        <FieldData>{address ? capitaliseAddress(address) : 'NA'}</FieldData>
+                    </WrapperClientProfileDetailsItem>
+                    <WrapperClientProfileDetailsItem>
+                        <FieldTitle>Investor type: </FieldTitle>
+                        <FieldData>{investorType ? capitaliseString(investorType) : 'NA'}</FieldData>
+                    </WrapperClientProfileDetailsItem>
+                </Wrapper>
+            ) : null}
+           
+        </>
+        
     )
 }
 
