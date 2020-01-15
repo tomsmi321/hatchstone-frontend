@@ -1,8 +1,10 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import styled from 'styled-components'
 import { useHistory } from "react-router-dom";
 import { ExpandMore, ExpandLess, AccountCircle } from 'uiKit/Icon'
 import DropdownMenu from 'uiKit/DropdownMenu'
+import { AuthContext } from '../../../contexts/AuthContext'
+
 
 const Container = styled.div`
   display: flex;
@@ -23,6 +25,7 @@ const ProfileImage = styled.div`
 `
 
 const ProfileDropdown = () => {
+  const { isAuthenticated, currentUser, logout } = useContext(AuthContext)
   const container = useRef()
   const [isExpanded, setIsExpanded] = useState(false)
   const history = useHistory()
@@ -51,7 +54,7 @@ const ProfileDropdown = () => {
             label: 'Profile'
           },
           {
-            onClick: () => history.push("/"),
+            onClick: () => { logout() },
             label: 'Logout'
           },
         ]}
