@@ -120,7 +120,7 @@ const ClientDocsTable = (props) => {
                     {documents.map((document, i) => 
                     <ClientDocField docType={document.docType} 
                                     docName={document.docName} 
-                                    index={i}/>
+                                    key={i}/>
                     )}
                 </WrapperClientDocsFieldsInner>
             </WrapperClientDocsFieldsOuter>

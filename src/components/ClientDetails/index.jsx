@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import UsersContextProvider, { UsersContext } from '../../contexts/UsersContext';
+import { UsersContext } from '../../contexts/UsersContext';
 import styled from 'styled-components';
 import ClientProfileTable from './ClientProfileTable'
 import ClientDocsTable from './ClientDocsTable';
@@ -12,8 +12,13 @@ const Wrapper = styled.div`
     display: flex;
 `
 
-const ClientDetailPage = () => {
-    // const { profiles } = useContext(UsersContext)
+const ClientDetailPage = (props) => {
+    const { profileDetails, getProfileDetails } = useContext(UsersContext);
+
+    useEffect(() => {
+        const { userId } =  props.match.params;
+        getProfileDetails(userId);
+    }, [])
 
     const client = {
         firstName: "Ashley",
@@ -31,11 +36,19 @@ const ClientDetailPage = () => {
     }
 
         return (
-            <Wrapper> 
-                <ClientProfileTable client={client}/>
-                <ClientDocsTable client={client}/>
-            </Wrapper>
+            <>
+                {profileDetails ? (
+                    <Wrapper> 
+                        <ClientProfileTable client={profileDetails}/>
+                        <ClientDocsTable client={client}/>
+                    </Wrapper>
+                ) : (
+                    
+                    null
+                )}
+                
+            </>
         )
-    }
+}
 
 export default ClientDetailPage;
