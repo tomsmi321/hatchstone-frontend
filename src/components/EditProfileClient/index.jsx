@@ -125,10 +125,10 @@ const EditProfileClientPage = () => {
 const imageSrc = 'https://devilsworkshop.org/wp-content/uploads/sites/8/2013/01/small-facebook-profile-picture.jpg';
     return (
         <Wrapper>
-           <label class="file">
+           {/* <label class="file">
                 <input type="file" id="file" aria-label="File browser example"></input>
                     <span class="file-custom"></span>
-           </label>
+           </label> */}
             <WrapperProfilePic>
                 <ProfileImage imageSrc={imageSrc}>
                     <StyledPhotoCameraIcon />

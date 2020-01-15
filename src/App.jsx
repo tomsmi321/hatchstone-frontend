@@ -38,6 +38,7 @@ const App = () => {
             <UsersContextProvider>
               <Route path="/create-profile" component={CreateProfilePage}/>
               <Route path="/edit-profile-admin/:id" component={EditProfileAdminPage} />
+              <Route path="/edit-profile-client/:id" component={EditProfileClientPage} />
               <Route path="/approved-clients" component={ApprovedClientsPage}/>
               <Route path="/onboarding-clients" component={OnboardingClientsPage}/>
               <Route path="/conversations/:id" component={ConversationsPage}/>
