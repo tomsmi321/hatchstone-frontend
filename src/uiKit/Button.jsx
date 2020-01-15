@@ -53,8 +53,8 @@ export const TertiaryButton = styled(Button).attrs({ variant: "contained", color
   }
 `
 
-export const ApprovedButton = ({ children }) => (
-  <ApprovedBaseButton variant="contained" color="#01BE85">
+export const ApprovedButton = ({ children, onClick }) => (
+  <ApprovedBaseButton variant="contained" color="#01BE85" onClick={onClick}>
     {children}
     <DoneCircleIcon />
   </ApprovedBaseButton>
