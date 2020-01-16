@@ -121,6 +121,7 @@ const LogInForm = ({
 
       <TextFieldContainer>
         <TextField 
+          required
           label="Email"
           type="email"
           name="email"
@@ -134,6 +135,7 @@ const LogInForm = ({
 
       <TextFieldContainer>
         <TextField 
+          required
           label="Password" 
           type="password"
           name="password"

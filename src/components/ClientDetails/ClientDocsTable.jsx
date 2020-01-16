@@ -38,7 +38,7 @@ const WrapperClientDocsFieldDesc = styled.div`
     margin-bottom: 8px;
 `
 
-const WrapperClientDocFieldDowloadField = styled.div`
+const WrapperClientDocFieldDownloadField = styled.div`
     /* background-color: hotpink; */
     background-color: #E8EAF6;
     display: flex;
@@ -105,7 +105,10 @@ const WrapperNoDocs = styled.div`
 const ClientDocField = ({docType, docName}) => {
 
     const downloadDoc = () => {
-        console.log('downloading document');
+        console.log('downloading')
+        return (
+             <a href="https://mern-project-images.s3.amazonaws.com/approved%20identification_5e205aef37488ca20ca84e08" download> </a>
+        )  
     }
 
     return (
@@ -113,16 +116,17 @@ const ClientDocField = ({docType, docName}) => {
             <WrapperClientDocsFieldDesc>
                 {docType}
             </WrapperClientDocsFieldDesc> 
-            <WrapperClientDocFieldDowloadField onClick={downloadDoc}>
+            <WrapperClientDocFieldDownloadField onClick={downloadDoc}>
                 {docName}
                 <StyledGetAppIcon />
-            </WrapperClientDocFieldDowloadField>
+            </WrapperClientDocFieldDownloadField>
         </WrapperClientDocsField>
     )
 }
 
 
 const ClientDocsTable = (props) => {
+    
     const { documents, approved, userId } = props.client;
     const { updateApproveStatus } = props;
     const [ approveButtonDisabled, setApproveButtonDisabled ] = useState(false);
@@ -146,15 +150,7 @@ const ClientDocsTable = (props) => {
         }
     })
 
-    const getDocType = (doc) => {
-        // replace this with logic to parse a amazon s3 url
-        return doc.split(',')[0];
-    }
 
-    const getDocName = (doc) => {
-        // replace this with logic to parse a amazon s3 url
-        return doc.split(',')[1];
-    }
 
     const toggleApproveStatus = () => {
         console.log('in toggleApproveStatus');
@@ -162,14 +158,16 @@ const ClientDocsTable = (props) => {
         updateApproveStatus(userId._id, !approved);
     }
 
+    console.log(documents)
     return (
         <Wrapper>
+            
             {documentsActive ? (
                 <WrapperClientDocsFieldsOuter>
                     <WrapperClientDocsFieldsInner>
                         {documents.map((document, i) => 
-                        <ClientDocField docType={getDocType(document)} 
-                                        docName={getDocName(document)} 
+                        <ClientDocField docType={document.name} 
+                                        docName={document.name}
                                         key={i}/>
                         )}
                     </WrapperClientDocsFieldsInner>
