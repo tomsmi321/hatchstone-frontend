@@ -128,7 +128,7 @@ const SignUpForm = ({
       <TextFieldContainer>
         <TextField 
           label="Email"
-          type="text"
+          type="email"
           name="email"
           onChange={handleChange}
           onBlur={handleBlur}
@@ -141,7 +141,7 @@ const SignUpForm = ({
       <TextFieldContainer>
         <TextField 
           label="Password" 
-          type="text"
+          type="password"
           name="password"
           onChange={handleChange}
           onBlur={handleBlur}
