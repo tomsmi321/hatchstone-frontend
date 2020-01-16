@@ -135,7 +135,7 @@ const LogInForm = ({
       <TextFieldContainer>
         <TextField 
           label="Password" 
-          type="passord"
+          type="password"
           name="password"
           onChange={handleChange}
           onBlur={handleBlur}
