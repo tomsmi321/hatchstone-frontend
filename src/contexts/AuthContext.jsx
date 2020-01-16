@@ -5,15 +5,14 @@ import axios from 'axios'
 export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
-  const [ isAuthenticated, setIsAuthenticated ] = useState(false)
   const [ currentUser, setCurrentUser ] = useState({})
   const [ currentUserProfile, setCurrentUserProfile ] = useState({})
   const history = useHistory()
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(`in useEffect() currentUser - email: ${currentUser.email} ID: ${currentUser._id}, isAuthenticated: ${isAuthenticated}`);
-    console.log(`current user's profile: ${currentUserProfile}`, currentUserProfile)
+    console.log(`current user's profile: \n`, currentUserProfile)
+    console.log(`currentUser: \n`, user)
   })
 
   const loginUser = async (email, password) => {
@@ -23,17 +22,17 @@ const AuthContextProvider = ({ children }) => {
         email,
         password
       })
-      console.log(response.data)
       const user = response.data.user
       const token = response.data.token
       if (user) {
-        setIsAuthenticated(true)
-        setCurrentUser({
+        const currentUserData = {
           _id: user._id,
           email: user.email,
-          token: user.token
-        })
-        localStorage.setItem('currentUser', JSON.stringify(currentUser))
+          token: token
+        }
+        setCurrentUser(currentUserData)
+        // storing response data into a const first and passing the const to updating state function is to counter a race condition that's happening
+        localStorage.setItem('currentUser', JSON.stringify(currentUserData))
         history.push(`/conversations/`)
         return true;
       }
@@ -45,7 +44,6 @@ const AuthContextProvider = ({ children }) => {
   const logout = async () => {
     console.log('in AuthContext logout function');
     localStorage.removeItem('currentUser');
-    setIsAuthenticated(false)
     setCurrentUser({
         _id: null,
         email: null,
@@ -64,17 +62,17 @@ const AuthContextProvider = ({ children }) => {
         admin: false,
         isActive: true
       })
-      console.log(response.data)
       const token = response.data.token
       const user = response.data.user
       if (token) {
-        setIsAuthenticated(true)
-        setCurrentUser({
+        const currentUserData = {
           _id: user._id,
           email: user.email,
-          token
-        })
-        localStorage.setItem('currentUser', JSON.stringify(currentUser))
+          token: token
+        }
+        setCurrentUser(currentUserData)
+        // storing response data into a const first and passing the const to updating state function is to counter a race condition that's happening
+        localStorage.setItem('currentUser', JSON.stringify(currentUserData))
         history.push(`/create-profile`)
         return true;
       }
@@ -84,7 +82,7 @@ const AuthContextProvider = ({ children }) => {
   }
 
   return (
-  <AuthContext.Provider value={{isAuthenticated, currentUser, loginUser, logout, createAccount, currentUserProfile, setCurrentUserProfile }}>
+  <AuthContext.Provider value={{currentUser, loginUser, logout, createAccount, currentUserProfile, setCurrentUserProfile }}>
     {children}
   </AuthContext.Provider>
   )
