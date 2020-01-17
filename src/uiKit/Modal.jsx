@@ -1,29 +1,29 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import styled from 'styled-components';
-import CloseIcon from '@material-ui/icons/Close';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import styled from "styled-components";
+import CloseIcon from "@material-ui/icons/Close";
 
 const getModalStyle = () => {
-  const top = 50
-  const left = 50
+  const top = 50;
+  const left = 50;
 
   return {
     top: `${top}%`,
     left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
+    transform: `translate(-${top}%, -${left}%)`
   };
-}
+};
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    position: 'absolute',
+    position: "absolute",
     width: 450,
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(2, 4, 3),
     outline: 0,
     borderRadius: 4
-  },
+  }
 }));
 
 const CloseModal = styled(CloseIcon)`
@@ -31,7 +31,7 @@ const CloseModal = styled(CloseIcon)`
     position: absolute;
     right: 20px;
   }
-`
+`;
 
 const Heading = styled.div`
   font-weight: 500;
@@ -39,7 +39,7 @@ const Heading = styled.div`
   line-height: 43px;
   text-align: center;
   padding-top: 100px;
-`
+`;
 
 const Text = styled.div`
   font-weight: 500;
@@ -47,7 +47,9 @@ const Text = styled.div`
   line-height: 29px;
   text-align: center;
   padding: 40px 30px 140px;
-`
+`;
+
+
 
 export const SimpleModal = ({ children }) => {
   const classes = useStyles();
@@ -78,9 +80,8 @@ export const SimpleModal = ({ children }) => {
           <CloseModal onClick={handleClose} />
           <Heading>Thank you!</Heading>
           <Text>We are reviewing your documents, we will be in touch shortly</Text>
-
         </div>
       </Modal>
     </div>
   );
-}
+};

@@ -22,7 +22,6 @@ const Wrapper = styled.div`
 const UIKit = () => {
   return(
     <Wrapper>
-      <SubmitDocuments />
       <PrimaryButton>Primary</PrimaryButton>
       <SecondaryButton>Secondary</SecondaryButton>
       <TertiaryButton>Tertiary</TertiaryButton>

@@ -3,8 +3,7 @@ import styled from "styled-components";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { PrimaryButton, SecondaryButton, ApprovedButton } from "../../uiKit/Button";
 import { Link } from "react-router-dom";
-import DownloadButton from "react-dfb";
-import axios from "../../config/axiosConfig";
+
 
 const Wrapper = styled.div`
   /* background-color: lightskyblue; */
@@ -106,27 +105,17 @@ const WrapperNoDocs = styled.div`
 const ClientDocField = ({ docType, docFileName, userId, uri }) => {
   //   const image = "https://mern-project-images.s3.amazonaws.com/approved%20identification_5e205aef37488ca20ca84e08";
 
-  console.log(uri);
-  const id = userId._id;
-  const downloadDoc = async () => {
-    const response = await axios.post(`/profiles/${id}/downloadDocument`, {
-      uri: uri,
-      docType: docType,
-      docFileName: docFileName
-    });
-
-    console.log(response);
-    return <p>blah</p>;
+  const downloadDoc = (uri, docFileName) => {
+    
   };
 
   return (
     <WrapperClientDocsField>
       <WrapperClientDocsFieldDesc>{docType}</WrapperClientDocsFieldDesc>
-      <WrapperClientDocFieldDownloadField onClick={downloadDoc}>
-        {/* <a href={image} download>{docFileName}</a> */}
-        {docFileName}
 
-        <StyledGetAppIcon />
+      <WrapperClientDocFieldDownloadField>
+        <a href={uri}download target="_blank" >{docFileName} </a>
+        <a href={uri}download target="_blank" ><StyledGetAppIcon /></a>
       </WrapperClientDocFieldDownloadField>
     </WrapperClientDocsField>
   );
