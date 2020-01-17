@@ -8,7 +8,8 @@ import { Footer, DarkFooter } from 'uiKit/Footer'
 import { SimpleModal } from 'uiKit/Modal';
 import { ProgressBar } from 'uiKit/ProgressBar';
 import { SimpleSelect } from 'uiKit/SimpleSelect';
-import FileUploadWrapper from './DocumentsUpload/UploadFileWrapper';
+// import FileUploadWrapper from './DocumentsUpload/UploadFileWrapper';
+import Stepper from 'uiKit/Stepper'
 
 const Wrapper = styled.div`
     display: flex;
@@ -22,7 +23,7 @@ const Wrapper = styled.div`
 const UIKit = () => {
   return(
     <Wrapper>
-      <FileUploadWrapper />
+      {/* <FileUploadWrapper /> */}
       <PrimaryButton>Primary</PrimaryButton>
       <SecondaryButton>Secondary</SecondaryButton>
       <TertiaryButton>Tertiary</TertiaryButton>
@@ -30,6 +31,7 @@ const UIKit = () => {
       <PrimaryLink >PrimaryLink</PrimaryLink>
       <SecondaryLink underline="always">SecondaryLink</SecondaryLink>
       <TextField label="Input field"></TextField>
+      <Stepper />
       <TextArea placeholder="Type your message here..."/>
       <SimpleModal />
       <Footer />

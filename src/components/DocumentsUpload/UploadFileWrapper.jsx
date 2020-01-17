@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { PrimaryButton } from "../../uiKit/Button";
 import Typography from "../../uiKit/Typography";
 import { PrimaryLink, SecondaryLink } from "../../uiKit/Link";
-import { UserProgressA } from "../../uiKit/UserProgress";
+import { UserProgressA } from "./UserProgress";
 
 const Container = styled.div`
   display: flex;
