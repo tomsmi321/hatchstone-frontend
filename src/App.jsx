@@ -1,5 +1,7 @@
 import React from 'react';
 import AuthContextProvider from './contexts/AuthContext'
+import UserContextProvider from './contexts/UserContext';
+import UsersContextProvider from './contexts/UsersContext';
 import { Switch, Route } from "react-router-dom";
 import { LandingPage } from 'components/LandingPage/LandingPage';
 import LogInPage from 'components/LogIn';
@@ -16,15 +18,13 @@ import UIKit from 'components/UIKit'
 import NavBar from 'uiKit/navbars/AppNav';
 import { Footer } from 'uiKit/Footer';
 import UploadFileWrapper from './components/DocumentsUpload/UploadFileWrapper';
-// import contexts here
-// import { ExampleContext } from 'src/contexts/ExampleContext';
-import UsersContextProvider from './contexts/UsersContext';
 
 const App = () => {
   return (
     // wrapping components in custom MuiThemeProvider to match Hatchstone style guide
     <MuiThemeProvider theme={theme}>
       <AuthContextProvider>
+        <UserContextProvider>
         <NavBar />
           <Switch>
             <Route path='/ui-kit'>
@@ -47,6 +47,7 @@ const App = () => {
             </UsersContextProvider>
           </Switch>
         <Footer />
+        </UserContextProvider>
       </AuthContextProvider>
     </MuiThemeProvider>
   );
