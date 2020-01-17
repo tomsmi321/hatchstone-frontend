@@ -4,6 +4,7 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import { PrimaryButton, SecondaryButton, ApprovedButton } from '../../uiKit/Button';
 import { Link } from 'react-router-dom'
 import DownloadButton from 'react-dfb';
+import axios from 'axios';
 
  
 const Wrapper = styled.div`
@@ -104,14 +105,16 @@ const WrapperNoDocs = styled.div`
 `
 
 
-const ClientDocField = ({docType, docName}) => {
+const ClientDocField = ({docType, docFileName}) => {
 
-    // const downloadDoc = () => {
-    //     return(
+    const downloadDoc = async () => {
+
+        const image = await 
+        return(
         
-    //         )
+            )
 
-    // }
+    }
 
     return (
         <WrapperClientDocsField>
