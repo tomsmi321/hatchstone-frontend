@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components'
 import { Formik } from 'formik'
 import EditProfileForm from './EditProfileForm';
+import { LoadSpinner } from '../../uiKit/LoadSpinner';
 import * as Yup from 'yup';
 import axios from '../../config/axiosConfig';
 import { UserContext } from '../../contexts/UserContext';
@@ -60,7 +61,7 @@ const EditProfileAdminPage = (props) => {
       console.log(error)
     }
   }
-
+  
   return (
     <Wrapper>
       <WrapperHeader>Edit Profile</WrapperHeader>
@@ -79,9 +80,9 @@ const EditProfileAdminPage = (props) => {
           >
           {(props) => <EditProfileForm {...props} />}
         </Formik>
-      ) : (null) }
+      ) : <LoadSpinner topMargin='15vh'/> }
    
-    </Wrapper>
+    </Wrapper>  
   );
 }
 

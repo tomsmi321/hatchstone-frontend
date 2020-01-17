@@ -21,12 +21,12 @@ const ConversationsPage = () => {
     const handModalClose = () => {
         setShowModal(false);
     }
-
+    
     console.log('in convo page render');
     return (
         <Wrapper>
             {/* remove below, for testing UserContext only */}
-            {Object.keys(currentUserProfile).length ? (
+            { Object.keys(currentUserProfile).length ? (
                     <>  
                         {!currentUserProfile.userId.admin ? (
                             <SimpleModal 
@@ -40,7 +40,7 @@ const ConversationsPage = () => {
                         <ConversationsTable />
                         <MessagesTable />
                     </>
-                ) : (<LoadSpinner />)
+                ) : <LoadSpinner topMargin='38vh'/>
             }
            
         </Wrapper>
