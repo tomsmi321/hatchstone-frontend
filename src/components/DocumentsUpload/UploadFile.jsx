@@ -9,17 +9,16 @@ const history = createBrowserHistory();
 
 
 
+
 const FileUpload = params => {
-  console.log(params)
   const documentId = params.documentId;
-  const profileId = "5df1b006705587a1ff01cf3b";
-
-
+  const profileId = params.profileId;
+  
 
   // specify upload params and url for your files
   const getUploadParams = async ({ file, meta }) => {
     const body = new FormData();
-    body.append("name", documentId + profileId);
+    body.append("document", documentId);
     body.append("file", file);
 
     return { url: `http://localhost:5000/profiles/${profileId}/uploadDocument`, body };
@@ -34,10 +33,10 @@ const FileUpload = params => {
   };
 
   // receives array of files that are done uploading when submit button is clicked
-  const handleSubmit = (files, allFiles) => {
-    console.log(files.map(f => f.meta));
-    // allFiles.forEach(f => f.remove());
-  };
+  // const handleSubmit = (files, allFiles) => {
+  //   console.log(files.map(f => f.meta));
+  //   allFiles.forEach(f => f.remove());
+  // };
 
   return (
     <Dropzone
@@ -47,10 +46,11 @@ const FileUpload = params => {
       inputlabel={`Upload ${documentId}`}
       getUploadParams={getUploadParams}
       onChangeStatus={handleChangeStatus}
-      onSubmit={handleSubmit}
+      // onSubmit={handleSubmit}
       accept="image/*"
-      multiple={false}
-      maxFiles={1}
+      multiple={true}
+      maxFiles={3}
+      // PreviewComponent="blag"
     />
   );
 };

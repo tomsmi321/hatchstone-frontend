@@ -134,6 +134,12 @@ const CreateProfileForm = ({
     (() => validateForm())();
   }, []);
 
+
+  const uploadProfileImage = async() => {
+    // const response = await axios.post('')
+    console.log('whatsup my dudes')
+  }
+
   console.log(touched)
   console.log(errors)
   console.log(values)
@@ -144,6 +150,7 @@ const CreateProfileForm = ({
       <Title>Please complete your profile</Title>
       <TextFieldContainer>
           <TextField 
+            required
             label="First name"
             type="text"
             name="firstName"
@@ -156,6 +163,7 @@ const CreateProfileForm = ({
       </TextFieldContainer>
       <TextFieldContainer>
         <TextField 
+          required
           label="Last name"
           type="text"
           name="lastName"
@@ -168,6 +176,7 @@ const CreateProfileForm = ({
       </TextFieldContainer>
       <TextFieldContainer>
         <TextField 
+          required
           label="Address"
           type="text"
           name="address"
@@ -180,8 +189,9 @@ const CreateProfileForm = ({
       </TextFieldContainer>
       <TextFieldContainer>
         <TextField 
+          required
           label="Contact number"
-          type="text"
+          type="tel"
           name="contactNumber"
           onChange={handleChange}
           onBlur={handleBlur}
@@ -192,6 +202,7 @@ const CreateProfileForm = ({
       </TextFieldContainer>
       <TextFieldContainer>
         <SelectInvestorType
+          required
           name="investorType" 
           onChange={handleChange}
           onBlur={handleBlur}
@@ -200,9 +211,9 @@ const CreateProfileForm = ({
           error={errors.investorType}
         />
       </TextFieldContainer>
-      <UploadPictureField />
+      <UploadPictureField onClick={uploadProfileImage} />
       <ButtonContainer>
-        <PrimaryButton type="submit" disabled={isSubmitting || (!isValid && touched !== {})}>Submit</PrimaryButton>
+        <PrimaryButton label="profile-image" name="profile-image" onChange={handleChange} type="submit" disabled={isSubmitting || (!isValid && touched !== {})}>Submit</PrimaryButton>
       </ButtonContainer>
     </Form>
   )

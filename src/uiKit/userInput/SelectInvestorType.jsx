@@ -52,7 +52,7 @@ export const SelectInvestorType = ({ name, onChange, value, error }) => {
           onOpen={() => setTouched(false)}
           onClose={() => setTouched(true)}
           labelWidth={labelWidth}
-          labelHeight={100}
+          labelheight={100}
         >
         <MenuItem value="individual" label="individual">Individual</MenuItem>
         <MenuItem value="individualTrustee" label="individualTrustee">Individual Trustee</MenuItem>

@@ -17,7 +17,7 @@ import { theme, MuiThemeProvider } from 'uiKit/Theme'
 import UIKit from 'components/UIKit'
 import NavBar from 'uiKit/navbars/AppNav';
 import { Footer } from 'uiKit/Footer';
-import UploadFileWrapper from './components/DocumentsUpload/UploadFileWrapper';
+import SubmitDocuments from "./components/DocumentsUpload/SubmitDocuments";
 
 const App = () => {
   return (
@@ -26,31 +26,31 @@ const App = () => {
       <AuthContextProvider>
         <UserContextProvider>
         <NavBar />
-          <Switch>
-            <Route path='/ui-kit'>
-              <UIKit />
-            </Route>
-            <Route exact path="/">
-              <LandingPage />
-            </Route>
-            <Route path="/log-in" component={LogInPage}/>
-            <Route path="/sign-up" component={SignUpPage}/>
-            <UsersContextProvider>
-              <Route path="/create-profile" component={CreateProfilePage}/>
-              <Route path="/submit-documents/:id" component={UploadFileWrapper}/>
-              <Route path="/edit-profile-admin/:id" component={EditProfileAdminPage} />
-              <Route path="/edit-profile-client/:id" component={EditProfileClientPage} />
-              <Route path="/approved-clients" component={ApprovedClientsPage}/>
-              <Route path="/onboarding-clients" component={OnboardingClientsPage}/>
-              <Route path="/conversations/:id" component={ConversationsPage}/>
-              <Route path="/client-details/:userId" component={ClientDetailPage}/>
-            </UsersContextProvider>
-          </Switch>
+        <Switch>
+          <Route path="/ui-kit">
+            <UIKit />
+          </Route>
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
+          <Route path="/log-in" component={LogInPage} />
+          <Route path="/sign-up" component={SignUpPage} />
+          <UsersContextProvider>
+            <Route path="/create-profile" component={CreateProfilePage} />
+            <Route path="/submit-documents/:id" component={SubmitDocuments} /> } />
+            <Route path="/edit-profile-admin/:id" component={EditProfileAdminPage} />
+            <Route path="/edit-profile-client/:id" component={EditProfileClientPage} />
+            <Route path="/approved-clients" component={ApprovedClientsPage} />
+            <Route path="/onboarding-clients" component={OnboardingClientsPage} />
+            <Route path="/conversations/:id" component={ConversationsPage} />
+            <Route path="/client-details/:userId" component={ClientDetailPage} />
+          </UsersContextProvider>
+        </Switch>
         <Footer />
         </UserContextProvider>
       </AuthContextProvider>
     </MuiThemeProvider>
   );
-}
+};
 
 export default App;

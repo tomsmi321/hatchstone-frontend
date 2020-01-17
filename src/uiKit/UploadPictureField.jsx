@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { TertiaryButton } from 'uiKit/Button'
 
+
 const UploadPictureContainer = styled.div`
     display: flex;
     width: 100%;
@@ -20,12 +21,12 @@ const UploadButtonContainer = styled.div`
     }
 `
 
-export const UploadPictureField = () => {
+export const UploadPictureField = ({onClick, type, label, name}) => {
     return (
         <UploadPictureContainer>
             Profile Picture (optional)
             <UploadButtonContainer>
-                <TertiaryButton onClick={() => console.log('Logging from profile piction button onClick function')}>Choose File</TertiaryButton>
+                <TertiaryButton label={label} name={name} type={type} onClick={onClick}>Choose File</TertiaryButton>
                 No file chosen
             </UploadButtonContainer>
         </UploadPictureContainer>
