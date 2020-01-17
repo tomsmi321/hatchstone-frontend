@@ -49,7 +49,7 @@ const EditProfileAdminPage = (props) => {
 
   const history = useHistory()
 
-  const updateProfile = async ( userId, { firstName, lastName, profileImage } ) => {
+  const updateProfile = async ( userId, firstName, lastName, profileImage ) => {
     try {
       const response = await axios.put(`http://localhost:5000/profiles/updateByUser/${userId}`, {
         firstName,
@@ -74,7 +74,7 @@ const EditProfileAdminPage = (props) => {
           validationSchema={ValidationSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             setSubmitting(true);
-            updateProfile(userId, values )
+            updateProfile(userId, values.firstName, values.lastName, values.profileImage )
             resetForm()
           }}
           >
