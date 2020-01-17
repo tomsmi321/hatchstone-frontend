@@ -50,7 +50,7 @@ const FileUpload = params => {
       accept="image/*"
       multiple={true}
       maxFiles={3}
-      PreviewComponent="blag"
+      // PreviewComponent="blag"
     />
   );
 };

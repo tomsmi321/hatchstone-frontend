@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { TertiaryButton } from 'uiKit/Button'
 
+
 const UploadPictureContainer = styled.div`
     display: flex;
     width: 100%;
