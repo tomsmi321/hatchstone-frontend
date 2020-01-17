@@ -19,8 +19,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function getSteps() {
-  return ['Select master blaster campaign settings', 'Create an ad group', 'Create an ad'];
+function getSteps(steps) {
+  // Spread the props array that was passed in so the Stepper can be dynamic with amount of steps it displays whenever it is rendered
+  // Allows Stepper to be a reusable component
+  return [...steps];
 }
 
 function getStepContent(stepIndex) {
@@ -36,10 +38,10 @@ function getStepContent(stepIndex) {
   }
 }
 
-export default function HorizontalLabelPositionBelowStepper() {
+export default function HorizontalLabelPositionBelowStepper({ inputSteps }) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const steps = getSteps();
+  const steps = getSteps(inputSteps);
 
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);

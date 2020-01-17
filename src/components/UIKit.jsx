@@ -31,7 +31,7 @@ const UIKit = () => {
       <PrimaryLink >PrimaryLink</PrimaryLink>
       <SecondaryLink underline="always">SecondaryLink</SecondaryLink>
       <TextField label="Input field"></TextField>
-      <Stepper />
+      <Stepper inputSteps={['Sign Up', 'Create Profile', 'Submit Documents']}/>
       <TextArea placeholder="Type your message here..."/>
       <SimpleModal />
       <Footer />
