@@ -25,10 +25,8 @@ const UserContextProvider = ({ children }) => {
     // userId will be undefined first time, handle this and monitor for change in currentUser
     useEffect(() => {
         console.log('in useEffect - UserContext');
-        console.log(currentUser._id);
-        const userId = currentUser._id; 
-        if(userId) {
-            getProfile(userId);
+        if(currentUser._id) {
+            getProfile(currentUser._id);
         }
         console.log(`currentUserProfile \n`, currentUserProfile);
     }, [currentUser])
