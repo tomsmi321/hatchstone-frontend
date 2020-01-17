@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components'
 import { Formik } from 'formik'
 import EditProfileForm from './EditProfileForm';
 import * as Yup from 'yup';
 import axios from '../../config/axiosConfig';
+import { UserContext } from '../../contexts/UserContext';
 
 const Wrapper = styled.div`
     /* background-color: lightskyblue; */
@@ -36,18 +37,18 @@ const ValidationSchema = Yup.object().shape({
 })
 
 
-const EditProfileAdminPage = () => {
-  // TODO: replace this. Use either route params or context to get the current admin user
-  // TODO: currently the upload profile picture button is not functional. However updateProfile function is
-  // working and updates the user in the database by firstName, lastName and profileImage.
-  const adminUser = {
-      userId: '5e1a9f0440d2242ac92c5050',
-  }
+const EditProfileAdminPage = (props) => {
+  // consume context
+  const { currentUserProfile } = useContext(UserContext)
+
+  // extract userId from route params, this is more performant than from context
+  const userId = props.match.params.id;
+  // console.log('userId', userId);
   
-  const { userId } = adminUser;
 
   const history = useHistory()
-  const updateProfile = async (userId, firstName, lastName, profileImage) => {
+
+  const updateProfile = async ( userId, { firstName, lastName, profileImage } ) => {
     try {
       const response = await axios.put(`http://localhost:5000/profiles/updateByUser/${userId}`, {
         firstName,
@@ -63,20 +64,23 @@ const EditProfileAdminPage = () => {
   return (
     <Wrapper>
       <WrapperHeader>Edit Profile</WrapperHeader>
-      <Formik
-        initialValues={{
-          firstName: "",
-          lastName: ""
-        }}
-        validationSchema={ValidationSchema}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
-          setSubmitting(true);
-          updateProfile(userId, values.firstName, values.lastName, values.profileImage )
-          resetForm()
-        }}
-      >
-        {(props) => <EditProfileForm {...props} />}
-      </Formik>
+      {Object.keys(currentUserProfile).length ? (
+        <Formik
+          initialValues={{
+            firstName: currentUserProfile.firstName,
+            lastName: currentUserProfile.lastName
+          }}
+          validationSchema={ValidationSchema}
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            setSubmitting(true);
+            updateProfile(userId, values )
+            resetForm()
+          }}
+          >
+          {(props) => <EditProfileForm {...props} />}
+        </Formik>
+      ) : (null) }
+   
     </Wrapper>
   );
 }
