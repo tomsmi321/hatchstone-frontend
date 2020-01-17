@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { PrimaryButton, SecondaryButton, ApprovedButton } from '../../uiKit/Button';
 import { Link } from 'react-router-dom'
+import DownloadButton from 'react-dfb';
 
+ 
 const Wrapper = styled.div`
     /* background-color: lightskyblue; */
     width: 50%;
@@ -104,21 +106,22 @@ const WrapperNoDocs = styled.div`
 
 const ClientDocField = ({docType, docName}) => {
 
-    const downloadDoc = () => {
-        console.log('downloading')
-        return (
-             <a href="https://mern-project-images.s3.amazonaws.com/approved%20identification_5e205aef37488ca20ca84e08" download> </a>
-        )  
-    }
+    // const downloadDoc = () => {
+    //     return(
+        
+    //         )
+
+    // }
 
     return (
         <WrapperClientDocsField>
             <WrapperClientDocsFieldDesc>
                 {docType}
             </WrapperClientDocsFieldDesc> 
-            <WrapperClientDocFieldDownloadField onClick={downloadDoc}>
+            <WrapperClientDocFieldDownloadField >
                 {docName}
                 <StyledGetAppIcon />
+                <a href="https://mern-project-images.s3.amazonaws.com/approved%20identification_5e205aef37488ca20ca84e08" download>download </a>
             </WrapperClientDocFieldDownloadField>
         </WrapperClientDocsField>
     )
