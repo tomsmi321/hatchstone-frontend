@@ -1,30 +1,30 @@
-import React from "react";
-import AuthContextProvider from "./contexts/AuthContext";
+import React from 'react';
+import AuthContextProvider from './contexts/AuthContext'
+import UserContextProvider from './contexts/UserContext';
+import UsersContextProvider from './contexts/UsersContext';
 import { Switch, Route } from "react-router-dom";
-import { LandingPage } from "components/LandingPage/LandingPage";
-import LogInPage from "components/LogIn";
-import SignUpPage from "components/SignUp/SignUp";
-import CreateProfilePage from "components/SignUp/CreateProfile";
-import ApprovedClientsPage from "components/ApprovedClients";
-import ConversationsPage from "components/Conversations";
-import ClientDetailPage from "components/ClientDetails";
-import OnboardingClientsPage from "components/OnboardingClients";
-import EditProfileAdminPage from "components/EditProfileAdmin";
-import EditProfileClientPage from "components/EditProfileClient";
-import { theme, MuiThemeProvider } from "uiKit/Theme";
-import UIKit from "components/UIKit";
-import NavBar from "uiKit/navbars/AppNav";
-import { Footer } from "uiKit/Footer";
+import { LandingPage } from 'components/LandingPage/LandingPage';
+import LogInPage from 'components/LogIn';
+import SignUpPage from 'components/SignUp/SignUp';
+import CreateProfilePage from 'components/SignUp/CreateProfile';
+import ApprovedClientsPage from 'components/ApprovedClients'
+import ConversationsPage from 'components/Conversations';
+import ClientDetailPage from 'components/ClientDetails';
+import OnboardingClientsPage from 'components/OnboardingClients';
+import EditProfileAdminPage from 'components/EditProfileAdmin';
+import EditProfileClientPage from 'components/EditProfileClient';
+import { theme, MuiThemeProvider } from 'uiKit/Theme'
+import UIKit from 'components/UIKit'
+import NavBar from 'uiKit/navbars/AppNav';
+import { Footer } from 'uiKit/Footer';
 import SubmitDocuments from "./components/DocumentsUpload/SubmitDocuments";
-// import contexts here
-// import { ExampleContext } from 'src/contexts/ExampleContext';
-import UsersContextProvider from "./contexts/UsersContext";
 
 const App = () => {
   return (
     // wrapping components in custom MuiThemeProvider to match Hatchstone style guide
     <MuiThemeProvider theme={theme}>
       <AuthContextProvider>
+        <UserContextProvider>
         <NavBar />
         <Switch>
           <Route path="/ui-kit">
@@ -47,6 +47,7 @@ const App = () => {
           </UsersContextProvider>
         </Switch>
         <Footer />
+        </UserContextProvider>
       </AuthContextProvider>
     </MuiThemeProvider>
   );
