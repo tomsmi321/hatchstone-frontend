@@ -61,7 +61,7 @@ const WrapperConvoTime = styled.div`
     height: max-content;
 `
 
-const ConvoItem = ({ userConvo, admin }) => {
+const ConvoItem = ({ userConvo, admin, getCurrentMessages }) => {
     const [ convoPartner, setConvoPartner ] = useState({});
     const [ convoSnippet, setConvoSnippet ] = useState(null);
     const [ convoLastMessageTime, setConvoLastMessageTime ] = useState(null);
@@ -85,7 +85,12 @@ const ConvoItem = ({ userConvo, admin }) => {
         const { dateCreated } = lastMessage;
         const date = new Date(dateCreated)
         return `${date.getHours()}:${date.getMinutes()}`;
+    }
 
+    const handleDisplayMessages = () => {
+        const convoId = userConvo._id;
+        const convoPartnerName = `${convoPartner.firstName} ${convoPartner.lastName}`
+        getCurrentMessages(convoId, convoPartnerName);
     }
 
     useEffect(() => {
@@ -94,12 +99,9 @@ const ConvoItem = ({ userConvo, admin }) => {
         setConvoLastMessageTime( getConvoLastMessageTime(userConvo) )
     }, [])
 
-    console.log('time', convoLastMessageTime);
 
-
-    console.log('convo item - convoPartner state', convoPartner);
     return (
-        <WrapperOuter>
+        <WrapperOuter onClick={handleDisplayMessages}>
             <WrapperInner>
                 <WrapperAccountCircleIcon>
                     <AccountCircleIcon />

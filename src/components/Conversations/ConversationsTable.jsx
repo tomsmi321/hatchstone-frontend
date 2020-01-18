@@ -42,7 +42,7 @@ const WrapperConvoItems = styled.div`
     align-items: center;
 `
 
-const ConversationsTable = ({ userConvos, admin }) => {
+const ConversationsTable = ({ userConvos, admin, getCurrentMessages }) => {
 
     return (
         <WrapperOuter>
@@ -53,7 +53,12 @@ const ConversationsTable = ({ userConvos, admin }) => {
                 <WrapperConvoItems>
                     {userConvos.map((userConvo, index) => {
                         return (
-                            <ConvoItem key={index} userConvo={userConvo} admin={admin}/>
+                            <ConvoItem 
+                                key={index} 
+                                userConvo={userConvo} 
+                                admin={admin}
+                                getCurrentMessages={getCurrentMessages}
+                            />
                         )
                     })}
                 </WrapperConvoItems>

@@ -18,6 +18,8 @@ const ConversationsPage = (props) => {
     const { approved, firstName } = currentUserProfile;
     const [ showModal, setShowModal ] = useState(true);
     const [ userConvos, setUserConvos ] = useState([]);
+    const [ currentMessages, setCurrentMessages ] = useState([]);
+    const [ currentConvoPartner, setCurrentConvoPartner ] = useState(null);
    
     const handModalClose = () => {
         setShowModal(false);
@@ -35,6 +37,21 @@ const ConversationsPage = (props) => {
             console.log(err);
         }
     }
+
+    const getCurrentMessages = async (convoId, name) => {
+        console.log('in getCurrentMessages - convo index');
+        try {
+            const result = await axios.get(`/messages/findByConversation/${convoId}`);
+            console.log(result.data);
+            if(result.data) {
+                setCurrentMessages(result.data);
+                setCurrentConvoPartner(name);    
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
 
     useEffect(() => {
         console.log('in useEffect - convo index');
@@ -61,10 +78,13 @@ const ConversationsPage = (props) => {
                         <ConversationsTable 
                             userConvos={userConvos} 
                             admin={currentUserProfile.userId.admin}
+                            getCurrentMessages={getCurrentMessages}
                         />
                         <MessagesTable 
-                            userConvos={userConvos} 
                             admin={currentUserProfile.userId.admin}
+                            currentUserId={currentUserProfile.userId._id}
+                            currentMessages={currentMessages}
+                            currentConvoPartner={currentConvoPartner}
                         />
                     </>
                 ) : <LoadSpinner topMargin='38vh'/>
