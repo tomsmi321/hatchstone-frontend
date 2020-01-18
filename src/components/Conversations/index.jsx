@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components';
 import ConversationsTable from './ConversationsTable';
 import MessagesTable from './MessagesTable';
@@ -6,22 +6,44 @@ import { LoadSpinner } from '../../uiKit/LoadSpinner';
 import { SimpleModal } from '../../uiKit/Modal';
 import { UserContext } from '../../contexts/UserContext';
 import { AuthContext } from '../../contexts/AuthContext';
+import axios from '../../config/axiosConfig';
 
 // fix this
 const Wrapper = styled.div`
   display: flex;
 `
 
-const ConversationsPage = () => {
-    // consume context
+const ConversationsPage = (props) => {
     const { currentUserProfile } = useContext(UserContext);
     const { approved, firstName } = currentUserProfile;
     const [ showModal, setShowModal ] = useState(true);
-
+    const [ userConvos, setUserConvos ] = useState([]);
+   
     const handModalClose = () => {
         setShowModal(false);
     }
     
+    const getUserConvos = async () => {
+        console.log('in getUserConvos - convo index');
+        const userId = props.match.params.id;
+        try {
+            const result = await axios.get(`/conversations/findByUser/${userId}`)
+            console.log(result.data);
+            if(result.data) {
+                setUserConvos(result.data)
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        console.log('in useEffect - convo index');
+        getUserConvos();
+    }, [])
+
+
+
     console.log('in convo page render');
     return (
         <Wrapper>
@@ -37,7 +59,10 @@ const ConversationsPage = () => {
                         />
                         ) : null }
                     
-                        <ConversationsTable />
+                        <ConversationsTable 
+                            userConvos={userConvos} 
+                            admin={currentUserProfile.userId.admin}
+                        />
                         <MessagesTable />
                     </>
                 ) : <LoadSpinner topMargin='38vh'/>

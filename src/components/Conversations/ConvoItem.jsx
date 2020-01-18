@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { AccountCircle } from 'uiKit/Icon'
 
@@ -61,7 +61,22 @@ const WrapperConvoTime = styled.div`
     height: max-content;
 `
 
-const ConvoItem = () => {
+const ConvoItem = ({ userConvo, admin }) => {
+    const [ convoPartner, setConvoPartner ] = useState({});
+
+
+    const getConvoPartner = (admin) => {
+        const partnerIndex = admin ? 0 : 1;
+        const convoPartner = userConvo.participants[partnerIndex];
+        return convoPartner
+    }
+
+    useEffect(() => {
+        setConvoPartner(getConvoPartner(admin))
+    }, [])
+
+
+    console.log('convo item - convoPartner state', convoPartner);
     return (
         <WrapperOuter>
             <WrapperInner>
@@ -70,7 +85,7 @@ const ConvoItem = () => {
                 </WrapperAccountCircleIcon>
                 <WrapperConvoContent>
                     <WrapperConvoPartner>
-                        Ashley Thompson
+                        {`${convoPartner.firstName} ${convoPartner.lastName}`}
                     </WrapperConvoPartner>
                     <WrapperConvoSnippet>
                         If required then I can have them to you end of ....

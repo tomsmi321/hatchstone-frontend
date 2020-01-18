@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { SearchField } from 'uiKit/userInput/TextField';
 import ConvoItem from './ConvoItem';
@@ -42,19 +42,20 @@ const WrapperConvoItems = styled.div`
     align-items: center;
 `
 
-const ConversationsTable = () => {
-    // TODO: get rid of this just for demonstration purposes
-
+const ConversationsTable = ({ userConvos, admin}) => {
 
     return (
         <WrapperOuter>
             <WrapperInner>
                 <WrapperSearchField>
-                    <SearchField placeholder="Search your coversations" />
+                    <SearchField placeholder="Search your conversations" />
                 </WrapperSearchField>
                 <WrapperConvoItems>
-                    <ConvoItem />
-                    <ConvoItem />
+                    {userConvos.map((userConvo, index) => {
+                        return (
+                            <ConvoItem key={index} userConvo={userConvo} admin={admin}/>
+                        )
+                    })}
                 </WrapperConvoItems>
             </WrapperInner>
         </WrapperOuter>
