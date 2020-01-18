@@ -3,14 +3,13 @@ import styled from 'styled-components';
 import { CircularProgress } from '@material-ui/core';
 
 const Wrapper = styled.div`
-    margin: 40vh auto;
-    max-width: 1004px;
+    margin: ${props => `${props.topMargin} auto`};
     text-align: center;
 `;
 
-export const LoadSpinner = () => {
+export const LoadSpinner = ({ topMargin }) => {
     return (
-        <Wrapper>
+        <Wrapper topMargin={topMargin}>
             <CircularProgress />
         </Wrapper>  
     )
