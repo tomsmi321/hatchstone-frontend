@@ -23,14 +23,13 @@ const ConversationsPage = (props) => {
         setShowModal(false);
     }
     
-    const getUserConvos = async () => {
+    const getUserConvos = async (userId) => {
         console.log('in getUserConvos - convo index');
-        const userId = props.match.params.id;
         try {
-            const result = await axios.get(`/conversations/findByUser/${userId}`)
+            const result = await axios.get(`/conversations/findByUser/${userId}`);
             console.log(result.data);
             if(result.data) {
-                setUserConvos(result.data)
+                setUserConvos(result.data);
             }
         } catch(err) {
             console.log(err);
@@ -39,12 +38,12 @@ const ConversationsPage = (props) => {
 
     useEffect(() => {
         console.log('in useEffect - convo index');
-        getUserConvos();
+        const userId = props.match.params.id;
+        getUserConvos(userId);
     }, [])
 
 
-
-    console.log('in convo page render');
+    console.log('in convo page render', userConvos);
     return (
         <Wrapper>
             {/* remove below, for testing UserContext only */}
@@ -63,7 +62,10 @@ const ConversationsPage = (props) => {
                             userConvos={userConvos} 
                             admin={currentUserProfile.userId.admin}
                         />
-                        <MessagesTable />
+                        <MessagesTable 
+                            userConvos={userConvos} 
+                            admin={currentUserProfile.userId.admin}
+                        />
                     </>
                 ) : <LoadSpinner topMargin='38vh'/>
             }

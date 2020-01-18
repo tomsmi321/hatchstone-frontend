@@ -63,7 +63,8 @@ const WrapperConvoTime = styled.div`
 
 const ConvoItem = ({ userConvo, admin }) => {
     const [ convoPartner, setConvoPartner ] = useState({});
-
+    const [ convoSnippet, setConvoSnippet ] = useState(null);
+    const [ convoLastMessageTime, setConvoLastMessageTime ] = useState(null);
 
     const getConvoPartner = (admin) => {
         const partnerIndex = admin ? 0 : 1;
@@ -71,9 +72,29 @@ const ConvoItem = ({ userConvo, admin }) => {
         return convoPartner
     }
 
+    const getConvoSnippet = (convo) => {
+        const messages = convo.messages;
+        const lastMessage = messages[messages.length - 1];
+        const convoSnippetResult = lastMessage.content;
+        return convoSnippetResult;
+    }
+
+    const getConvoLastMessageTime = (convo) => {
+        const messages = convo.messages;
+        const lastMessage = messages[messages.length - 1];
+        const { dateCreated } = lastMessage;
+        const date = new Date(dateCreated)
+        return `${date.getHours()}:${date.getMinutes()}`;
+
+    }
+
     useEffect(() => {
-        setConvoPartner(getConvoPartner(admin))
+        setConvoPartner( getConvoPartner(admin) )
+        setConvoSnippet( getConvoSnippet(userConvo) );
+        setConvoLastMessageTime( getConvoLastMessageTime(userConvo) )
     }, [])
+
+    console.log('time', convoLastMessageTime);
 
 
     console.log('convo item - convoPartner state', convoPartner);
@@ -88,11 +109,11 @@ const ConvoItem = ({ userConvo, admin }) => {
                         {`${convoPartner.firstName} ${convoPartner.lastName}`}
                     </WrapperConvoPartner>
                     <WrapperConvoSnippet>
-                        If required then I can have them to you end of ....
+                        {convoSnippet}
                     </WrapperConvoSnippet>
                 </WrapperConvoContent>
                 <WrapperConvoTime>
-                        4:37pm
+                        {convoLastMessageTime}
                 </WrapperConvoTime>
             </WrapperInner>
         </WrapperOuter>

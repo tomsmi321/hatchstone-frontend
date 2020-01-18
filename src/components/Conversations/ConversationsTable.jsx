@@ -42,7 +42,7 @@ const WrapperConvoItems = styled.div`
     align-items: center;
 `
 
-const ConversationsTable = ({ userConvos, admin}) => {
+const ConversationsTable = ({ userConvos, admin }) => {
 
     return (
         <WrapperOuter>
