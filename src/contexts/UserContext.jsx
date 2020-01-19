@@ -28,20 +28,7 @@ const UserContextProvider = ({ children }) => {
     }
   };
 
-<<<<<<< HEAD
-=======
-    // userId will be undefined first time, handle this and monitor for change in currentUser
-    useEffect(() => {
-        console.log('in useEffect - UserContext');
-        if(currentUser && Object.keys(currentUser).length) {
-            getProfile(currentUser._id);
-        }
-        console.log(`currentUserProfile \n`, currentUserProfile);
-    }, [currentUser])
->>>>>>> 5ad31c1db61d470e0b4be926b266fa653de4c448
-
-
-
+  
 //   userId will be undefined first time, handle this and monitor for change in currentUser
 useEffect(() => {
   console.log('in useEffect - UserContext');

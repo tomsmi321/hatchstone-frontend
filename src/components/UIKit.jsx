@@ -8,12 +8,9 @@ import { Footer, DarkFooter } from 'uiKit/Footer'
 import { SimpleModal } from 'uiKit/Modal';
 import { ProgressBar } from 'uiKit/ProgressBar';
 import { SimpleSelect } from 'uiKit/SimpleSelect';
-<<<<<<< HEAD
 
-=======
 import Stepper from 'uiKit/Stepper'
 import SubmitDocuments from './DocumentsUpload/SubmitDocuments';
->>>>>>> 5ad31c1db61d470e0b4be926b266fa653de4c448
 
 const Wrapper = styled.div`
     display: flex;

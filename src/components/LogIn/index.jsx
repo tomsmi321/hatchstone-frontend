@@ -5,10 +5,7 @@ import { PrimaryLink } from 'uiKit/Link'
 import { PrimaryButton } from 'uiKit/Button'
 import { TextField } from 'uiKit/userInput/TextField'
 import { Formik } from 'formik'
-<<<<<<< HEAD
-=======
 import * as Yup from "yup"
->>>>>>> 5ad31c1db61d470e0b4be926b266fa653de4c448
 import { AuthContext } from '../../contexts/AuthContext'
 
 const Container = styled.div`
@@ -50,26 +47,12 @@ const ButtonContainer = styled.div`
   margin: 28px 0px;
 `
 
-<<<<<<< HEAD
-// const ValidationSchema = Yup.object().shape({
-//   email: Yup.string()
-//     .email("Must be an email address")
-//     .required("This field is required"),
-//   password: Yup.string()
-//     .required("This field is required")
-//     .matches(
-//       /^(?=.{8,})(?=.*[1-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[(!@#$%^&*()_+|~\- =\`{}[\]:”;'<>?,.\/, )])(?!.*(.)\1{2,}).+$/,
-//       "Must contain 8 Characters, minimum 1 Number, 1 Special Case Character, 1 Uppercase Character"
-//     )
-// })
-=======
 const ValidationSchema = Yup.object().shape({
   email: Yup.string()
     .required("This field is required"),
   password: Yup.string()
     .required("This field is required")
 })
->>>>>>> 5ad31c1db61d470e0b4be926b266fa653de4c448
 
 const LogInPage = () => {
   const history = useHistory()
@@ -115,13 +98,6 @@ const LogInForm = ({
 }) => {
   
 
-<<<<<<< HEAD
-  // console.log(touched)
-  // console.log(errors)
-  // console.log(values)
-  // console.log(isValid)
-=======
->>>>>>> 5ad31c1db61d470e0b4be926b266fa653de4c448
   return (
     <Form onSubmit={handleSubmit}>
 
