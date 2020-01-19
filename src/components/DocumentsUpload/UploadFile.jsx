@@ -5,6 +5,18 @@ import styled from "styled-components";
 import Typography from "../../uiKit/Typography";
 import { createBrowserHistory } from "history";
 
+const DocumentPreviewWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const InputContent = styled.div`
+  font-size: 16px;
+  color: black;
+  font-weight: normal;
+`;
+
 const history = createBrowserHistory();
 
 const FileUpload = params => {
@@ -48,14 +60,17 @@ const FileUpload = params => {
       className="dzu-dropzone"
       styles={{
         dropzone: {
-          minHeight: 80,
+          minHeight: 60,
           maxHeight: 200,
-          border: "dashed 3px black",
+          border: "dashed 1px black",
           overflow: "visible",
-          background: "#B8B8B8",
-          padding: "2px"
+          background: "white",
+          padding: "1px",
+          fontSize: "16px",
+          width: "388px"
         }
       }}
+      inputContent= {<InputContent>Drag and drop or click to browse</InputContent>}
       inputlabel={`Upload ${documentId}`}
       getUploadParams={getUploadParams}
       onChangeStatus={handleChangeStatus}

@@ -11,7 +11,7 @@ const UserContextProvider = ({ children }) => {
   const history = useHistory()
 
 
-  const userId = currentUser._id
+  // const userId = currentUser._id
 
   // we can not do an async call directly in useEffect so we need a function
   const getProfile = async userId => {

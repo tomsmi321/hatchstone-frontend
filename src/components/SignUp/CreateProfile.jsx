@@ -1,17 +1,17 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { PrimaryButton, TertiaryButton } from "uiKit/Button";
 import { TextField } from "uiKit/userInput/TextField";
-import { UploadPictureField } from "uiKit/UploadPictureField";
 import { SelectInvestorType } from "uiKit/userInput/SelectInvestorType";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import axios from '../../config/axiosConfig';
+import axios from "../../config/axiosConfig";
 import { AuthContext } from "../../contexts/AuthContext";
 // import SubmitDocuments from "../DocumentsUpload/SubmitDocuments";
 import { Input } from "@material-ui/core";
-import UploadProfileImage from '../DocumentsUpload/UploadProfileImage'
+import { UploadProfileImage } from "../DocumentsUpload/UploadProfileImage";
+import { useDropzone } from "react-dropzone";
 
 const Container = styled.div`
   display: flex;
@@ -68,7 +68,7 @@ const CreateProfilePage = () => {
   const { currentUser, currentUserProfile, setCurrentUserProfile } = useContext(AuthContext);
   const history = useHistory();
 
-  const createProfile = async (firstName, lastName, address, contactNumber, investorType) => {
+  const createProfile = async (firstName, lastName, address, contactNumber, investorType, profileImage) => {
     try {
       console.log("in AuthContext createProfile function");
       const response = await axios.post("/profiles", {
@@ -106,7 +106,14 @@ const CreateProfilePage = () => {
         onSubmit={(values, { setSubmitting, setErrors, setStatus, resetForm }) => {
           try {
             setSubmitting(true);
-            createProfile(values.firstName, values.lastName, values.address, values.contactNumber, values.investorType,values.profileImage);
+            createProfile(
+              values.firstName,
+              values.lastName,
+              values.address,
+              values.contactNumber,
+              values.investorType,
+              values.profileImage
+            );
             history.push(`/submit-documents/`);
             // resetForm();
             setStatus({ success: true });
@@ -132,22 +139,24 @@ const CreateProfileForm = ({
   handleSubmit,
   isSubmitting,
   isValid,
-  validateForm
+  validateForm,
+  onDrop
 }) => {
   useEffect(() => {
     (() => validateForm())();
   }, []);
 
-  const uploadProfileImage = async () => {
-    
-    // const response = await axios.post(`/profiles/${userId}/uploadProfileImage}`)
-    console.log("whatsup my dudes");
-  };
+  // const onDrop = useCallback(acceptedFiles => {
+  //   // Do something with the files
+  //   console.log(props)
+  // }, []);
 
   // console.log(touched)
   // console.log(errors)
   console.log(values);
   // console.log(isValid)
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -215,18 +224,14 @@ const CreateProfileForm = ({
           error={errors.investorType}
         />
       </TextFieldContainer>
-      <UploadProfileImage/>
-      {/* <p>Profile Image(optional)</p>
-      <Input
+      <UploadProfileImage
         name="profileImage"
-        type="file"
-        label="Choose A Profile Image(optional)"
-        // style={{ display: "none" }}
         onChange={handleChange}
         value={values.profileImage}
-      >
-        Choose A file
-      </Input> */}
+        touched={touched.profileImage}
+        error={errors.profileImage}
+        type="file"
+      />
       <ButtonContainer>
         <PrimaryButton
           label="submit"
