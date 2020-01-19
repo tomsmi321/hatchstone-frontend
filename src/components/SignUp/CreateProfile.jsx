@@ -8,9 +8,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import axios from "../../config/axiosConfig";
 import { AuthContext } from "../../contexts/AuthContext";
-import { UploadProfileImage } from "../DocumentsUpload/UploadProfileImage";
 import { useDropzone } from "react-dropzone";
-import ProgressBarA from "../../assets/images/progressBarA.svg";
+import { UploadPictureField } from "../../uiKit/UploadPictureField";
 
 const PageWrapper = styled.div`
   padding-bottom: 60px;
@@ -27,12 +26,6 @@ const Container = styled.div`
   background-color: #ffffff;
   border-radius: 4px;
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
-`;
-
-const ProgressWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 60px;
 `;
 
 const Title = styled.div`
@@ -102,9 +95,6 @@ const CreateProfilePage = () => {
 
   return (
     <PageWrapper>
-      <ProgressWrapper>
-        <img src={ProgressBarA} alt="not found" />
-      </ProgressWrapper>
       <Container>
         <Formik
           initialValues={{
@@ -127,7 +117,8 @@ const CreateProfilePage = () => {
                 values.investorType,
                 values.profileImage
               );
-              history.push(`/submit-documents/`);
+              history.push(`/submit-documents/
+              `);
               // resetForm();
               setStatus({ success: true });
             } catch (error) {
@@ -233,14 +224,7 @@ const CreateProfileForm = ({
           error={errors.investorType}
         />
       </TextFieldContainer>
-      <UploadProfileImage
-        name="profileImage"
-        onChange={handleChange}
-        value={values.profileImage}
-        touched={touched.profileImage}
-        error={errors.profileImage}
-        type="file"
-      />
+      <UploadPictureField/>
       <ButtonContainer>
         <PrimaryButton
           label="submit"

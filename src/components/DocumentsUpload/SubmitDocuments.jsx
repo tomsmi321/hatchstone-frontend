@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { PrimaryButton } from "../../uiKit/Button";
 import { PrimaryLink } from "../../uiKit/Link";
 import UserContextProvider from "../../contexts/UserContext";
-import AppProgressB from "../../assets/images/progressBarTwo.svg";
+
 
 const Title = styled.div`
   font-size: 16px;
@@ -58,9 +58,6 @@ const SubmitDocuments = props => {
 
   return (
     <PageWrapper>
-      <ProgressWrapper>
-        <img src={AppProgressB} alt="not found" />
-      </ProgressWrapper>
       <Container>
         <Title>Submit your documents</Title>
         <UploadWrapper>

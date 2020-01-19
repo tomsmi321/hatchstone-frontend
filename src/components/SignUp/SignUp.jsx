@@ -100,8 +100,6 @@ const SignUpPage = () => {
   )
 }
 
-
-
 const SignUpForm = ({
   values,
   errors,
