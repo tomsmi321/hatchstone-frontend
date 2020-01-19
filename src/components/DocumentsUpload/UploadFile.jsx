@@ -3,16 +3,7 @@ import "react-dropzone-uploader/dist/styles.css";
 import Dropzone from "react-dropzone-uploader";
 import styled from "styled-components";
 import CloseIcon from '@material-ui/icons/Close';
-// import { getDroppedOrSelectedFiles } from 'html5-file-selector'
 
-import { createBrowserHistory } from "history";
-import { PrimaryButton } from "../../uiKit/Button";
-
-const InputContent = styled.div`
-  font-size: 16px;
-  color: black;
-  font-weight: normal;
-`;
 
 const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { maxFiles } }) => {
   return (

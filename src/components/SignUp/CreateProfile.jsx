@@ -8,22 +8,31 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import axios from "../../config/axiosConfig";
 import { AuthContext } from "../../contexts/AuthContext";
-// import SubmitDocuments from "../DocumentsUpload/SubmitDocuments";
-import { Input } from "@material-ui/core";
 import { UploadProfileImage } from "../DocumentsUpload/UploadProfileImage";
 import { useDropzone } from "react-dropzone";
+import ProgressBarA from "../../assets/images/progressBarA.svg";
+
+const PageWrapper = styled.div`
+  padding-bottom: 60px;
+`;
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 36px 50px 100px 32px;
+  padding: 36px 50px 55px 32px;
   width: 40vw;
-  margin: 150px auto 0 auto;
+  margin: 60px auto 0 auto;
   background-color: #ffffff;
   border-radius: 4px;
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
+`;
+
+const ProgressWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 60px;
 `;
 
 const Title = styled.div`
@@ -92,41 +101,46 @@ const CreateProfilePage = () => {
   };
 
   return (
-    <Container>
-      <Formik
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          address: "",
-          contactNumber: "",
-          investorType: "",
-          profileImage: ""
-        }}
-        validationSchema={ValidationSchema}
-        onSubmit={(values, { setSubmitting, setErrors, setStatus, resetForm }) => {
-          try {
-            setSubmitting(true);
-            createProfile(
-              values.firstName,
-              values.lastName,
-              values.address,
-              values.contactNumber,
-              values.investorType,
-              values.profileImage
-            );
-            history.push(`/submit-documents/`);
-            // resetForm();
-            setStatus({ success: true });
-          } catch (error) {
-            setStatus({ success: false });
-            setSubmitting(false);
-            setErrors({ submit: error.message });
-          }
-        }}
-      >
-        {props => <CreateProfileForm {...props} />}
-      </Formik>
-    </Container>
+    <PageWrapper>
+      <ProgressWrapper>
+        <img src={ProgressBarA} alt="not found" />
+      </ProgressWrapper>
+      <Container>
+        <Formik
+          initialValues={{
+            firstName: "",
+            lastName: "",
+            address: "",
+            contactNumber: "",
+            investorType: "",
+            profileImage: ""
+          }}
+          validationSchema={ValidationSchema}
+          onSubmit={(values, { setSubmitting, setErrors, setStatus, resetForm }) => {
+            try {
+              setSubmitting(true);
+              createProfile(
+                values.firstName,
+                values.lastName,
+                values.address,
+                values.contactNumber,
+                values.investorType,
+                values.profileImage
+              );
+              history.push(`/submit-documents/`);
+              // resetForm();
+              setStatus({ success: true });
+            } catch (error) {
+              setStatus({ success: false });
+              setSubmitting(false);
+              setErrors({ submit: error.message });
+            }
+          }}
+        >
+          {props => <CreateProfileForm {...props} />}
+        </Formik>
+      </Container>
+    </PageWrapper>
   );
 };
 
@@ -145,11 +159,6 @@ const CreateProfileForm = ({
   useEffect(() => {
     (() => validateForm())();
   }, []);
-
-  // const onDrop = useCallback(acceptedFiles => {
-  //   // Do something with the files
-  //   console.log(props)
-  // }, []);
 
   // console.log(touched)
   // console.log(errors)

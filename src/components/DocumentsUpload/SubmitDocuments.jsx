@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { PrimaryButton } from "../../uiKit/Button";
 import { PrimaryLink } from "../../uiKit/Link";
 import UserContextProvider from "../../contexts/UserContext";
+import AppProgressB from "../../assets/images/progressBarTwo.svg";
 
 const Title = styled.div`
   font-size: 16px;
@@ -24,7 +25,12 @@ const ButtonWrapper = styled.div`
 
 const PageWrapper = styled.div`
   min-height: 100vh;
-  paddingbottom: 60px;
+  padding: 60px;
+`;
+
+const ProgressWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const Container = styled.div`
@@ -41,7 +47,6 @@ const Container = styled.div`
 `;
 const UploadWrapper = styled.div`
   display: flex;
-  /* justify-content: flex-start; */
   margin: 20px 20px;
   flex-direction: column;
   align-items: flex-start;
@@ -53,6 +58,9 @@ const SubmitDocuments = props => {
 
   return (
     <PageWrapper>
+      <ProgressWrapper>
+        <img src={AppProgressB} alt="not found" />
+      </ProgressWrapper>
       <Container>
         <Title>Submit your documents</Title>
         <UploadWrapper>
