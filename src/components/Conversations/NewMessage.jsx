@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
 import { TextArea } from '../../uiKit/userInput/TextArea';
 import { PrimaryButton } from 'uiKit/Button'
@@ -27,12 +27,30 @@ const StyledTextArea = styled(TextArea)`
     }
 `
 
-const NewMessage = () => {
+const NewMessage = ({ createNewMessage, getCurrentMessages, currentMessagesLength, currentUserId, currentUserProfileId, currentConvoId }) => {
+    const [ newMessageContent, setNewMessageContent ] = useState(null);
+
+    const handleMessageChange = (e) => {
+        console.log(e.target.value);
+        setNewMessageContent(e.target.value);
+    }
+
+    const handleNewMessageSubmit = () => {
+        console.log('in handle new message submit');
+        createNewMessage(newMessageContent, currentUserId, currentUserProfileId, currentConvoId);
+    }
+
+    useEffect(() => {
+        console.log('in useEffect - NewMessage');
+        getCurrentMessages(currentConvoId);
+    }, [currentMessagesLength])
+
+    console.log('in new message state', newMessageContent);
     return (
     <WrapperOuter>
-        <WrapperInner>
+        <WrapperInner onChange={handleMessageChange}>
             <StyledTextArea placeholder="Type your message here..." />
-            <PrimaryButton>Send</PrimaryButton>
+            <PrimaryButton onClick={handleNewMessageSubmit}>Send</PrimaryButton>
         </WrapperInner>
     </WrapperOuter>
     )
