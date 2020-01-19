@@ -9,15 +9,16 @@ import { Formik } from 'formik'
 import * as Yup from "yup"
 import axios from "axios"
 import { AuthContext } from '../../contexts/AuthContext'
+import Stepper from '../../uiKit/Stepper'
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 36px 50px 100px 32px;
-  width: 40vw;
-  margin: 150px auto 0 auto;
+  padding: 37px 50px;
+  max-width: 487px;
+  margin: 0 auto 0;
   background-color: #ffffff;
   border-radius: 4px;
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
@@ -34,7 +35,7 @@ const TextFieldContainer = styled.div`
 `
 
 const ButtonContainer = styled.div`
-  margin: 28px 0px;
+  margin: 28px 0px 0px;
 `
 
 const Form = styled.form`
@@ -89,32 +90,35 @@ const CreateProfilePage = () => {
   }
 
   return (
-    <Container>
-      <Formik
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          address: "",
-          contactNumber: "",
-          investorType: ""
-        }}
-        validationSchema={ValidationSchema}
-        onSubmit={(values, {setSubmitting, setErrors, setStatus, resetForm}) => {
-          try {
-            setSubmitting(true);
-            createProfile(values.firstName, values.lastName, values.address, values.contactNumber, values.investorType)
-            resetForm()
-            setStatus({success: true})
-          } catch (error) {
-            setStatus({success: false})
-            setSubmitting(false)
-            setErrors({submit: error.message})
-          }
-        }}
-      >
-        {(props) => <CreateProfileForm {...props} />}
-      </Formik>
-    </Container>
+    <>
+      <Stepper inputSteps={['Sign Up', 'Create Profile', 'Submit Documents']}/>
+      <Container>
+        <Formik
+          initialValues={{
+            firstName: "",
+            lastName: "",
+            address: "",
+            contactNumber: "",
+            investorType: ""
+          }}
+          validationSchema={ValidationSchema}
+          onSubmit={(values, {setSubmitting, setErrors, setStatus, resetForm}) => {
+            try {
+              setSubmitting(true);
+              createProfile(values.firstName, values.lastName, values.address, values.contactNumber, values.investorType)
+              resetForm()
+              setStatus({success: true})
+            } catch (error) {
+              setStatus({success: false})
+              setSubmitting(false)
+              setErrors({submit: error.message})
+            }
+          }}
+        >
+          {(props) => <CreateProfileForm {...props} />}
+        </Formik>
+      </Container>
+    </>
   )
 }
 

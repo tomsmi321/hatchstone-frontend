@@ -8,6 +8,7 @@ import { Footer, DarkFooter } from 'uiKit/Footer'
 import { SimpleModal } from 'uiKit/Modal';
 import { ProgressBar } from 'uiKit/ProgressBar';
 import { SimpleSelect } from 'uiKit/SimpleSelect';
+import Stepper from 'uiKit/Stepper'
 import SubmitDocuments from './DocumentsUpload/SubmitDocuments';
 
 const Wrapper = styled.div`
@@ -29,6 +30,7 @@ const UIKit = () => {
       <PrimaryLink >PrimaryLink</PrimaryLink>
       <SecondaryLink underline="always">SecondaryLink</SecondaryLink>
       <TextField label="Input field"></TextField>
+      <Stepper inputSteps={['Sign Up', 'Create Profile', 'Submit Documents']}/>
       <TextArea placeholder="Type your message here..."/>
       <SimpleModal />
       <Footer />

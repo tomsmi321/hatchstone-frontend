@@ -4,17 +4,18 @@ import axios from 'axios'
 
 export const AuthContext = createContext();
 
+// calling this function as initial value for currentUser solves the initial empty user object bug on page changes/refreshes
+const getInitialCurrentUserState = () => {
+  let user = JSON.parse(localStorage.getItem('currentUser'))
+  if (!user) return {}
+  return user
+}
+
 const AuthContextProvider = ({ children }) => {
-  const [ currentUser, setCurrentUser ] = useState({})
+  const [ currentUser, setCurrentUser ] = useState(getInitialCurrentUserState())
   const [ currentUserProfile, setCurrentUserProfile ] = useState({})
   const history = useHistory()
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('currentUser'));
-    // console.log(`current user's profile: \n`, currentUserProfile)
-    console.log(`currentUser: \n`, user)
-    setCurrentUser(user);
-  }, [])
 
   const loginUser = async (email, password) => {
     console.log(`in AuthContext loginUser function`)
@@ -32,6 +33,7 @@ const AuthContextProvider = ({ children }) => {
           token: token
         }
         setCurrentUser(currentUserData)
+        console.log(currentUserData)
         // storing response data into a const first and passing the const to updating state function is to counter a race condition that's happening
         localStorage.setItem('currentUser', JSON.stringify(currentUserData))
         history.push(`/conversations/`)
@@ -45,11 +47,7 @@ const AuthContextProvider = ({ children }) => {
   const logout = async () => {
     console.log('in AuthContext logout function');
     localStorage.removeItem('currentUser');
-    setCurrentUser({
-        _id: null,
-        email: null,
-        token: null
-    })
+    setCurrentUser({})
     history.push(`/`)
   }
 

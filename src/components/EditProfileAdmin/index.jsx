@@ -9,21 +9,19 @@ import axios from '../../config/axiosConfig';
 import { UserContext } from '../../contexts/UserContext';
 
 const Wrapper = styled.div`
-    /* background-color: lightskyblue; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 33px 50px 100px 50px;
-    width: 40vw;
-    margin: 150px auto 0 auto;
-    background-color: #ffffff;
-    border-radius: 4px;
-    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 50px;
+  max-width: 487px;
+  margin: 150px auto 0 auto;
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
 `
 
 const WrapperHeader = styled.div`
-    /* background-color: lightcoral; */
     font-size: 16px;
     margin-bottom: 18px;
 `

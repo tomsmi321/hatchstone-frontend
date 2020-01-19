@@ -4,34 +4,35 @@ import styled from "styled-components";
 import { PrimaryButton } from "../../uiKit/Button";
 import Typography from "../../uiKit/Typography";
 import { PrimaryLink, SecondaryLink } from "../../uiKit/Link";
-import { UserProgressA } from "../../uiKit/UserProgress";
+import Stepper from '../../uiKit/Stepper'
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 70px 50px 100px 50px;
-  width: 40vw;
-  margin: 60px auto 0 auto;
+  padding: 37px 50px;
+  max-width: 487px;
+  margin: 0 auto 0;
   background-color: #ffffff;
   border-radius: 4px;
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
-`;
+`
+
 const UploadWrapper = styled.div`
   display: flex;
   /* justify-content: flex-start; */
   margin: 20px;
   flex-direction: column;
   align-items: flex-start;
-`;
+`
 
 const SubmitDocuments = (props) => {
 
   const profileId = props.match.params.id
   return (
     <>
-      <UserProgressA />
+      <Stepper inputSteps={['Sign Up', 'Create Profile', 'Submit Documents']}/>
       <Container>
         <h2>Upload Documents</h2>
         <p>Approved Identification</p>

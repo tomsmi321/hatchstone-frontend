@@ -6,7 +6,6 @@ import { PrimaryButton } from 'uiKit/Button'
 import { TextField } from 'uiKit/userInput/TextField'
 import { Formik } from 'formik'
 import * as Yup from "yup"
-import axios from "axios"
 import { AuthContext } from '../../contexts/AuthContext'
 
 const Container = styled.div`
@@ -14,8 +13,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 70px 50px 100px 50px;
-  width: 40vw;
+  padding: 70px 50px;
+  max-width: 487px;
   margin: 150px auto 0 auto;
   background-color: #ffffff;
   border-radius: 4px;
@@ -50,14 +49,9 @@ const ButtonContainer = styled.div`
 
 const ValidationSchema = Yup.object().shape({
   email: Yup.string()
-    .email("Must be an email address")
     .required("This field is required"),
   password: Yup.string()
     .required("This field is required")
-    .matches(
-      /^(?=.{8,})(?=.*[1-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[(!@#$%^&*()_+|~\- =\`{}[\]:”;'<>?,.\/, )])(?!.*(.)\1{2,}).+$/,
-      "Must contain 8 Characters, minimum 1 Number, 1 Special Case Character, 1 Uppercase Character"
-    )
 })
 
 const LogInPage = () => {
@@ -76,12 +70,6 @@ const LogInPage = () => {
           setSubmitting(true);
           loginUser(values.email, values.password)
           resetForm()
-
-          // setTimeout(() => {
-          //   alert(JSON.stringify(values, null, 2));
-          //   resetForm();
-          //   setSubmitting(false);
-          // }, 500);
         }}
       >
         {(props) => <LogInForm {...props} />}
@@ -112,10 +100,6 @@ const LogInForm = ({
     (() => validateForm())();
   }, []);
 
-  console.log(touched)
-  console.log(errors)
-  console.log(values)
-  console.log(isValid)
   return (
     <Form onSubmit={handleSubmit}>
 
