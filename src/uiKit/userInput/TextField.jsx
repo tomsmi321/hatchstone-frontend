@@ -34,7 +34,8 @@ export const TextField = ({ label, onChange, onBlur, name, touched, error, size,
       variant="outlined" 
       size={size}
       inputProps={inputProps}
-      InputLabelProps={InputLabelProps}/>
+      InputLabelProps={InputLabelProps}
+    />
     { touched && error && <ErrorMessage>{error}</ErrorMessage> }
   </>
 )

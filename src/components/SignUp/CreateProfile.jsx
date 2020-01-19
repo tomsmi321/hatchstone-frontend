@@ -10,6 +10,7 @@ import axios from "../../config/axiosConfig";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useDropzone } from "react-dropzone";
 import { UploadPictureField } from "../../uiKit/UploadPictureField";
+import Stepper from '../../uiKit/Stepper'
 
 const PageWrapper = styled.div`
   padding-bottom: 60px;
@@ -22,6 +23,7 @@ const Container = styled.div`
   flex-direction: column;
   padding: 36px 50px 55px 32px;
   width: 40vw;
+  max-width: 487px;
   margin: 60px auto 0 auto;
   background-color: #ffffff;
   border-radius: 4px;
@@ -39,8 +41,8 @@ const TextFieldContainer = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  margin: 28px 0px;
-`;
+  margin: 28px 0px 0px;
+`
 
 const Form = styled.form`
   display: flex;
@@ -95,6 +97,7 @@ const CreateProfilePage = () => {
 
   return (
     <PageWrapper>
+       <Stepper inputSteps={['Sign Up', 'Create Profile', 'Submit Documents']}/>
       <Container>
         <Formik
           initialValues={{

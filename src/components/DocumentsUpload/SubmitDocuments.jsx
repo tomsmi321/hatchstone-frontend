@@ -3,6 +3,10 @@ import { useHistory } from "react-router-dom";
 import FileUpload from "./UploadFile";
 import styled from "styled-components";
 import { PrimaryButton } from "../../uiKit/Button";
+import Typography from "../../uiKit/Typography";
+import { PrimaryLink, SecondaryLink } from "../../uiKit/Link";
+import Stepper from '../../uiKit/Stepper'
+
 import { PrimaryLink } from "../../uiKit/Link";
 import UserContextProvider from "../../contexts/UserContext";
 
@@ -41,16 +45,18 @@ const Container = styled.div`
   padding: 25px;
   width: 40vw;
   margin: 30px auto 0 auto;
+  max-width: 487px;
   background-color: #ffffff;
   border-radius: 4px;
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
-`;
+`
+
 const UploadWrapper = styled.div`
   display: flex;
   margin: 20px 20px;
   flex-direction: column;
   align-items: flex-start;
-`;
+`
 
 const SubmitDocuments = props => {
   const history = useHistory();
@@ -58,6 +64,7 @@ const SubmitDocuments = props => {
 
   return (
     <PageWrapper>
+      <Stepper inputSteps={['Sign Up', 'Create Profile', 'Submit Documents']}/>
       <Container>
         <Title>Submit your documents</Title>
         <UploadWrapper>

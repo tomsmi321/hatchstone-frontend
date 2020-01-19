@@ -5,6 +5,10 @@ import { PrimaryLink } from 'uiKit/Link'
 import { PrimaryButton } from 'uiKit/Button'
 import { TextField } from 'uiKit/userInput/TextField'
 import { Formik } from 'formik'
+<<<<<<< HEAD
+=======
+import * as Yup from "yup"
+>>>>>>> 5ad31c1db61d470e0b4be926b266fa653de4c448
 import { AuthContext } from '../../contexts/AuthContext'
 
 const Container = styled.div`
@@ -12,8 +16,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 70px 50px 100px 50px;
-  width: 40vw;
+  padding: 70px 50px;
+  max-width: 487px;
   margin: 150px auto 0 auto;
   background-color: #ffffff;
   border-radius: 4px;
@@ -46,6 +50,7 @@ const ButtonContainer = styled.div`
   margin: 28px 0px;
 `
 
+<<<<<<< HEAD
 // const ValidationSchema = Yup.object().shape({
 //   email: Yup.string()
 //     .email("Must be an email address")
@@ -57,6 +62,14 @@ const ButtonContainer = styled.div`
 //       "Must contain 8 Characters, minimum 1 Number, 1 Special Case Character, 1 Uppercase Character"
 //     )
 // })
+=======
+const ValidationSchema = Yup.object().shape({
+  email: Yup.string()
+    .required("This field is required"),
+  password: Yup.string()
+    .required("This field is required")
+})
+>>>>>>> 5ad31c1db61d470e0b4be926b266fa653de4c448
 
 const LogInPage = () => {
   const history = useHistory()
@@ -74,12 +87,6 @@ const LogInPage = () => {
           setSubmitting(true);
           loginUser(values.email, values.password)
           resetForm()
-
-          // setTimeout(() => {
-          //   alert(JSON.stringify(values, null, 2));
-          //   resetForm();
-          //   setSubmitting(false);
-          // }, 500);
         }}
       >
         {(props) => <LogInForm {...props} />}
@@ -108,10 +115,13 @@ const LogInForm = ({
 }) => {
   
 
+<<<<<<< HEAD
   // console.log(touched)
   // console.log(errors)
   // console.log(values)
   // console.log(isValid)
+=======
+>>>>>>> 5ad31c1db61d470e0b4be926b266fa653de4c448
   return (
     <Form onSubmit={handleSubmit}>
 

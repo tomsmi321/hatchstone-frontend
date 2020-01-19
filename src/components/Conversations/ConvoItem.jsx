@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { AccountCircle } from 'uiKit/Icon'
 
@@ -61,23 +61,61 @@ const WrapperConvoTime = styled.div`
     height: max-content;
 `
 
-const ConvoItem = () => {
+const ConvoItem = ({ userConvo, admin, getCurrentMessages }) => {
+    const [ convoPartner, setConvoPartner ] = useState({});
+    const [ convoSnippet, setConvoSnippet ] = useState(null);
+    const [ convoLastMessageTime, setConvoLastMessageTime ] = useState(null);
+
+    const getConvoPartner = (admin) => {
+        const partnerIndex = admin ? 0 : 1;
+        const convoPartner = userConvo.participants[partnerIndex];
+        return convoPartner
+    }
+
+    const getConvoSnippet = (convo) => {
+        const messages = convo.messages;
+        const lastMessage = messages[messages.length - 1];
+        const convoSnippetResult = lastMessage.content;
+        return convoSnippetResult;
+    }
+
+    const getConvoLastMessageTime = (convo) => {
+        const messages = convo.messages;
+        const lastMessage = messages[messages.length - 1];
+        const { dateCreated } = lastMessage;
+        const date = new Date(dateCreated)
+        return `${date.getHours()}:${date.getMinutes()}`;
+    }
+
+    const handleDisplayMessages = () => {
+        const convoId = userConvo._id;
+        const convoPartnerName = `${convoPartner.firstName} ${convoPartner.lastName}`
+        getCurrentMessages(convoId, convoPartnerName);
+    }
+
+    useEffect(() => {
+        setConvoPartner( getConvoPartner(admin) )
+        setConvoSnippet( getConvoSnippet(userConvo) );
+        setConvoLastMessageTime( getConvoLastMessageTime(userConvo) )
+    }, [])
+
+
     return (
-        <WrapperOuter>
+        <WrapperOuter onClick={handleDisplayMessages}>
             <WrapperInner>
                 <WrapperAccountCircleIcon>
                     <AccountCircleIcon />
                 </WrapperAccountCircleIcon>
                 <WrapperConvoContent>
                     <WrapperConvoPartner>
-                        Ashley Thompson
+                        {`${convoPartner.firstName} ${convoPartner.lastName}`}
                     </WrapperConvoPartner>
                     <WrapperConvoSnippet>
-                        If required then I can have them to you end of ....
+                        {convoSnippet}
                     </WrapperConvoSnippet>
                 </WrapperConvoContent>
                 <WrapperConvoTime>
-                        4:37pm
+                        {convoLastMessageTime}
                 </WrapperConvoTime>
             </WrapperInner>
         </WrapperOuter>
