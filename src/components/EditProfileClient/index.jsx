@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { TextField } from "../../uiKit/userInput/TextField";
 import { PrimaryButton } from "../../uiKit/Button";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import DocumentField from "./DocumentField";
 import { SelectInvestorType } from "../../uiKit/userInput/SelectInvestorType";
+import { UserContext } from "../../contexts/UserContext";
 
 const Wrapper = styled.div`
   /* background-color: lightsteelblue; */
@@ -69,7 +70,7 @@ const WrapperTextFieldLower = styled.div`
   width: 26.5vw;
 `;
 
-const WrapperDocsFieldsOutter = styled.div`
+const WrapperDocsFieldsOuter = styled.div`
   /* background-color: lightcoral; */
   display: flex;
   justify-content: space-between;
@@ -83,7 +84,51 @@ const WrapperUpdateButton = styled.div`
   justify-content: flex-end;
 `;
 
-const EditProfileClientPage = () => {
+const WrapperClientDocsFieldsInner = styled.div`
+  /* background-color: green; */
+  width: 27vw;
+`;
+
+const WrapperClientDocsField = styled.div`
+  /* background-color: honeydew; */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+`;
+const WrapperClientDocsFieldDesc = styled.div`
+  /* background-color: darkslateblue; */
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+`;
+
+
+const ClientDocField = ({ docType, docFileName, uri }) => {
+  return (
+    <WrapperClientDocsField>
+      <WrapperClientDocsFieldDesc>{docType}</WrapperClientDocsFieldDesc>
+    
+    </WrapperClientDocsField>
+  );
+};
+
+const EditProfileClientPage = props => {
+  const { currentUserProfile } = useContext(UserContext);
+  console.log(currentUserProfile);
+  const {
+    documents,
+    firstName,
+    lastName,
+    email,
+    address,
+    investorType,
+    profileImage,
+    phone,
+    userId
+  } = currentUserProfile;
+  console.log(documents);
+  // const userId = profileDetails._id
+  // const documents = profileDetails.documents
   const imageSrc = "https://devilsworkshop.org/wp-content/uploads/sites/8/2013/01/small-facebook-profile-picture.jpg";
   return (
     <Wrapper>
@@ -96,7 +141,8 @@ const EditProfileClientPage = () => {
       <WrapperProfileDetailsUppper>
         <WrapperTextFieldUpper>
           <TextField
-            // having difficulty styling this without using inline styles
+            key={firstName}
+            defaultValue={firstName}
             size={"small"}
             inputProps={{ style: { fontSize: 14 } }}
             InputLabelProps={{ style: { fontSize: 14 } }}
@@ -108,6 +154,8 @@ const EditProfileClientPage = () => {
         <WrapperTextFieldUpper>
           <TextField
             // having difficulty styling this without using inline styles
+            key={lastName}
+            defaultValue={lastName}
             size={"small"}
             inputProps={{ style: { fontSize: 14 } }}
             InputLabelProps={{ style: { fontSize: 14 } }}
@@ -124,6 +172,8 @@ const EditProfileClientPage = () => {
         <WrapperTextFieldLower>
           <TextField
             // having difficulty styling this without using inline styles
+            key={address}
+            defaultValue={address}
             size={"small"}
             inputProps={{ style: { fontSize: 14 } }}
             InputLabelProps={{ style: { fontSize: 14 } }}
@@ -135,6 +185,8 @@ const EditProfileClientPage = () => {
         <WrapperTextFieldLower>
           <TextField
             // having difficulty styling this without using inline styles
+            key={phone}
+            defaultValue={phone}
             size={"small"}
             inputProps={{ style: { fontSize: 14 } }}
             InputLabelProps={{ style: { fontSize: 14 } }}
@@ -144,11 +196,22 @@ const EditProfileClientPage = () => {
           />
         </WrapperTextFieldLower>
       </WrapperProfileDetailsLower>
-      <WrapperDocsFieldsOutter>
-        <DocumentField />
-        <DocumentField />
-        <DocumentField />
-      </WrapperDocsFieldsOutter>
+      <WrapperDocsFieldsOuter>
+       
+          {documents &&
+            documents.map((document, i) => (
+              <DocumentField key={i} document={document}/>
+              //  <ClientDocField
+              //   docType={document.name}
+              //   docFileName={document.fileName}
+              //   key={i}
+              //   userId={userId}
+              //   uri={document.url}
+              // />
+              // </DocumentField>
+            ))}
+
+      </WrapperDocsFieldsOuter>
       <WrapperUpdateButton>
         <PrimaryButton>Update</PrimaryButton>
       </WrapperUpdateButton>

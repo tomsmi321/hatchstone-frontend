@@ -102,8 +102,7 @@ const WrapperNoDocs = styled.div`
   border-radius: 4px;
 `;
 
-const ClientDocField = ({ docType, docFileName, userId, uri }) => {
-  //   const image = "https://mern-project-images.s3.amazonaws.com/approved%20identification_5e205aef37488ca20ca84e08";
+const ClientDocField = ({ docType, docFileName, uri }) => {
 
   const downloadDoc = () => {
     axios({
@@ -165,6 +164,7 @@ const ClientDocsTable = props => {
   };
 
   
+
 
   return (
     <Wrapper>
