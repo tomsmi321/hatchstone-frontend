@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components';
 import NewMessage from './NewMessage';
 import MessageItem from './MessageItem';
@@ -8,7 +8,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 90vh;
+    height: 87vh;
     width: 60vw;
     overflow: scroll;
 `
@@ -24,7 +24,15 @@ const WrapperMessageItems = styled.div`
     /* background-color: darkslateblue; */
 `
 
-const MessagesTable = ({ currentMessages, currentUserId, currentConvoPartner }) => {
+const MessagesTable = ({ currentMessages, currentMessagesLength, getCurrentMessages, currentUserId, currentConvoPartner, createNewMessage, currentUserProfileId, currentConvoId }) => {
+
+    useEffect(() => {
+        console.log('message table use effect');
+        getCurrentMessages(currentConvoId);
+    }, [currentMessagesLength])
+
+    // console.log('current messages length from current messages obj ', currentMessages.length);
+    // console.log('currentMessages length', currentMessagesLength);
     return (
         <Wrapper>
             <WrapperMessageItems>
@@ -44,7 +52,14 @@ const MessagesTable = ({ currentMessages, currentUserId, currentConvoPartner }) 
                 {/* align right should be set to true if the message is from the current user */}
                 {/* <MessageItem alignRight={true}/> */}
             </WrapperMessageItems>
-            <NewMessage />
+            <NewMessage 
+                createNewMessage={createNewMessage}
+                getCurrentMessages={getCurrentMessages} 
+                currentUserId={currentUserId}
+                currentUserProfileId={currentUserProfileId}
+                currentConvoId={currentConvoId}
+                currentMessagesLength={currentMessagesLength}
+            />
         </Wrapper>
     )
 }

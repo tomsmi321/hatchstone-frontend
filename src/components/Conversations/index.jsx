@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, Children } from 'react'
 import styled from 'styled-components';
 import ConversationsTable from './ConversationsTable';
 import MessagesTable from './MessagesTable';
@@ -14,13 +14,20 @@ const Wrapper = styled.div`
 `
 
 const ConversationsPage = (props) => {
+    // context
     const { currentUserProfile } = useContext(UserContext);
+    // profile attributes of currentUser
     const { approved, firstName } = currentUserProfile;
+    // approved / in-review modal states
     const [ showModal, setShowModal ] = useState(true);
+    // conversation and message states
     const [ userConvos, setUserConvos ] = useState([]);
-    const [ currentMessages, setCurrentMessages ] = useState([]);
     const [ currentConvoPartner, setCurrentConvoPartner ] = useState(null);
+    const [ currentMessages, setCurrentMessages ] = useState([]);
+    const [ currentMessagesLength, setCurrentMessagesLength ] = useState(0);
+    const [ currentConvoId, setCurrentConvoId ] = useState(null);
    
+
     const handModalClose = () => {
         setShowModal(false);
     }
@@ -41,11 +48,34 @@ const ConversationsPage = (props) => {
     const getCurrentMessages = async (convoId, name) => {
         console.log('in getCurrentMessages - convo index');
         try {
+            // get current messages is returning prior to create new message 
             const result = await axios.get(`/messages/findByConversation/${convoId}`);
             console.log(result.data);
             if(result.data) {
                 setCurrentMessages(result.data);
-                setCurrentConvoPartner(name);    
+                setCurrentConvoId(convoId);
+                setCurrentConvoPartner(name);  
+                setCurrentMessagesLength(result.data.length)
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+
+    // could set some state in here like a count then pass that down and listen for change
+    // currentMessages length + 1 
+    const createNewMessage = async (content, userId, profileId, convoId) => {
+        try {
+            const response = await axios.post('/messages', {
+                author: userId,
+                profileId: profileId,
+                conversationId: convoId,
+                content: content
+            })
+            if(response) {
+                console.log('in create new message');
+                setCurrentMessagesLength(currentMessagesLength + 1); 
             }
         } catch(err) {
             console.log(err);
@@ -59,8 +89,7 @@ const ConversationsPage = (props) => {
         getUserConvos(userId);
     }, [])
 
-
-    console.log('in convo page render', userConvos);
+    console.log('length in render', currentMessagesLength);
     return (
         <Wrapper>
             {/* remove below, for testing UserContext only */}
@@ -81,10 +110,14 @@ const ConversationsPage = (props) => {
                             getCurrentMessages={getCurrentMessages}
                         />
                         <MessagesTable 
-                            admin={currentUserProfile.userId.admin}
                             currentUserId={currentUserProfile.userId._id}
+                            currentUserProfileId={currentUserProfile._id}
+                            getCurrentMessages={getCurrentMessages} 
                             currentMessages={currentMessages}
+                            currentMessagesLength={currentMessagesLength}
                             currentConvoPartner={currentConvoPartner}
+                            createNewMessage={createNewMessage}
+                            currentConvoId={currentConvoId}
                         />
                     </>
                 ) : <LoadSpinner topMargin='38vh'/>

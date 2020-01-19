@@ -44,6 +44,7 @@ const WrapperConvoItems = styled.div`
 
 const ConversationsTable = ({ userConvos, admin, getCurrentMessages }) => {
 
+    console.log('in coversations table', userConvos);
     return (
         <WrapperOuter>
             <WrapperInner>
@@ -51,7 +52,7 @@ const ConversationsTable = ({ userConvos, admin, getCurrentMessages }) => {
                     <SearchField placeholder="Search your conversations" />
                 </WrapperSearchField>
                 <WrapperConvoItems>
-                    {userConvos.map((userConvo, index) => {
+                    {userConvos.length ? userConvos.map((userConvo, index) => {
                         return (
                             <ConvoItem 
                                 key={index} 
@@ -60,7 +61,7 @@ const ConversationsTable = ({ userConvos, admin, getCurrentMessages }) => {
                                 getCurrentMessages={getCurrentMessages}
                             />
                         )
-                    })}
+                    }): null}
                 </WrapperConvoItems>
             </WrapperInner>
         </WrapperOuter>
