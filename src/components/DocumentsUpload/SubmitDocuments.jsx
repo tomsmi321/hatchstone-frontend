@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { PrimaryButton } from "../../uiKit/Button";
 import Typography from "../../uiKit/Typography";
 import { PrimaryLink, SecondaryLink } from "../../uiKit/Link";
-import { UserProgressA } from "./UserProgress";
+import Stepper from '../../uiKit/Stepper'
 
 const Container = styled.div`
   display: flex;
@@ -31,7 +31,7 @@ const SubmitDocuments = (props) => {
   const profileId = props.match.params.id
   return (
     <>
-      <UserProgressA />
+      <Stepper inputSteps={['Sign Up', 'Create Profile', 'Submit Documents']}/>
       <Container>
         <h2>Upload Documents</h2>
         <p>Approved Identification</p>

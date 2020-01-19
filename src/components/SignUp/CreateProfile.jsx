@@ -9,6 +9,7 @@ import { Formik } from 'formik'
 import * as Yup from "yup"
 import axios from "axios"
 import { AuthContext } from '../../contexts/AuthContext'
+import Stepper from '../../uiKit/Stepper'
 
 const Container = styled.div`
   display: flex;
@@ -89,32 +90,35 @@ const CreateProfilePage = () => {
   }
 
   return (
-    <Container>
-      <Formik
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          address: "",
-          contactNumber: "",
-          investorType: ""
-        }}
-        validationSchema={ValidationSchema}
-        onSubmit={(values, {setSubmitting, setErrors, setStatus, resetForm}) => {
-          try {
-            setSubmitting(true);
-            createProfile(values.firstName, values.lastName, values.address, values.contactNumber, values.investorType)
-            resetForm()
-            setStatus({success: true})
-          } catch (error) {
-            setStatus({success: false})
-            setSubmitting(false)
-            setErrors({submit: error.message})
-          }
-        }}
-      >
-        {(props) => <CreateProfileForm {...props} />}
-      </Formik>
-    </Container>
+    <>
+      <Stepper inputSteps={['Sign Up', 'Create Profile', 'Submit Documents']}/>
+      <Container>
+        <Formik
+          initialValues={{
+            firstName: "",
+            lastName: "",
+            address: "",
+            contactNumber: "",
+            investorType: ""
+          }}
+          validationSchema={ValidationSchema}
+          onSubmit={(values, {setSubmitting, setErrors, setStatus, resetForm}) => {
+            try {
+              setSubmitting(true);
+              createProfile(values.firstName, values.lastName, values.address, values.contactNumber, values.investorType)
+              resetForm()
+              setStatus({success: true})
+            } catch (error) {
+              setStatus({success: false})
+              setSubmitting(false)
+              setErrors({submit: error.message})
+            }
+          }}
+        >
+          {(props) => <CreateProfileForm {...props} />}
+        </Formik>
+      </Container>
+    </>
   )
 }
 
