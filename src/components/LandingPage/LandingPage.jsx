@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Background, BackgroundOverlay } from './Background';
 import { DarkFooter } from 'uiKit/Footer'
 import NavBar from 'uiKit/navbars/LandingPageNav'
+// import { currentUser } from '../../contexts/AuthContext'
 
 const Heading = styled.h1`
   font-family: Lato;

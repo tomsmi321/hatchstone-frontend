@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 import { PrimaryLink } from 'uiKit/Link'
@@ -56,7 +56,7 @@ const ValidationSchema = Yup.object().shape({
 
 const LogInPage = () => {
   const history = useHistory()
-  const { isAuthenticated, currentUser, loginUser } = useContext(AuthContext)
+  const { loginUser } = useContext(AuthContext)
   
   return (
     <Container>
@@ -65,7 +65,7 @@ const LogInPage = () => {
           email: "",
           password: ""
         }}
-        validationSchema={ValidationSchema}
+        // validationSchema={ValidationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
           loginUser(values.email, values.password)
@@ -94,11 +94,9 @@ const LogInForm = ({
   handleSubmit,
   isSubmitting,
   isValid,
-  validateForm
+  // validateForm
 }) => {
-  useEffect(() => {
-    (() => validateForm())();
-  }, []);
+  
 
   return (
     <Form onSubmit={handleSubmit}>

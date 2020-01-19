@@ -1,19 +1,57 @@
 import React from "react";
 import "react-dropzone-uploader/dist/styles.css";
 import Dropzone from "react-dropzone-uploader";
-import styled from 'styled-components';
-import Typography from '../../uiKit/Typography';
-import { createBrowserHistory } from 'history';
-
-const history = createBrowserHistory();
+import styled from "styled-components";
+import CloseIcon from '@material-ui/icons/Close';
 
 
+const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { maxFiles } }) => {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+      {previews}
 
+      <div {...dropzoneProps}>{files.length < maxFiles && input}</div>
+
+      {files.length > 0 && submitButton}
+    </div>
+  );
+};
+
+
+const Preview = ({ meta }) => {
+  const { name, percent, status } = meta;
+  return (
+    <span
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        alignSelf: "flex-start",
+        marginBottom: "10px",
+        fontFamily: "Lato",
+        background: "#E8EAF6",
+        padding: "10px 20px",
+        width: "95%",
+        borderRadius: "4px"
+      }}
+    >
+      {name} <CloseIcon/>
+    </span>
+  );
+};
 
 const FileUpload = params => {
   const documentId = params.documentId;
   const profileId = params.profileId;
-  
+  console.log(profileId);
+
+  const PreviewComponent = () => {
+    return (
+      <div>
+        <p>{documentId}</p>
+      </div>
+    );
+  };
 
   // specify upload params and url for your files
   const getUploadParams = async ({ file, meta }) => {
@@ -27,31 +65,69 @@ const FileUpload = params => {
   // called every time a file's `status` changes
   const handleChangeStatus = ({ meta, file }, status) => {
     console.log(status, meta, file);
-    if(status === 'done'){
-      console.log("success")
+    if (status === "done") {
+      console.log("success");
     }
   };
 
   // receives array of files that are done uploading when submit button is clicked
-  // const handleSubmit = (files, allFiles) => {
-  //   console.log(files.map(f => f.meta));
-  //   allFiles.forEach(f => f.remove());
-  // };
+  const handleSubmit = (files, allFiles) => {
+    console.log(files.map(f => f.meta));
+    allFiles.forEach(f => f.remove());
+  };
 
   return (
-    <Dropzone
-      label={documentId}
-      className="dzu-dropzone"
-      styles={{ dropzone: { minHeight: 80, maxHeight: 200, border: "dashed 1px", overflow: "visible" } }}
-      inputlabel={`Upload ${documentId}`}
-      getUploadParams={getUploadParams}
-      onChangeStatus={handleChangeStatus}
-      // onSubmit={handleSubmit}
-      accept="image/*"
-      multiple={true}
-      maxFiles={3}
-      // PreviewComponent="blag"
-    />
+    <>
+      <Dropzone
+        label={documentId}
+        className="dzu-dropzone"
+        LayoutComponent={Layout}
+        styles={{
+          dropzone: {
+            minHeight: 40,
+            maxHeight: 200,
+            border: "none",
+            overflow: "visible",
+            // padding: "5px",
+            width: "398px"
+          },
+          inputLabel: {
+            borderRadius: "4px",
+            color: "black",
+            fontSize: "16px",
+            fontWeight: "normal",
+            fontFamily: "Lato",
+            border: "1px dashed #1A237E",
+            background: "white",
+            padding: "1px",
+            fontSize: "16px",
+            width: "388px",
+            maxWidth: "388px"
+          },
+          inputLabelWithFiles: {
+            justifySelf: "flex-start",
+            alignSelf: "flex-end",
+            justifyContent: "flex-end",
+            color: "#326FBB",
+            fontWeight: "normal",
+            background: "none",
+            textDecoration: "underline",
+            padding: "0px",
+            fontFamily: "Lato",
+            margin: "0px",
+            marginRight: "20px"
+          }
+        }}
+        inputLabel={`Upload ${documentId}`}
+        getUploadParams={getUploadParams}
+        onChangeStatus={handleChangeStatus}
+        accept="image/*"
+        multiple={true}
+        maxFiles={5}
+        PreviewComponent={Preview}
+        canRemove={true}
+      />
+    </>
   );
 };
 

@@ -32,4 +32,3 @@ export const UploadPictureField = ({onClick, type, label, name}) => {
         </UploadPictureContainer>
     )
 }
-

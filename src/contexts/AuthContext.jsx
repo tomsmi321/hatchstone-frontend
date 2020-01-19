@@ -17,6 +17,8 @@ const AuthContextProvider = ({ children }) => {
   const history = useHistory()
 
 
+  
+
   const loginUser = async (email, password) => {
     console.log(`in AuthContext loginUser function`)
     try {

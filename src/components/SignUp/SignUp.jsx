@@ -6,7 +6,6 @@ import { PrimaryButton } from 'uiKit/Button'
 import { TextField } from 'uiKit/userInput/TextField'
 import { Formik } from 'formik'
 import * as Yup from "yup"
-import axios from "axios"
 import { AuthContext } from '../../contexts/AuthContext'
 
 const Container = styled.div`
@@ -100,8 +99,6 @@ const SignUpPage = () => {
     </Container>
   )
 }
-
-
 
 const SignUpForm = ({
   values,

@@ -8,6 +8,7 @@ import { Footer, DarkFooter } from 'uiKit/Footer'
 import { SimpleModal } from 'uiKit/Modal';
 import { ProgressBar } from 'uiKit/ProgressBar';
 import { SimpleSelect } from 'uiKit/SimpleSelect';
+
 import Stepper from 'uiKit/Stepper'
 import SubmitDocuments from './DocumentsUpload/SubmitDocuments';
 
