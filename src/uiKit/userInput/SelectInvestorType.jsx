@@ -47,6 +47,7 @@ export const SelectInvestorType = ({ name, onChange, value, error }) => {
           Type of Investor
         </InputLabel>
         <StyledSelect
+          defaultValue={value}
           name={name}
           value={value}
           onChange={onChange}

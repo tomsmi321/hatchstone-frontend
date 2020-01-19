@@ -7,6 +7,10 @@ import DocumentField from "./DocumentField";
 import { SelectInvestorType } from "../../uiKit/userInput/SelectInvestorType";
 import { UserContext } from "../../contexts/UserContext";
 
+const PageWrapper = styled.div`
+  padding-bottom: 70px;
+`;
+
 const Wrapper = styled.div`
   /* background-color: lightsteelblue; */
   margin: 4.55vh auto 0vh auto;
@@ -84,11 +88,6 @@ const WrapperUpdateButton = styled.div`
   justify-content: flex-end;
 `;
 
-const WrapperClientDocsFieldsInner = styled.div`
-  /* background-color: green; */
-  width: 27vw;
-`;
-
 const WrapperClientDocsField = styled.div`
   /* background-color: honeydew; */
   display: flex;
@@ -102,12 +101,10 @@ const WrapperClientDocsFieldDesc = styled.div`
   margin-bottom: 8px;
 `;
 
-
 const ClientDocField = ({ docType, docFileName, uri }) => {
   return (
     <WrapperClientDocsField>
       <WrapperClientDocsFieldDesc>{docType}</WrapperClientDocsFieldDesc>
-    
     </WrapperClientDocsField>
   );
 };
@@ -131,91 +128,83 @@ const EditProfileClientPage = props => {
   // const documents = profileDetails.documents
   const imageSrc = "https://devilsworkshop.org/wp-content/uploads/sites/8/2013/01/small-facebook-profile-picture.jpg";
   return (
-    <Wrapper>
-      <WrapperProfilePic>
-        <ProfileImage imageSrc={imageSrc}>
-          <StyledPhotoCameraIcon />
-          <ProfileImageChangePicText>Change image</ProfileImageChangePicText>
-        </ProfileImage>
-      </WrapperProfilePic>
-      <WrapperProfileDetailsUppper>
-        <WrapperTextFieldUpper>
-          <TextField
-            key={firstName}
-            defaultValue={firstName}
-            size={"small"}
-            inputProps={{ style: { fontSize: 14 } }}
-            InputLabelProps={{ style: { fontSize: 14 } }}
-            label="First name"
-            type="text"
-            name="firstName"
-          />
-        </WrapperTextFieldUpper>
-        <WrapperTextFieldUpper>
-          <TextField
-            // having difficulty styling this without using inline styles
-            key={lastName}
-            defaultValue={lastName}
-            size={"small"}
-            inputProps={{ style: { fontSize: 14 } }}
-            InputLabelProps={{ style: { fontSize: 14 } }}
-            label="Last name"
-            type="text"
-            name="lastName"
-          />
-        </WrapperTextFieldUpper>
-        <WrapperTextFieldUpper>
-          <SelectInvestorType />
-        </WrapperTextFieldUpper>
-      </WrapperProfileDetailsUppper>
-      <WrapperProfileDetailsLower>
-        <WrapperTextFieldLower>
-          <TextField
-            // having difficulty styling this without using inline styles
-            key={address}
-            defaultValue={address}
-            size={"small"}
-            inputProps={{ style: { fontSize: 14 } }}
-            InputLabelProps={{ style: { fontSize: 14 } }}
-            label="Address"
-            type="text"
-            name="address"
-          />
-        </WrapperTextFieldLower>
-        <WrapperTextFieldLower>
-          <TextField
-            // having difficulty styling this without using inline styles
-            key={phone}
-            defaultValue={phone}
-            size={"small"}
-            inputProps={{ style: { fontSize: 14 } }}
-            InputLabelProps={{ style: { fontSize: 14 } }}
-            label="Contact Number"
-            type="text"
-            name="phone"
-          />
-        </WrapperTextFieldLower>
-      </WrapperProfileDetailsLower>
-      <WrapperDocsFieldsOuter>
-       
+    <PageWrapper>
+      <Wrapper>
+        <WrapperProfilePic>
+          <ProfileImage imageSrc={imageSrc}>
+            <StyledPhotoCameraIcon />
+            <ProfileImageChangePicText>Change image</ProfileImageChangePicText>
+          </ProfileImage>
+        </WrapperProfilePic>
+        <WrapperProfileDetailsUppper>
+          <WrapperTextFieldUpper>
+            <TextField
+              key={firstName}
+              defaultValue={firstName}
+              size={"small"}
+              inputProps={{ style: { fontSize: 14 } }}
+              InputLabelProps={{ style: { fontSize: 14 } }}
+              label="First name"
+              type="text"
+              name="firstName"
+            />
+          </WrapperTextFieldUpper>
+          <WrapperTextFieldUpper>
+            <TextField
+              // having difficulty styling this without using inline styles
+              key={lastName}
+              defaultValue={lastName}
+              size={"small"}
+              inputProps={{ style: { fontSize: 14 } }}
+              InputLabelProps={{ style: { fontSize: 14 } }}
+              label="Last name"
+              type="text"
+              name="lastName"
+            />
+          </WrapperTextFieldUpper>
+          <WrapperTextFieldUpper>
+            <SelectInvestorType />
+          </WrapperTextFieldUpper>
+        </WrapperProfileDetailsUppper>
+        <WrapperProfileDetailsLower>
+          <WrapperTextFieldLower>
+            <TextField
+              // having difficulty styling this without using inline styles
+              key={address}
+              defaultValue={address}
+              size={"small"}
+              inputProps={{ style: { fontSize: 14 } }}
+              InputLabelProps={{ style: { fontSize: 14 } }}
+              label="Address"
+              type="text"
+              name="address"
+            />
+          </WrapperTextFieldLower>
+          <WrapperTextFieldLower>
+            <TextField
+              // having difficulty styling this without using inline styles
+              key={phone}
+              defaultValue={phone}
+              size={"small"}
+              inputProps={{ style: { fontSize: 14 } }}
+              InputLabelProps={{ style: { fontSize: 14 } }}
+              label="Contact Number"
+              type="text"
+              name="phone"
+            />
+          </WrapperTextFieldLower>
+        </WrapperProfileDetailsLower>
+        <WrapperDocsFieldsOuter>
           {documents &&
             documents.map((document, i) => (
-              <DocumentField key={i} document={document}/>
-              //  <ClientDocField
-              //   docType={document.name}
-              //   docFileName={document.fileName}
-              //   key={i}
-              //   userId={userId}
-              //   uri={document.url}
-              // />
-              // </DocumentField>
+              <DocumentField key={i} document={document} profileId={currentUserProfile._id} />
             ))}
-
-      </WrapperDocsFieldsOuter>
-      <WrapperUpdateButton>
-        <PrimaryButton>Update</PrimaryButton>
-      </WrapperUpdateButton>
-    </Wrapper>
+        </WrapperDocsFieldsOuter>
+        <WrapperUpdateButton>
+          <PrimaryButton>Update</PrimaryButton>
+        </WrapperUpdateButton>
+      </Wrapper>
+    </PageWrapper>
   );
 };
 

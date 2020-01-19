@@ -1,6 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import CloseIcon from "@material-ui/icons/Close";
+import axios from "../../config/axiosConfig";
+import userContext from '../../contexts/UserContext'
+
+
 
 const Wrapper = styled.div`
   /* background-color: lightgrey; */
@@ -11,6 +15,7 @@ const Wrapper = styled.div`
 const WrapperDocFieldHeader = styled.div`
   /* background-color: royalblue; */
   font-size: 14px;
+  margin-bottom: 5px;
 `;
 
 const WrapperDocFieldDropZone = styled.div`
@@ -33,7 +38,7 @@ const WrapperClientDocFieldDownloadField = styled.div`
   justify-content: space-between;
   align-items: center;
   border-radius: 4px;
-  height: 4vh;
+  height: 6vh;
   padding: 12px 25px;
   font-size: 14px;
   &:hover {
@@ -41,20 +46,40 @@ const WrapperClientDocFieldDownloadField = styled.div`
   }
 `;
 
-const DocumentField = ({ document }) => {
-  return (
-    <Wrapper>
-      <WrapperDocFieldHeader>{document.name}</WrapperDocFieldHeader>
-      <WrapperClientDocFieldDownloadField>
-        <a href={document.url} target="_blank" rel="noopener noreferrer" download={document.fileName}>
-          {" "}
-          {document.fileName}
-        </a>
-        <CloseIcon />
-      </WrapperClientDocFieldDownloadField>
+const DocumentField = ({ document, profileId }) => {
 
-      <WrapperDocFieldFooter>Add another file</WrapperDocFieldFooter>
-    </Wrapper>
+useEffect(() => {
+
+},[document])
+
+  const deleteDocument = async () => {
+    const docFileName = document.fileName;
+    const id = profileId;
+    console.log(docFileName);
+    const response = await axios.post(`/profiles/${id}/delete-document`, { docFileName });
+    console.log(response)
+  };
+  return (
+
+      <Wrapper>
+        <WrapperDocFieldHeader>{document.name}</WrapperDocFieldHeader>
+        <WrapperClientDocFieldDownloadField>
+          <a
+            href={document.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            download={document.fileName}
+            profileId={profileId}
+          >
+            {" "}
+            {document.fileName}
+          </a>
+          <CloseIcon onClick={deleteDocument} />
+        </WrapperClientDocFieldDownloadField>
+
+        <WrapperDocFieldFooter>Add another file</WrapperDocFieldFooter>
+      </Wrapper>
+   
   );
 };
 
