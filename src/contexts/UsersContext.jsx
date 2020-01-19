@@ -5,7 +5,7 @@ import axios from '../config/axiosConfig';
 // create the context object
 export const UsersContext = createContext({})
 
-// create context provider
+// Anything in here should relate to other users (users other than the currentUser)
 class UsersContextProvider extends Component {
     // set some inital state for users
     state = {
@@ -60,7 +60,7 @@ class UsersContextProvider extends Component {
         }
     }
 
-    // used in the client details page. Fetches one profile by userId
+    // Fetches one profile by userId
     getProfileDetails = async (userId) => {
         try {
             console.log(userId);

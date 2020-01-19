@@ -4,6 +4,7 @@ import axios from '../config/axiosConfig';
 
 export const UserContext = createContext({});
 
+// Anything in here should only relate to the currentUser
 const UserContextProvider = ({ children }) => {
     const { currentUser } = useContext(AuthContext);
     const [currentUserProfile, setCurrentUserProfile] = useState({});
