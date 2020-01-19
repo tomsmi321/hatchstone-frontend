@@ -16,6 +16,8 @@ const AuthContextProvider = ({ children }) => {
     setCurrentUser(user);
   }, [])
 
+  
+
   const loginUser = async (email, password) => {
     console.log(`in AuthContext loginUser function`)
     try {

@@ -1,14 +1,17 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import styled from 'styled-components'
-import { PrimaryButton } from 'uiKit/Button'
-import { TextField } from 'uiKit/userInput/TextField'
-import { UploadPictureField } from 'uiKit/UploadPictureField';
-import { SelectInvestorType } from 'uiKit/userInput/SelectInvestorType'
-import { Formik } from 'formik'
-import * as Yup from "yup"
-import axios from "axios"
-import { AuthContext } from '../../contexts/AuthContext'
+import styled from "styled-components";
+import { PrimaryButton, TertiaryButton } from "uiKit/Button";
+import { TextField } from "uiKit/userInput/TextField";
+import { UploadPictureField } from "uiKit/UploadPictureField";
+import { SelectInvestorType } from "uiKit/userInput/SelectInvestorType";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import axios from '../../config/axiosConfig';
+import { AuthContext } from "../../contexts/AuthContext";
+// import SubmitDocuments from "../DocumentsUpload/SubmitDocuments";
+import { Input } from "@material-ui/core";
+import UploadProfileImage from '../DocumentsUpload/UploadProfileImage'
 
 const Container = styled.div`
   display: flex;
@@ -21,21 +24,21 @@ const Container = styled.div`
   background-color: #ffffff;
   border-radius: 4px;
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
-`
+`;
 
 const Title = styled.div`
   font-size: 16px;
   margin-bottom: 12px;
-`
+`;
 
 const TextFieldContainer = styled.div`
   margin: 16px 0;
   width: 100%;
-`
+`;
 
 const ButtonContainer = styled.div`
   margin: 28px 0px;
-`
+`;
 
 const Form = styled.form`
   display: flex;
@@ -43,7 +46,7 @@ const Form = styled.form`
   justify-content: center;
   flex-direction: column;
   width: 100%;
-`
+`;
 
 const ValidationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -52,24 +55,23 @@ const ValidationSchema = Yup.object().shape({
   lastName: Yup.string()
     .min(2, "Must be at least 2 characters")
     .required("This field is required"),
-  address: Yup.string()
-    .required("This field is required"),
+  address: Yup.string().required("This field is required"),
   contactNumber: Yup.string()
-    .matches(/^[0-9]+$/, 'Must be only digits')
+    .matches(/^[0-9]+$/, "Must be only digits")
     .required("This field is required"),
-    investorType: Yup.string()
-    .oneOf(['individual', 'individualTrustee', 'company', 'corporateTrustee'])
-    .required('Please select an investor type')
-})
+  investorType: Yup.string()
+    .oneOf(["individual", "individualTrustee", "company", "corporateTrustee"])
+    .required("Please select an investor type")
+});
 
 const CreateProfilePage = () => {
-  const { currentUser, currentUserProfile, setCurrentUserProfile } = useContext(AuthContext)
-  const history = useHistory()
+  const { currentUser, currentUserProfile, setCurrentUserProfile } = useContext(AuthContext);
+  const history = useHistory();
 
   const createProfile = async (firstName, lastName, address, contactNumber, investorType) => {
     try {
-      console.log('in AuthContext createProfile function')
-      const response = await axios.post('http://localhost:5000/profiles', {
+      console.log("in AuthContext createProfile function");
+      const response = await axios.post("/profiles", {
         userId: currentUser._id,
         firstName,
         lastName,
@@ -79,14 +81,15 @@ const CreateProfilePage = () => {
         appProgress: 0,
         approved: false,
         dateStarted: new Date(),
-      })
-      console.log(response.data)
-      const profile = response.data
-      setCurrentUserProfile(profile)
+        profileImage: ""
+      });
+      console.log(response.data);
+      const profile = response.data;
+      setCurrentUserProfile(profile);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 
   return (
     <Container>
@@ -96,28 +99,29 @@ const CreateProfilePage = () => {
           lastName: "",
           address: "",
           contactNumber: "",
-          investorType: ""
+          investorType: "",
+          profileImage: ""
         }}
         validationSchema={ValidationSchema}
-        onSubmit={(values, {setSubmitting, setErrors, setStatus, resetForm}) => {
+        onSubmit={(values, { setSubmitting, setErrors, setStatus, resetForm }) => {
           try {
             setSubmitting(true);
-            createProfile(values.firstName, values.lastName, values.address, values.contactNumber, values.investorType)
-            resetForm()
-            setStatus({success: true})
+            createProfile(values.firstName, values.lastName, values.address, values.contactNumber, values.investorType,values.profileImage);
+            history.push(`/submit-documents/`);
+            // resetForm();
+            setStatus({ success: true });
           } catch (error) {
-            setStatus({success: false})
-            setSubmitting(false)
-            setErrors({submit: error.message})
+            setStatus({ success: false });
+            setSubmitting(false);
+            setErrors({ submit: error.message });
           }
         }}
       >
-        {(props) => <CreateProfileForm {...props} />}
+        {props => <CreateProfileForm {...props} />}
       </Formik>
     </Container>
-  )
-}
-
+  );
+};
 
 const CreateProfileForm = ({
   values,
@@ -134,35 +138,35 @@ const CreateProfileForm = ({
     (() => validateForm())();
   }, []);
 
+  const uploadProfileImage = async () => {
+    
+    // const response = await axios.post(`/profiles/${userId}/uploadProfileImage}`)
+    console.log("whatsup my dudes");
+  };
 
-  const uploadProfileImage = async() => {
-    // const response = await axios.post('')
-    console.log('whatsup my dudes')
-  }
-
-  console.log(touched)
-  console.log(errors)
-  console.log(values)
-  console.log(isValid)
+  // console.log(touched)
+  // console.log(errors)
+  console.log(values);
+  // console.log(isValid)
 
   return (
     <Form onSubmit={handleSubmit}>
       <Title>Please complete your profile</Title>
       <TextFieldContainer>
-          <TextField 
-            required
-            label="First name"
-            type="text"
-            name="firstName"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.firstName}
-            touched={touched.firstName}
-            error={errors.firstName}
-          />
+        <TextField
+          required
+          label="First name"
+          type="text"
+          name="firstName"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.firstName}
+          touched={touched.firstName}
+          error={errors.firstName}
+        />
       </TextFieldContainer>
       <TextFieldContainer>
-        <TextField 
+        <TextField
           required
           label="Last name"
           type="text"
@@ -175,7 +179,7 @@ const CreateProfileForm = ({
         />
       </TextFieldContainer>
       <TextFieldContainer>
-        <TextField 
+        <TextField
           required
           label="Address"
           type="text"
@@ -188,7 +192,7 @@ const CreateProfileForm = ({
         />
       </TextFieldContainer>
       <TextFieldContainer>
-        <TextField 
+        <TextField
           required
           label="Contact number"
           type="tel"
@@ -203,7 +207,7 @@ const CreateProfileForm = ({
       <TextFieldContainer>
         <SelectInvestorType
           required
-          name="investorType" 
+          name="investorType"
           onChange={handleChange}
           onBlur={handleBlur}
           value={values.investorType}
@@ -211,13 +215,31 @@ const CreateProfileForm = ({
           error={errors.investorType}
         />
       </TextFieldContainer>
-      <UploadPictureField onClick={uploadProfileImage} />
+      <UploadProfileImage/>
+      {/* <p>Profile Image(optional)</p>
+      <Input
+        name="profileImage"
+        type="file"
+        label="Choose A Profile Image(optional)"
+        // style={{ display: "none" }}
+        onChange={handleChange}
+        value={values.profileImage}
+      >
+        Choose A file
+      </Input> */}
       <ButtonContainer>
-        <PrimaryButton label="profile-image" name="profile-image" onChange={handleChange} type="submit" disabled={isSubmitting || (!isValid && touched !== {})}>Submit</PrimaryButton>
+        <PrimaryButton
+          label="submit"
+          name="submit"
+          onChange={handleChange}
+          type="submit"
+          disabled={isSubmitting || (!isValid && touched !== {})}
+        >
+          Submit
+        </PrimaryButton>
       </ButtonContainer>
     </Form>
-  )
-}
+  );
+};
 
-export default CreateProfilePage
-
+export default CreateProfilePage;

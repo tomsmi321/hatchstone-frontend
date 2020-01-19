@@ -54,8 +54,8 @@ export const TertiaryBaseButton = styled(Button).attrs({ variant: "contained", c
     text-transform: none;
   }
 `;
-export const TertiaryButton = ({ children, onClick, disabled, type, name, label }) => (
-  <TertiaryBaseButton name={name} label={label} onClick={onClick} disabled={disabled} type={type}>
+export const TertiaryButton = ({ children, onClick, disabled, type, name, label, component }) => (
+  <TertiaryBaseButton name={name} label={label} onClick={onClick} disabled={disabled} type={type} component={component}>
     {children}
   </TertiaryBaseButton>
 );

@@ -8,7 +8,7 @@ import { Footer, DarkFooter } from 'uiKit/Footer'
 import { SimpleModal } from 'uiKit/Modal';
 import { ProgressBar } from 'uiKit/ProgressBar';
 import { SimpleSelect } from 'uiKit/SimpleSelect';
-import SubmitDocuments from './DocumentsUpload/SubmitDocuments';
+
 
 const Wrapper = styled.div`
     display: flex;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ConversationsTable from './ConversationsTable';
 import MessagesTable from './MessagesTable';
 import { UserContext } from '../../contexts/UserContext';
-import { AuthContext } from '../../contexts/AuthContext';
+// import { AuthContext } from '../../contexts/AuthContext';
 
 // fix this
 const Wrapper = styled.div`

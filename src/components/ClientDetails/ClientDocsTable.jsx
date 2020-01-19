@@ -3,8 +3,7 @@ import styled from "styled-components";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { PrimaryButton, SecondaryButton, ApprovedButton } from "../../uiKit/Button";
 import { Link } from "react-router-dom";
-import axios from 'axios'
-
+import axios from "axios";
 
 const Wrapper = styled.div`
   /* background-color: lightskyblue; */
@@ -108,26 +107,28 @@ const ClientDocField = ({ docType, docFileName, userId, uri }) => {
 
   const downloadDoc = () => {
     axios({
-        url: uri,
-        method: 'GET',
-        responseType: 'blob', // important
-      }).then((response) => {
-          console.log(response)
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', docFileName);
-        document.body.appendChild(link);
-        link.click();
-      });
-    
+      url: uri,
+      method: "GET",
+      responseType: "blob" // important
+    }).then(response => {
+      console.log(response);
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", docFileName);
+      document.body.appendChild(link);
+      link.click();
+    });
   };
 
   return (
     <WrapperClientDocsField>
       <WrapperClientDocsFieldDesc>{docType}</WrapperClientDocsFieldDesc>
       <WrapperClientDocFieldDownloadField>
-        <a href={uri} target="_blank" download={docFileName}> {docFileName}</a>
+        <a href={uri} target="_blank" rel="noopener noreferrer" download={docFileName}>
+          {" "}
+          {docFileName}
+        </a>
         <StyledGetAppIcon onClick={downloadDoc} />
       </WrapperClientDocFieldDownloadField>
     </WrapperClientDocsField>
@@ -155,13 +156,15 @@ const ClientDocsTable = props => {
       setDocumentsActive(false);
       setApproveButtonDisabled(false);
     }
-  });
+  },[documents]);
 
   const toggleApproveStatus = () => {
     console.log("in toggleApproveStatus");
     console.log(approved);
     updateApproveStatus(userId._id, !approved);
   };
+
+  
 
   return (
     <Wrapper>

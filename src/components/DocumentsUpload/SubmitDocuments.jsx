@@ -1,10 +1,12 @@
-import React from "react";
+import { React, useHistory, useContext } from "react";
 import FileUpload from "./UploadFile";
 import styled from "styled-components";
 import { PrimaryButton } from "../../uiKit/Button";
-import Typography from "../../uiKit/Typography";
-import { PrimaryLink, SecondaryLink } from "../../uiKit/Link";
+import { PrimaryLink } from "../../uiKit/Link";
 import { UserProgressA } from "../../uiKit/UserProgress";
+import  UserContext  from "../../contexts/UserContext";
+
+
 
 const Container = styled.div`
   display: flex;
@@ -26,9 +28,10 @@ const UploadWrapper = styled.div`
   align-items: flex-start;
 `;
 
-const SubmitDocuments = (props) => {
-
-  const profileId = props.match.params.id
+const SubmitDocuments = props => {
+  const { currentUserProfile } = useContext(UserContext)
+  const history = useHistory();
+  const profileId = props.match.params.id;
   return (
     <>
       <UserProgressA />
@@ -40,8 +43,8 @@ const SubmitDocuments = (props) => {
         <FileUpload profileId={profileId} documentId={"Proof of Address"} />
         <p>Accounting Statement</p>
         <FileUpload profileId={profileId} documentId={"Accounting Statement"} />
-        <PrimaryButton>Submit</PrimaryButton>
-        <PrimaryLink>Skip</PrimaryLink>
+        <PrimaryButton onClick={history.push(`/conversations/${currentUserProfile._id}`)}>Submit</PrimaryButton>
+        <PrimaryLink onClick={history.push(`/conversations/${currentUserProfile._id}`)}>Skip</PrimaryLink>
       </Container>
     </>
   );
