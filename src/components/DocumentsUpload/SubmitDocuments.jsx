@@ -6,7 +6,6 @@ import { PrimaryButton } from "../../uiKit/Button";
 import { PrimaryLink } from "../../uiKit/Link";
 import UserContextProvider from "../../contexts/UserContext";
 
-
 const Title = styled.div`
   font-size: 16px;
   margin: 25px;
@@ -19,12 +18,21 @@ const Label = styled.div`
   justify-content: flex-start;
 `;
 
+const ButtonWrapper = styled.div`
+  margin: 15px;
+`;
+
+const PageWrapper = styled.div`
+  min-height: 100vh;
+  paddingbottom: 60px;
+`;
+
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 25px 50px 100px 50px;
+  padding: 25px;
   width: 40vw;
   margin: 30px auto 0 auto;
   background-color: #ffffff;
@@ -34,7 +42,7 @@ const Container = styled.div`
 const UploadWrapper = styled.div`
   display: flex;
   /* justify-content: flex-start; */
-  margin: 20px;
+  margin: 20px 20px;
   flex-direction: column;
   align-items: flex-start;
 `;
@@ -44,20 +52,27 @@ const SubmitDocuments = props => {
   const profileId = props.match.params.id;
 
   return (
-    <Container>
-      <Title>Submit your documents</Title>
-      <UploadWrapper>
-        <Label>Approved Identification</Label>
-        <FileUpload documentId="Approved Identification" />
-      </UploadWrapper>
-      <UploadWrapper>
-        <Label>Proof of Address</Label>
-        <FileUpload documentId="Proof of Address" />
-      </UploadWrapper>
-      
-      <PrimaryButton onClick={() => history.push(`/conversations/${profileId}`)}>Submit</PrimaryButton>
-      <PrimaryLink onClick={() => history.push(`/conversations/${profileId}`)}>Skip</PrimaryLink>
-    </Container>
+    <PageWrapper>
+      <Container>
+        <Title>Submit your documents</Title>
+        <UploadWrapper>
+          <Label>Approved Identification</Label>
+          <FileUpload profileId={profileId} documentId="Approved Identification" />
+        </UploadWrapper>
+        <UploadWrapper>
+          <Label>Proof of Address</Label>
+          <FileUpload profileId={profileId} documentId="Proof of Address" />
+        </UploadWrapper>
+        <UploadWrapper>
+          <Label>Accounting Statement</Label>
+          <FileUpload profileId={profileId} documentId="Accounting Statement" />
+        </UploadWrapper>
+        <ButtonWrapper>
+          <PrimaryButton onClick={() => history.push(`/conversations/${profileId}`)}>Submit</PrimaryButton>
+        </ButtonWrapper>
+        <PrimaryLink onClick={() => history.push(`/conversations/${profileId}`)}>Skip</PrimaryLink>
+      </Container>
+    </PageWrapper>
   );
 };
 
