@@ -26,18 +26,20 @@ const UploadWrapper = styled.div`
   align-items: flex-start;
 `;
 
-const FileUploadWrapper = () => {
+const SubmitDocuments = (props) => {
+
+  const profileId = props.match.params.id
   return (
     <>
       <UserProgressA />
       <Container>
         <h2>Upload Documents</h2>
         <p>Approved Identification</p>
-        <FileUpload documentId={"Approved Identification"} label="Approved Identification" />
+        <FileUpload profileId={profileId} documentId={"Approved Identification"} label="Approved Identification" />
         <p>Proof of Address</p>
-        <FileUpload documentId={"Proof of Address"} />
+        <FileUpload profileId={profileId} documentId={"Proof of Address"} />
         <p>Accounting Statement</p>
-        <FileUpload documentId={"Accounting Statement"} />
+        <FileUpload profileId={profileId} documentId={"Accounting Statement"} />
         <PrimaryButton>Submit</PrimaryButton>
         <PrimaryLink>Skip</PrimaryLink>
       </Container>
@@ -45,4 +47,4 @@ const FileUploadWrapper = () => {
   );
 };
 
-export default FileUploadWrapper;
+export default SubmitDocuments;

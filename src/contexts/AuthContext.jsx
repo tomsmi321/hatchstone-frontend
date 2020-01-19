@@ -11,9 +11,10 @@ const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(`current user's profile: \n`, currentUserProfile)
+    // console.log(`current user's profile: \n`, currentUserProfile)
     console.log(`currentUser: \n`, user)
-  })
+    setCurrentUser(user);
+  }, [])
 
   const loginUser = async (email, password) => {
     console.log(`in AuthContext loginUser function`)

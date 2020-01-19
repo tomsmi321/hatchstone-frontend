@@ -56,7 +56,7 @@ const ValidationSchema = Yup.object().shape({
     .required("This field is required")
     .matches(
       /^(?=.{8,})(?=.*[1-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[(!@#$%^&*()_+|~\- =\`{}[\]:”;'<>?,.\/, )])(?!.*(.)\1{2,}).+$/,
-      "Must contain 8 Characters, minimum 1 Number and 1 Special Case Character"
+      "Must contain 8 Characters, minimum 1 Number, 1 Special Case Character, 1 Uppercase Character"
     )
 })
 
@@ -121,6 +121,7 @@ const LogInForm = ({
 
       <TextFieldContainer>
         <TextField 
+          required
           label="Email"
           type="email"
           name="email"
@@ -134,6 +135,7 @@ const LogInForm = ({
 
       <TextFieldContainer>
         <TextField 
+          required
           label="Password" 
           type="password"
           name="password"

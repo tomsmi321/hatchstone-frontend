@@ -10,6 +10,7 @@ import styled from 'styled-components';
 const StyledSelect = styled(Select)`
   &&& {
     font-size: 14px;
+    height: 4.2vh;
   }
 `
 
@@ -23,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     formControl: {
       // margin: theme.spacing(1),
       // minWidth: 152,
-      width: '100%',
+      width: '100%'
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
@@ -42,7 +43,7 @@ export const SelectInvestorType = ({ name, onChange, value, error }) => {
 
   return (
     <FormControl variant="outlined" className={classes.formControl} fullWidth>
-        <InputLabel ref={inputLabel}>
+        <InputLabel ref={inputLabel} margin="dense">
           Type of Investor
         </InputLabel>
         <StyledSelect
@@ -52,7 +53,7 @@ export const SelectInvestorType = ({ name, onChange, value, error }) => {
           onOpen={() => setTouched(false)}
           onClose={() => setTouched(true)}
           labelWidth={labelWidth}
-          labelHeight={100}
+          labelheight={100}
         >
         <MenuItem value="individual" label="individual">Individual</MenuItem>
         <MenuItem value="individualTrustee" label="individualTrustee">Individual Trustee</MenuItem>
