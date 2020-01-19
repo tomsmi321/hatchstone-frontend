@@ -13,8 +13,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 70px 50px 100px 50px;
-  width: 40vw;
+  padding: 70px 50px;
+  max-width: 487px;
   margin: 150px auto 0 auto;
   background-color: #ffffff;
   border-radius: 4px;

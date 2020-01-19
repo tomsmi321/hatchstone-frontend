@@ -1,27 +1,19 @@
 import React, { useEffect, useContext } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components'
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import { AuthContext } from '../contexts/AuthContext'
-import { UserContext } from '../contexts/UserContext'
 import { useLocation } from 'react-router-dom';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-  },
-  backButton: {
-    marginRight: theme.spacing(1),
-  },
-  instructions: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-  },
-}));
+const StyledStepper = styled(Stepper)`
+  &&& {
+    background-color: #FAFAFA;
+    max-width: 520px;
+    margin: 54px auto 43px;
+    padding: 0px;
+  }
+`
 
 const getSteps = (steps) => {
   // Spread the props array that was passed in so the Stepper can be dynamic with amount of steps it displays whenever it is rendered
@@ -62,9 +54,7 @@ const HorizontalLabelPositionBelowStepper = ({ inputSteps }) => {
     }
   }
 
-  const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(getUsersStep(currentUser));
-  // const { currentUserProfile } = useContext(UserContext)
   
   const steps = getSteps(inputSteps);
 
@@ -80,29 +70,14 @@ const HorizontalLabelPositionBelowStepper = ({ inputSteps }) => {
     setActiveStep(0);
   };
 
-  // function to check whether the user has satisfied moving on to the next step
-  // const getUsersStep = () => {
-  //   // if ('currentUser exist and currentUser\'s profile does not exist') {
-  //   if (Object.keys(currentUser).length && !Object.keys(currentUserProfile).length) {
-  //     return 'step 1'
-  //   // } else if ('currentUser and currentUser\'s profile exist, but documents array does not equal total documents for user\'s respective investorType') {
-  //   } else if (Object.keys(currentUser).length && Object.keys(currentUserProfile).length && currentUserProfile.documents) {
-  //   return 'step 2'
-  //   } else if ('currentUser and currentUser\'s profile exist and documents array equals total documents for user\'s respective investorType') {
-  //     return 'step 3'
-  //   } else {
-  //   return 'step 0'
-  //   }
-  // }
-
   return (
-    <Stepper activeStep={activeStep} alternativeLabel>
+    <StyledStepper activeStep={activeStep} alternativeLabel>
       {steps.map(label => (
         <Step key={label}>
           <StepLabel>{label}</StepLabel>
         </Step>
       ))}
-    </Stepper>
+    </StyledStepper>
   );
 }
 
