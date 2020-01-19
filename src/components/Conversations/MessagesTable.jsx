@@ -24,16 +24,25 @@ const WrapperMessageItems = styled.div`
     /* background-color: darkslateblue; */
 `
 
-const MessagesTable = () => {
+const MessagesTable = ({ currentMessages, currentUserId, currentConvoPartner }) => {
     return (
         <Wrapper>
             <WrapperMessageItems>
                 <WrapperMessagePartnerName>
-                    Ashley Thompson
+                    {currentConvoPartner}
                 </WrapperMessagePartnerName>
-                <MessageItem alignRight={false}/>
+                {currentMessages ? currentMessages.map((message, index) => {
+                    return (
+                        <MessageItem 
+                            key={index}
+                            message={message} 
+                            currentUserId={currentUserId}
+                        />
+                    )
+                }) : null}
+                
                 {/* align right should be set to true if the message is from the current user */}
-                <MessageItem alignRight={true}/>
+                {/* <MessageItem alignRight={true}/> */}
             </WrapperMessageItems>
             <NewMessage />
         </Wrapper>

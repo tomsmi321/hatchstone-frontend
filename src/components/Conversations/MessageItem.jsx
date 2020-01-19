@@ -65,23 +65,38 @@ const WrapperAccountCircleIconFname = styled.div`
     font-size: 12px;
 `
 
-const MessageItem = ({ alignRight }) => {
+const MessageItem = ({ message, currentUserId }) => {
+    const { content, profileId, dateCreated, author } = message;
+    console.log(currentUserId);
+
+    const formatMessageTime = (dateCreated) => {
+        const date = new Date(dateCreated)
+        return `${date.getHours()}:${date.getMinutes()}`;
+    }
+
+    const alignRight = () => {
+        const authorId = author._id;
+        if(authorId === currentUserId) {
+            return true;
+        }
+    }
+
     return (
-        <WrapperOuter alignRight={alignRight}>
+        <WrapperOuter alignRight={alignRight()}>
             <WrapperInner>
-                <WrapperAccountCircleIcon alignRight={alignRight}>
+                <WrapperAccountCircleIcon alignRight={alignRight()}>
                     <AccountCircleIcon /> 
                     <WrapperAccountCircleIconFname>
-                        Ashley
+                        {`${profileId.firstName}`}
                     </WrapperAccountCircleIconFname>
                 </WrapperAccountCircleIcon>
-                <WrapperMessageBox alignRight={alignRight}>
+                <WrapperMessageBox alignRight={alignRight()}>
                     <WrapperMessageContent>
-                        Hi Jack, how are you today? Could you please confirm if my docs need to be certified? Thanks
+                        {content}
                     </WrapperMessageContent>
                     <WrapperMessageTimeOuter>
                         <WrapperMessageTimeInner>
-                            4:37pm
+                            {formatMessageTime(dateCreated)}
                         </WrapperMessageTimeInner> 
                     </WrapperMessageTimeOuter>
                 </WrapperMessageBox>
