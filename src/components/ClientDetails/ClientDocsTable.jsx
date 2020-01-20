@@ -3,7 +3,10 @@ import styled from "styled-components";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { PrimaryButton, SecondaryButton, ApprovedButton } from "../../uiKit/Button";
 import { Link } from "react-router-dom";
+
+//axios is making a request to s3 so don't change this 
 import axios from "axios";
+
 
 const Wrapper = styled.div`
   /* background-color: lightskyblue; */

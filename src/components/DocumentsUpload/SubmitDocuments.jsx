@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import FileUpload from "./UploadFile";
 import styled from "styled-components";
 import { PrimaryButton } from "../../uiKit/Button";
-import Typography from "../../uiKit/Typography";
 import { PrimaryLink, SecondaryLink } from "../../uiKit/Link";
 import Stepper from "../../uiKit/Stepper";
-import UserContextProvider from "../../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext";
 import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -74,8 +74,23 @@ const UploadWrapper = styled.div`
 `;
 
 const SubmitDocuments = props => {
+  const [profileId, setProfileId] = useState(null);
+  const [isLoading, setLoading] = useState(true);
   const history = useHistory();
-  const profileId = props.match.params.id;
+  const { currentUserProfile } = useContext(UserContext);
+
+  const userId = props.match.params.id;
+
+  console.log(currentUserProfile);
+
+  useEffect(() => {
+    setLoading(false);
+    setProfileId(currentUserProfile._id);
+  }, [currentUserProfile]);
+
+  console.log(isLoading)
+
+  console.log(profileId);
 
   return (
     <PageWrapper>
@@ -120,9 +135,9 @@ const SubmitDocuments = props => {
           <FileUpload profileId={profileId} documentId="Section 708 Wholesale Investor Certification" />
         </UploadWrapper>
         <ButtonWrapper>
-          <PrimaryButton onClick={() => history.push(`/conversations/${profileId}`)}>Submit</PrimaryButton>
+          <PrimaryButton onClick={() => history.push(`/conversations/${userId}`)}>Submit</PrimaryButton>
         </ButtonWrapper>
-        <PrimaryLink onClick={() => history.push(`/conversations/${profileId}`)}>Skip</PrimaryLink>
+        <PrimaryLink onClick={() => history.push(`/conversations/${userId}`)}>Skip</PrimaryLink>
       </Container>
     </PageWrapper>
   );
