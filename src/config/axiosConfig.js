@@ -3,7 +3,10 @@ import axios from 'axios';
 // create an axios instance
 const axiosInstance = axios.create({
 // put configurations here
-    baseURL: 'http://localhost:5000'
+    baseURL: 'http://localhost:5000',
+    headers: {
+        token: localStorage.getItem('token')
+    }
 });
 
 // Where you would set stuff like your 'Authorization' header, etc ...
