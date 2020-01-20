@@ -140,7 +140,7 @@ const EditProfileClientPage = props => {
       const { userId } = currentUserProfile;
       const response = await axios.put(`/profiles/updateByUser/${userId._id}`);
       console.log(response);
-      history.push(`/profiles/conversations/${userId._id}`);
+      history.push(`/conversations/${userId._id}`);
     };
 
     return (
