@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import { TextField } from "../../uiKit/userInput/TextField";
 import { PrimaryButton } from "../../uiKit/Button";
@@ -6,6 +6,9 @@ import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import DocumentField from "./DocumentField";
 import { SelectInvestorType } from "../../uiKit/userInput/SelectInvestorType";
 import { UserContext } from "../../contexts/UserContext";
+import axios from "../../config/axiosConfig";
+import { useHistory } from "react-router-dom";
+import AuthContextProvider from "../../contexts/AuthContext";
 
 const PageWrapper = styled.div`
   padding-bottom: 70px;
@@ -107,114 +110,123 @@ const ClientDocField = ({ docType, docFileName, uri }) => {
 };
 
 const EditProfileClientPage = props => {
+  const history = useHistory();
   const { currentUserProfile } = useContext(UserContext);
 
+  const [fields, setFields] = useState(null);
+  const onChange = e => {
+    e.preventDefault();
+    const value = e.target.value;
+    const name = e.target.name;
+    setFields(prevState => {
+      return { ...prevState, [name]: value };
+    });
+  };
 
-  const onChange = (e) => {
+  useEffect(() => {
+    setFields(currentUserProfile);
+  }, [currentUserProfile]);
 
-  }
-
-  const handleSubmit = e => {
-
-  }
-
-  console.log(currentUserProfile);
-  const {
-    documents,
-    firstName,
-    lastName,
-    email,
-    address,
-    investorType,
-    profileImage,
-    phone,
-    userId
-  } = currentUserProfile;
-  console.log(documents);
-  // const userId = profileDetails._id
-  // const documents = profileDetails.documents
   const imageSrc = "https://devilsworkshop.org/wp-content/uploads/sites/8/2013/01/small-facebook-profile-picture.jpg";
-  return (
-    <PageWrapper>
-      <form onSubmit={handleSubmit}>
-      <Wrapper>
-        <WrapperProfilePic>
-          <ProfileImage imageSrc={imageSrc}>
-            <StyledPhotoCameraIcon />
-            <ProfileImageChangePicText>Change image</ProfileImageChangePicText>
-          </ProfileImage>
-        </WrapperProfilePic>
-        <WrapperProfileDetailsUppper>
-          <WrapperTextFieldUpper>
-            <TextField
-              key={firstName}
-              defaultValue={firstName}
-              size={"small"}
-              inputProps={{ style: { fontSize: 14 } }}
-              InputLabelProps={{ style: { fontSize: 14 } }}
-              label="First name"
-              type="text"
-              name="firstName"
-            />
-          </WrapperTextFieldUpper>
-          <WrapperTextFieldUpper>
-            <TextField
-              // having difficulty styling this without using inline styles
-              key={lastName}
-              defaultValue={lastName}
-              size={"small"}
-              inputProps={{ style: { fontSize: 14 } }}
-              InputLabelProps={{ style: { fontSize: 14 } }}
-              label="Last name"
-              type="text"
-              name="lastName"
-            />
-          </WrapperTextFieldUpper>
-          <WrapperTextFieldUpper>
-            <SelectInvestorType />
-          </WrapperTextFieldUpper>
-        </WrapperProfileDetailsUppper>
-        <WrapperProfileDetailsLower>
-          <WrapperTextFieldLower>
-            <TextField
-              // having difficulty styling this without using inline styles
-              key={address}
-              defaultValue={address}
-              size={"small"}
-              inputProps={{ style: { fontSize: 14 } }}
-              InputLabelProps={{ style: { fontSize: 14 } }}
-              label="Address"
-              type="text"
-              name="address"
-            />
-          </WrapperTextFieldLower>
-          <WrapperTextFieldLower>
-            <TextField
-              onChange={onChange}
-              key={phone}
-              defaultValue={phone}
-              size={"small"}
-              inputProps={{ style: { fontSize: 14 } }}
-              InputLabelProps={{ style: { fontSize: 14 } }}
-              label="Contact Number"
-              type="text"
-              name="phone"
-            />
-          </WrapperTextFieldLower>
-        </WrapperProfileDetailsLower>
-        <WrapperDocsFieldsOuter>
-          {documents &&
-            documents.map((document, i) => (
-              <DocumentField key={i} document={document} profileId={currentUserProfile._id} />
-            ))}
-        </WrapperDocsFieldsOuter>
-        <WrapperUpdateButton>
-          <PrimaryButton type="submit" onClick ={(e) => handleSubmit  }>Update</PrimaryButton>
-        </WrapperUpdateButton>
-      </Wrapper>
-    </form>
-    </PageWrapper>
-  );
+  console.log(fields);
+  if (currentUserProfile) {
+    const { documents, firstName, lastName, address, investorType, profileImage, phone } = currentUserProfile;
+
+    const handleSubmit = async e => {
+      e.preventDefault();
+      const { userId } = currentUserProfile;
+      const response = await axios.put(`/profiles/updateByUser/${userId._id}`);
+      console.log(response);
+      history.push(`/profiles/conversations/${userId._id}`);
+    };
+
+    return (
+      <PageWrapper>
+        <form onSubmit={handleSubmit}>
+          <Wrapper>
+            <WrapperProfilePic>
+              <ProfileImage imageSrc={imageSrc} onChange={onChange}>
+                <StyledPhotoCameraIcon />
+                <ProfileImageChangePicText>Change image</ProfileImageChangePicText>
+              </ProfileImage>
+            </WrapperProfilePic>
+            <WrapperProfileDetailsUppper>
+              <WrapperTextFieldUpper>
+                <TextField
+                  onChange={onChange}
+                  key={firstName}
+                  defaultValue={firstName}
+                  size={"small"}
+                  inputProps={{ style: { fontSize: 14 } }}
+                  InputLabelProps={{ style: { fontSize: 14 } }}
+                  label="First name"
+                  type="text"
+                  name="firstName"
+                />
+              </WrapperTextFieldUpper>
+              <WrapperTextFieldUpper>
+                <TextField
+                  // having difficulty styling this without using inline styles
+                  onChange={onChange}
+                  key={lastName}
+                  defaultValue={lastName}
+                  size={"small"}
+                  inputProps={{ style: { fontSize: 14 } }}
+                  InputLabelProps={{ style: { fontSize: 14 } }}
+                  label="Last name"
+                  type="text"
+                  name="lastName"
+                />
+              </WrapperTextFieldUpper>
+              <WrapperTextFieldUpper>
+                <SelectInvestorType value={investorType} defaultValue={investorType} key={investorType} />
+              </WrapperTextFieldUpper>
+            </WrapperProfileDetailsUppper>
+            <WrapperProfileDetailsLower>
+              <WrapperTextFieldLower>
+                <TextField
+                  // having difficulty styling this without using inline styles
+                  onChange={onChange}
+                  key={address}
+                  defaultValue={address}
+                  size={"small"}
+                  inputProps={{ style: { fontSize: 14 } }}
+                  InputLabelProps={{ style: { fontSize: 14 } }}
+                  label="Address"
+                  type="text"
+                  name="address"
+                />
+              </WrapperTextFieldLower>
+              <WrapperTextFieldLower>
+                <TextField
+                  onChange={onChange}
+                  key={phone}
+                  defaultValue={phone}
+                  size={"small"}
+                  inputProps={{ style: { fontSize: 14 } }}
+                  InputLabelProps={{ style: { fontSize: 14 } }}
+                  label="Contact Number"
+                  type="text"
+                  name="phone"
+                />
+              </WrapperTextFieldLower>
+            </WrapperProfileDetailsLower>
+            <WrapperDocsFieldsOuter>
+              {documents &&
+                documents.map((document, i) => (
+                  <DocumentField key={i} document={document} profileId={currentUserProfile._id} />
+                ))}
+            </WrapperDocsFieldsOuter>
+            <WrapperUpdateButton>
+              <PrimaryButton type="submit">Update</PrimaryButton>
+            </WrapperUpdateButton>
+          </Wrapper>
+        </form>
+      </PageWrapper>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default EditProfileClientPage;
