@@ -5,8 +5,9 @@ import styled from "styled-components";
 import { PrimaryButton } from "../../uiKit/Button";
 import { PrimaryLink, SecondaryLink } from "../../uiKit/Link";
 import Stepper from "../../uiKit/Stepper";
+import { InfoModal } from "../../uiKit/InfoModal";
 import { UserContext } from "../../contexts/UserContext";
-import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
+
 import { AuthContext } from "../../contexts/AuthContext";
 
 const TitleWrapper = styled.div`
@@ -21,7 +22,7 @@ const TitleWrapper = styled.div`
 const Title = styled.div`
   display: flex;
   align-items: center;
-  font-size: 16px;
+  font-size: 20px;
   /* margin: 25px; */
 `;
 
@@ -73,74 +74,105 @@ const UploadWrapper = styled.div`
   align-items: flex-start;
 `;
 
+const Desc = styled.div`
+  font-size: 12px;
+  font-style: italic;
+`;
+
+const CompanyVerificationDesc = () => {
+  return (
+    <i>
+      {" "}
+      A certified copy of an Australian Securities and Investments Commission extract or your most recent company
+      statement issued by ASIC showing all company directors and members
+    </i>
+  );
+};
+
+const DirectorIdentificationDesc = () => {
+  return (
+    <i>
+      For each Director and Beneficial Owner of the company, a certified copy of their Australian driver's licence
+      (front and back) that contains a photograph of the licence holder and displaying current residential address
+    </i>
+  );
+};
+
+const WholeSaleInvestorCertDesc = () => {
+  return (
+    <i>
+      An accountant certificate under section 708(8) of the Corporations Act for the purpose of confirming your
+      sophisticated investor status. The accountant certificate must contain the name of the accountant, the
+      accountant's professional accounting body membership type and membership number, accountant's sign-off, and the
+      date that the certificate was signed. <br /> <br /> *Please note that accountant certificates are valid for 2
+      years from the date of signing.
+    </i>
+  );
+};
 const SubmitDocuments = props => {
-  const [profileId, setProfileId] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const history = useHistory();
   const { currentUserProfile } = useContext(UserContext);
-
+  const [profile, setProfile] = useState(null);
   const userId = props.match.params.id;
-
-  console.log(currentUserProfile);
 
   useEffect(() => {
     setLoading(false);
-    setProfileId(currentUserProfile._id);
+    setProfile(currentUserProfile);
   }, [currentUserProfile]);
 
-  console.log(isLoading)
+  if (isLoading === false) {
+    const profileId = currentUserProfile._id;
+    console.log(profileId);
+    return (
+      <PageWrapper>
+        <Stepper inputSteps={["Sign Up", "Create Profile", "Submit Documents"]} />
+        <Container>
+          <Title>Submit your documents</Title>
 
-  console.log(profileId);
+          <UploadWrapper>
+            <TitleWrapper>
+              <Label>Company Verification</Label>
+              <Info>
+                <InfoModal documentType="Company Verification" desc={<CompanyVerificationDesc />} />
+              </Info>
+            </TitleWrapper>
+            <FileUpload profileId={profileId} documentId="Company Verification" />
+          </UploadWrapper>
 
-  return (
-    <PageWrapper>
-      <Stepper inputSteps={["Sign Up", "Create Profile", "Submit Documents"]} />
-      <Container>
-        <Title>Submit your documents</Title>
-        <UploadWrapper>
-          <TitleWrapper>
-            <Label>Company Verification</Label>
-            <Info>
-              <HelpOutlineOutlinedIcon style={{ color: "lightgrey", margin: "5px" }} />
-            </Info>
-          </TitleWrapper>
-          {/* <p>
-            A certified copy of ASIC extract or their most recent company statement issued by ASIC showing all the
-            company directors and members
-          </p> */}
-          <FileUpload profileId={profileId} documentId="Company Verification" />
-          {/* <p>
-            For each Director and Beneficial Owner of the company, a certified copy of their Australian driver's licence
-            (front and back) that contains a photograph of the licence holder and displaying current residential address
-          </p> */}
-        </UploadWrapper>
-        <UploadWrapper>
-          <TitleWrapper>
-            <Label>Director and Benefecial Owner Identifcation </Label>
-            <Info>
-              <HelpOutlineOutlinedIcon style={{ color: "lightgrey", margin: "5px" }} />
-            </Info>
-          </TitleWrapper>
-          {/* <p>
-            An accountant certificate under section 708(8) of the Corporations Act for the purpose of confirming their
-            sophisticated investor status. The accountant certificate must contain the name of the accountant, the
-            accountant'ss professional accounting body membership type and membership number, accountant's
-            sign-off, and the date that the certificate was signed. Please note that accountant certificates are valid
-            for 2 years from the date of signing.
-          </p> */}
-          <FileUpload profileId={profileId} documentId="Director and Benefecial Owner Identifcation" />
-        </UploadWrapper>
-        <UploadWrapper>
-          <Label>Section 708 Wholesale Investor Certification</Label>
-          <FileUpload profileId={profileId} documentId="Section 708 Wholesale Investor Certification" />
-        </UploadWrapper>
-        <ButtonWrapper>
-          <PrimaryButton onClick={() => history.push(`/conversations/${userId}`)}>Submit</PrimaryButton>
-        </ButtonWrapper>
-        <PrimaryLink onClick={() => history.push(`/conversations/${userId}`)}>Skip</PrimaryLink>
-      </Container>
-    </PageWrapper>
-  );
+          <UploadWrapper>
+            <TitleWrapper>
+              <Label>Director and Beneficial Owner Identification </Label>
+              <Info>
+                <InfoModal
+                  documentType="Director and Beneficial Owner Identification"
+                  desc={<DirectorIdentificationDesc />}
+                />
+              </Info>
+            </TitleWrapper>
+            <FileUpload profileId={profileId} documentId="Director and Beneficial Owner Identification" />
+          </UploadWrapper>
+
+          <UploadWrapper>
+            <TitleWrapper>
+              <Label>Section 708 Wholesale Investor Certification</Label>
+              <Info>
+                <InfoModal
+                  documentType="Section 708 Wholesale Investor Certification"
+                  desc={<WholeSaleInvestorCertDesc />}
+                />
+              </Info>
+            </TitleWrapper>
+            <FileUpload profileId={profileId} documentId="Section 708 Wholesale Investor Certification" />
+          </UploadWrapper>
+          <ButtonWrapper>
+            <PrimaryButton onClick={() => history.push(`/conversations/${userId}`)}>Submit</PrimaryButton>
+          </ButtonWrapper>
+          <PrimaryLink onClick={() => history.push(`/conversations/${userId}`)}>Skip</PrimaryLink>
+        </Container>
+      </PageWrapper>
+    );
+  } else return null;
 };
 
 export default SubmitDocuments;
