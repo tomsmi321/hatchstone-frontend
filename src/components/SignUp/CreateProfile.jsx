@@ -70,6 +70,7 @@ const ValidationSchema = Yup.object().shape({
 
 const CreateProfilePage = () => {
   const { currentUser, currentUserProfile, setCurrentUserProfile } = useContext(AuthContext);
+  console.log(currentUser)
   const history = useHistory();
 
   const createProfile = async (firstName, lastName, address, contactNumber, investorType, profileImage) => {
@@ -120,7 +121,7 @@ const CreateProfilePage = () => {
                 values.investorType,
                 values.profileImage
               );
-              history.push(`/submit-documents/
+              history.push(`/submit-documents/${currentUser._id}
               `);
               // resetForm();
               setStatus({ success: true });

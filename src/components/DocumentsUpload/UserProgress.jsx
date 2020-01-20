@@ -9,11 +9,6 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
-// const RuleA = styled.hr`
-// border: 1px solid #326FBB;
-// width: 50px;
-// `;
-
 const Stage = styled.div`
   display: flex;
   flex-direction: column;

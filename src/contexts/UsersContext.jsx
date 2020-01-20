@@ -9,7 +9,7 @@ export const UsersContext = createContext({})
 class UsersContextProvider extends Component {
     // set some inital state for users
     state = {
-        profiles: [],
+        es: [],
         approvedClients: [],
         onboardingClients: [],
         profileDetails: {}

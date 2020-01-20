@@ -1,10 +1,8 @@
-import React, {useEffect} from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "../../config/axiosConfig";
-import userContext from '../../contexts/UserContext'
-
-
+import UserContextProvider from "../../contexts/UserContext";
 
 const Wrapper = styled.div`
   /* background-color: lightgrey; */
@@ -47,39 +45,35 @@ const WrapperClientDocFieldDownloadField = styled.div`
 `;
 
 const DocumentField = ({ document, profileId }) => {
+  const currentUserProfile = useContext(UserContextProvider);
+  console.log(currentUserProfile);
 
-useEffect(() => {
-
-},[document])
+  useEffect(() => {}, [document]);
 
   const deleteDocument = async () => {
     const docFileName = document.fileName;
     const id = profileId;
-    console.log(docFileName);
-    const response = await axios.post(`/profiles/${id}/delete-document`, { docFileName });
-    console.log(response)
+    const response = await axios.post(`/profiles/${id}/delete-document`, { docFileName }) 
   };
   return (
+    <Wrapper>
+      <WrapperDocFieldHeader>{document.name}</WrapperDocFieldHeader>
+      <WrapperClientDocFieldDownloadField>
+        <a
+          href={document.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          download={document.fileName}
+          profileid={profileId}
+        >
+          {" "}
+          {document.fileName}
+        </a>
+        <CloseIcon onClick={deleteDocument} />
+      </WrapperClientDocFieldDownloadField>
 
-      <Wrapper>
-        <WrapperDocFieldHeader>{document.name}</WrapperDocFieldHeader>
-        <WrapperClientDocFieldDownloadField>
-          <a
-            href={document.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            download={document.fileName}
-            profileid={profileId}
-          >
-            {" "}
-            {document.fileName}
-          </a>
-          <CloseIcon onClick={deleteDocument} />
-        </WrapperClientDocFieldDownloadField>
-
-        <WrapperDocFieldFooter>Add another file</WrapperDocFieldFooter>
-      </Wrapper>
-   
+      <WrapperDocFieldFooter>Add another file</WrapperDocFieldFooter>
+    </Wrapper>
   );
 };
 
