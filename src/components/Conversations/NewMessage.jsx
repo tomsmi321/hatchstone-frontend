@@ -27,29 +27,25 @@ const StyledTextArea = styled(TextArea)`
     }
 `
 
-const NewMessage = ({ createNewMessage, getCurrentMessages, currentMessagesLength, currentUserId, currentUserProfileId, currentConvoId }) => {
-    const [ newMessageContent, setNewMessageContent ] = useState(null);
+const NewMessage = ({ createNewMessage, currentUserId, currentUserProfileId, currentConvoId }) => {
+    const [ newMessageContent, setNewMessageContent ] = useState('');
 
     const handleMessageChange = (e) => {
-        console.log(e.target.value);
+        console.log('in handleMessageChange - NewMessage');
         setNewMessageContent(e.target.value);
     }
 
-    const handleNewMessageSubmit = () => {
-        console.log('in handle new message submit');
+    const handleNewMessageSubmit = (e) => {
+        console.log('in handleNewMessageSubmit - NewMessage');
         createNewMessage(newMessageContent, currentUserId, currentUserProfileId, currentConvoId);
+        setNewMessageContent('');
     }
 
-    useEffect(() => {
-        console.log('in useEffect - NewMessage');
-        getCurrentMessages(currentConvoId);
-    }, [currentMessagesLength])
-
-    console.log('in new message state', newMessageContent);
+    console.log('newMessageContent - NewMessage', newMessageContent);
     return (
     <WrapperOuter>
-        <WrapperInner onChange={handleMessageChange}>
-            <StyledTextArea placeholder="Type your message here..." />
+        <WrapperInner >
+            <StyledTextArea placeholder="Type your message here..."  onChange={handleMessageChange} value={newMessageContent}/>
             <PrimaryButton onClick={handleNewMessageSubmit}>Send</PrimaryButton>
         </WrapperInner>
     </WrapperOuter>

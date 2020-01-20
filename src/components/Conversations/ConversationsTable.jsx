@@ -10,8 +10,6 @@ const WrapperOuter = styled.div`
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
-    width: 40vw;
-    height: 90vh;
     overflow: scroll;
 `
 const WrapperInner = styled.div`
@@ -42,23 +40,36 @@ const WrapperConvoItems = styled.div`
     align-items: center;
 `
 
-const ConversationsTable = ({ userConvos, admin, getCurrentMessages }) => {
+const ConversationsTable = ({ userConvos, admin, getCurrentMessages, currentMessagesLength }) => {
+    const [searchState, setSearchState] = useState('');
 
-    console.log('in coversations table', userConvos);
+    const handleSearchChange = (e) => {
+        setSearchState(e.target.value);
+        console.log(searchState);
+    }
+
+    const filteredUserConvos = userConvos.filter(userConvo => {
+        const clientFullName = `${userConvo.participants[0].firstName + ' ' + userConvo.participants[0].lastName}`
+        return clientFullName.indexOf(searchState) !== -1;
+    });
+          
+    
+
     return (
         <WrapperOuter>
             <WrapperInner>
-                <WrapperSearchField>
+                <WrapperSearchField label="search" onChange={handleSearchChange}>
                     <SearchField placeholder="Search your conversations" />
                 </WrapperSearchField>
                 <WrapperConvoItems>
-                    {userConvos.length ? userConvos.map((userConvo, index) => {
+                    {filteredUserConvos.length ? filteredUserConvos.map((userConvo, index) => {
                         return (
                             <ConvoItem 
                                 key={index} 
                                 userConvo={userConvo} 
                                 admin={admin}
                                 getCurrentMessages={getCurrentMessages}
+                                currentMessagesLength={currentMessagesLength}
                             />
                         )
                     }): null}
