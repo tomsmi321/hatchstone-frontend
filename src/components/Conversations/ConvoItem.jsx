@@ -61,25 +61,30 @@ const WrapperConvoTime = styled.div`
     height: max-content;
 `
 
-const ConvoItem = ({ userConvo, admin, getCurrentMessages }) => {
+const ConvoItem = ({ userConvo, admin, getCurrentMessages, currentMessagesLength }) => {
     const [ convoPartner, setConvoPartner ] = useState({});
     const [ convoSnippet, setConvoSnippet ] = useState(null);
     const [ convoLastMessageTime, setConvoLastMessageTime ] = useState(null);
 
     const getConvoPartner = (admin) => {
+        console.log('in getConvoPartner - ConvoItem');
         const partnerIndex = admin ? 0 : 1;
         const convoPartner = userConvo.participants[partnerIndex];
         return convoPartner
     }
 
     const getConvoSnippet = (convo) => {
+        console.log('in getConvoSnippet - ConvoItem');
         const messages = convo.messages;
         const lastMessage = messages[messages.length - 1];
         const convoSnippetResult = lastMessage.content;
+        console.log('convoSnippetResult', convoSnippetResult);
         return convoSnippetResult;
     }
 
     const getConvoLastMessageTime = (convo) => {
+        console.log('in getConvoLastMessageTime - ConvoItem');
+        console.log('covo', convo);
         const messages = convo.messages;
         const lastMessage = messages[messages.length - 1];
         const { dateCreated } = lastMessage;
@@ -88,18 +93,21 @@ const ConvoItem = ({ userConvo, admin, getCurrentMessages }) => {
     }
 
     const handleDisplayMessages = () => {
+        console.log('in handleDisplayMessages - ConvoItem');
         const convoId = userConvo._id;
         const convoPartnerName = `${convoPartner.firstName} ${convoPartner.lastName}`
         getCurrentMessages(convoId, convoPartnerName);
     }
 
     useEffect(() => {
+        console.log('in useEffect - ConvoItem');
         setConvoPartner( getConvoPartner(admin) )
         setConvoSnippet( getConvoSnippet(userConvo) );
         setConvoLastMessageTime( getConvoLastMessageTime(userConvo) )
-    }, [])
+    }, [userConvo])
 
 
+    console.log('currentMessagesLength - ConvoItem', currentMessagesLength);
     return (
         <WrapperOuter onClick={handleDisplayMessages}>
             <WrapperInner>

@@ -27,7 +27,7 @@ const WrapperMessageItems = styled.div`
 const MessagesTable = ({ currentMessages, currentMessagesLength, getCurrentMessages, currentUserId, currentConvoPartner, createNewMessage, currentUserProfileId, currentConvoId }) => {
 
     useEffect(() => {
-        console.log('message table use effect');
+        console.log('in useEffect - MessagesTable');
         getCurrentMessages(currentConvoId);
     }, [currentMessagesLength])
 

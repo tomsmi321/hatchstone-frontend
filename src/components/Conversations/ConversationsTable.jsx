@@ -42,9 +42,8 @@ const WrapperConvoItems = styled.div`
     align-items: center;
 `
 
-const ConversationsTable = ({ userConvos, admin, getCurrentMessages }) => {
+const ConversationsTable = ({ userConvos, admin, getCurrentMessages, currentMessagesLength }) => {
 
-    console.log('in coversations table', userConvos);
     return (
         <WrapperOuter>
             <WrapperInner>
@@ -59,6 +58,7 @@ const ConversationsTable = ({ userConvos, admin, getCurrentMessages }) => {
                                 userConvo={userConvo} 
                                 admin={admin}
                                 getCurrentMessages={getCurrentMessages}
+                                currentMessagesLength={currentMessagesLength}
                             />
                         )
                     }): null}

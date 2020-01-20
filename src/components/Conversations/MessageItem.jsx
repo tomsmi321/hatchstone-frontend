@@ -67,7 +67,6 @@ const WrapperAccountCircleIconFname = styled.div`
 
 const MessageItem = ({ message, currentUserId }) => {
     const { content, profileId, dateCreated, author } = message;
-    console.log(currentUserId);
 
     const formatMessageTime = (dateCreated) => {
         const date = new Date(dateCreated)

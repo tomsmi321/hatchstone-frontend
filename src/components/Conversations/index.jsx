@@ -34,10 +34,10 @@ const ConversationsPage = (props) => {
     }
     
     const getUserConvos = async (userId) => {
-        console.log('in getUserConvos - convo index');
+        console.log('in getUserConvos - index');
         try {
             const result = await axios.get(`/conversations/findByUser/${userId}`);
-            console.log(result.data);
+            console.log('getUserCovosData \n', result.data);
             if(result.data) {
                 setUserConvos(result.data);
             }
@@ -47,11 +47,11 @@ const ConversationsPage = (props) => {
     }
 
     const getCurrentMessages = async (convoId, name) => {
-        console.log('in getCurrentMessages - convo index');
+        console.log('in getCurrentMessages - index');
         try {
             // get current messages is returning prior to create new message 
             const result = await axios.get(`/messages/findByConversation/${convoId}`);
-            console.log(result.data);
+            console.log('getCurrentMessages \n', result.data);
             if(result.data) {
                 setCurrentMessages(result.data);
                 setCurrentConvoId(convoId);
@@ -75,22 +75,22 @@ const ConversationsPage = (props) => {
                 content: content
             })
             if(response) {
-                console.log('in create new message');
-                setCurrentMessagesLength(currentMessagesLength + 1); 
+                console.log('in createNewMessage - index');
+                setCurrentMessagesLength((prevState) => prevState + 1); 
             }
         } catch(err) {
             console.log(err);
         }
     }
 
-
     useEffect(() => {
-        console.log('in useEffect - convo index');
+        console.log('in useEffect - index');
         const userId = props.match.params.id;
         getUserConvos(userId);
-    }, [])
+    }, [currentMessagesLength])
 
-    console.log('length in render', currentMessagesLength);
+
+    console.log('currentMessagesLength - index', currentMessagesLength);
     return (
         <Wrapper>
             {/* remove below, for testing UserContext only */}
@@ -109,6 +109,7 @@ const ConversationsPage = (props) => {
                             userConvos={userConvos} 
                             admin={currentUserProfile.userId.admin}
                             getCurrentMessages={getCurrentMessages}
+                            currentMessagesLength={currentMessagesLength}
                         />
                         <MessagesTable 
                             currentUserId={currentUserProfile.userId._id}
