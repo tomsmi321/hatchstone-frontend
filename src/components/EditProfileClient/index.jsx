@@ -9,6 +9,7 @@ import { UserContext } from "../../contexts/UserContext";
 import axios from "../../config/axiosConfig";
 import { useHistory } from "react-router-dom";
 import AuthContextProvider from "../../contexts/AuthContext";
+import UploadFile from "../DocumentsUpload/UploadFile";
 
 const PageWrapper = styled.div`
   padding-bottom: 70px;
@@ -102,9 +103,11 @@ const WrapperClientDocsFieldDesc = styled.div`
 `;
 
 const ClientDocField = ({ docType, docFileName, uri }) => {
+  // const
   return (
     <WrapperClientDocsField>
-      <WrapperClientDocsFieldDesc>{docType}</WrapperClientDocsFieldDesc>
+      <WrapperClientDocsFieldDesc>Approved Identification</WrapperClientDocsFieldDesc>
+      <UploadFile style={{width: "60px"}} />
     </WrapperClientDocsField>
   );
 };
@@ -212,10 +215,13 @@ const EditProfileClientPage = props => {
               </WrapperTextFieldLower>
             </WrapperProfileDetailsLower>
             <WrapperDocsFieldsOuter>
-              {documents &&
+              {documents && documents.length > 0 ? (
                 documents.map((document, i) => (
-                  <DocumentField key={i} document={document} profileId={currentUserProfile._id} />
-                ))}
+                  <DocumentField key={i} document={document} profileId={currentUserProfile._id} onChange={onChange} />
+                ))
+              ) : (
+                <ClientDocField />
+              )}
             </WrapperDocsFieldsOuter>
             <WrapperUpdateButton>
               <PrimaryButton type="submit">Update</PrimaryButton>
