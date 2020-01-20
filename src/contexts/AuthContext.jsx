@@ -79,7 +79,7 @@ const AuthContextProvider = ({ children }) => {
       console.log(error);
     }
   };
-  // console.log(currentUser);
+  console.log(currentUser);
   return (
     <AuthContext.Provider
       value={{ currentUser, loginUser, logout, createAccount, currentUserProfile, setCurrentUserProfile }}
