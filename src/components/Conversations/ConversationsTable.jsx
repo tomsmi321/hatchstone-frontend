@@ -41,15 +41,28 @@ const WrapperConvoItems = styled.div`
 `
 
 const ConversationsTable = ({ userConvos, admin, getCurrentMessages, currentMessagesLength }) => {
+    const [searchState, setSearchState] = useState('');
+
+    const handleSearchChange = (e) => {
+        setSearchState(e.target.value);
+        console.log(searchState);
+    }
+
+    const filteredUserConvos = userConvos.filter(userConvo => {
+        const clientFullName = `${userConvo.participants[0].firstName + ' ' + userConvo.participants[0].lastName}`
+        return clientFullName.indexOf(searchState) !== -1;
+    });
+          
+    
 
     return (
         <WrapperOuter>
             <WrapperInner>
-                <WrapperSearchField>
+                <WrapperSearchField label="search" onChange={handleSearchChange}>
                     <SearchField placeholder="Search your conversations" />
                 </WrapperSearchField>
                 <WrapperConvoItems>
-                    {userConvos.length ? userConvos.map((userConvo, index) => {
+                    {filteredUserConvos.length ? filteredUserConvos.map((userConvo, index) => {
                         return (
                             <ConvoItem 
                                 key={index} 
