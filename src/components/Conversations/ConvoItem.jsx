@@ -12,7 +12,7 @@ const WrapperOuter = styled.div`
     &:hover {
         background-color: #ebebeb;
     } 
-    &:focus {
+    &:active {
         background-color: #d4d4d4;
     }
 `
@@ -27,7 +27,7 @@ const WrapperInner = styled.div`
     &:hover {
         background-color: #ebebeb;
     } 
-    &:focus {
+    &:active {
         background-color: #d4d4d4;
     }
 
