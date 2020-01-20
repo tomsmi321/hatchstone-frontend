@@ -3,6 +3,7 @@ import { AuthContext } from "./AuthContext";
 import axios from "../config/axiosConfig";
 import { useHistory } from "react-router-dom";
 
+
 export const UserContext = createContext({});
 
 // Anything in here should only relate to the currentUser
