@@ -69,7 +69,7 @@ useEffect(() => {
             target="_blank"
             rel="noopener noreferrer"
             download={document.fileName}
-            profileId={profileId}
+            profileid={profileId}
           >
             {" "}
             {document.fileName}

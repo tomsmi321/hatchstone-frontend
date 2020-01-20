@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { TextField } from "../../uiKit/userInput/TextField";
 import { PrimaryButton } from "../../uiKit/Button";
@@ -12,14 +12,11 @@ const PageWrapper = styled.div`
 `;
 
 const Wrapper = styled.div`
-  /* background-color: lightsteelblue; */
   margin: 4.55vh auto 0vh auto;
   width: 57vw;
 `;
 
 const WrapperProfilePic = styled.div`
-  /* background-color: lightgreen; */
-  /* height: 17.8vh; */
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
@@ -111,6 +108,16 @@ const ClientDocField = ({ docType, docFileName, uri }) => {
 
 const EditProfileClientPage = props => {
   const { currentUserProfile } = useContext(UserContext);
+
+
+  const onChange = (e) => {
+
+  }
+
+  const handleSubmit = e => {
+
+  }
+
   console.log(currentUserProfile);
   const {
     documents,
@@ -129,6 +136,7 @@ const EditProfileClientPage = props => {
   const imageSrc = "https://devilsworkshop.org/wp-content/uploads/sites/8/2013/01/small-facebook-profile-picture.jpg";
   return (
     <PageWrapper>
+      <form onSubmit={handleSubmit}>
       <Wrapper>
         <WrapperProfilePic>
           <ProfileImage imageSrc={imageSrc}>
@@ -182,7 +190,7 @@ const EditProfileClientPage = props => {
           </WrapperTextFieldLower>
           <WrapperTextFieldLower>
             <TextField
-              // having difficulty styling this without using inline styles
+              onChange={onChange}
               key={phone}
               defaultValue={phone}
               size={"small"}
@@ -201,9 +209,10 @@ const EditProfileClientPage = props => {
             ))}
         </WrapperDocsFieldsOuter>
         <WrapperUpdateButton>
-          <PrimaryButton>Update</PrimaryButton>
+          <PrimaryButton type="submit" onClick ={(e) => handleSubmit  }>Update</PrimaryButton>
         </WrapperUpdateButton>
       </Wrapper>
+    </form>
     </PageWrapper>
   );
 };
