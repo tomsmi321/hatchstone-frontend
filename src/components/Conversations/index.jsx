@@ -11,7 +11,7 @@ import axios from '../../config/axiosConfig';
 
 // fix this
 const Wrapper = styled.div`
-  display: flex;
+    display: flex;
 `
 
 const ConversationsPage = (props) => {
@@ -23,10 +23,11 @@ const ConversationsPage = (props) => {
     const [ showModal, setShowModal ] = useState(true);
     // conversation and message states
     const [ userConvos, setUserConvos ] = useState([]);
-    const [ currentConvoPartner, setCurrentConvoPartner ] = useState(null);
+    const [ currentConvoId, setCurrentConvoId ] = useState(null);
+    const [ currentMessagePartner, setCurrentMessagePartner ] = useState(null);
     const [ currentMessages, setCurrentMessages ] = useState([]);
     const [ currentMessagesLength, setCurrentMessagesLength ] = useState(0);
-    const [ currentConvoId, setCurrentConvoId ] = useState(null);
+  
    
 
     const handModalClose = () => {
@@ -55,7 +56,6 @@ const ConversationsPage = (props) => {
             if(result.data) {
                 setCurrentMessages(result.data);
                 setCurrentConvoId(convoId);
-                setCurrentConvoPartner(name);  
                 setCurrentMessagesLength(result.data.length)
             }
         } catch(err) {
@@ -117,9 +117,9 @@ const ConversationsPage = (props) => {
                             getCurrentMessages={getCurrentMessages} 
                             currentMessages={currentMessages}
                             currentMessagesLength={currentMessagesLength}
-                            currentConvoPartner={currentConvoPartner}
                             createNewMessage={createNewMessage}
                             currentConvoId={currentConvoId}
+                            admin={currentUserProfile.userId.admin}
                         />
                     </>
                 ) : <LoadSpinner topMargin='38vh'/>

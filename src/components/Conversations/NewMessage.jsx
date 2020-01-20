@@ -27,7 +27,7 @@ const StyledTextArea = styled(TextArea)`
     }
 `
 
-const NewMessage = ({ createNewMessage, getCurrentMessages, currentMessagesLength, currentUserId, currentUserProfileId, currentConvoId }) => {
+const NewMessage = ({ createNewMessage, currentUserId, currentUserProfileId, currentConvoId }) => {
     const [ newMessageContent, setNewMessageContent ] = useState('');
 
     const handleMessageChange = (e) => {
@@ -40,11 +40,6 @@ const NewMessage = ({ createNewMessage, getCurrentMessages, currentMessagesLengt
         createNewMessage(newMessageContent, currentUserId, currentUserProfileId, currentConvoId);
         setNewMessageContent('');
     }
-
-    useEffect(() => {
-        console.log('in useEffect - NewMessage');
-        getCurrentMessages(currentConvoId);
-    }, [currentMessagesLength])
 
     console.log('newMessageContent - NewMessage', newMessageContent);
     return (

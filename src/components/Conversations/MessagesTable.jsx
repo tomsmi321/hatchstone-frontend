@@ -13,32 +13,21 @@ const Wrapper = styled.div`
     overflow: scroll;
 `
 
-const WrapperMessagePartnerName = styled.div`
-    /* background-color: thistle; */
-    margin: 60px 0 4.8vh 2.3vw;
-    font-weight: 900;
-    font-size: 18px;
-`
-
 const WrapperMessageItems = styled.div`
     /* background-color: darkslateblue; */
+    margin-top: 60px;
 `
 
-const MessagesTable = ({ currentMessages, currentMessagesLength, getCurrentMessages, currentUserId, currentConvoPartner, createNewMessage, currentUserProfileId, currentConvoId }) => {
+const MessagesTable = ({ currentMessages, currentMessagesLength, getCurrentMessages, currentUserId, createNewMessage, currentUserProfileId, currentConvoId, admin }) => {
 
     useEffect(() => {
-        console.log('in useEffect - MessagesTable');
+        console.log('useEffect - MessagesTable');
         getCurrentMessages(currentConvoId);
     }, [currentMessagesLength])
 
-    // console.log('current messages length from current messages obj ', currentMessages.length);
-    // console.log('currentMessages length', currentMessagesLength);
     return (
         <Wrapper>
             <WrapperMessageItems>
-                <WrapperMessagePartnerName>
-                    {currentConvoPartner}
-                </WrapperMessagePartnerName>
                 {currentMessages ? currentMessages.map((message, index) => {
                     return (
                         <MessageItem 

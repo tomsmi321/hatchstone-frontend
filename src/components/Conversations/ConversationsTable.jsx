@@ -10,8 +10,6 @@ const WrapperOuter = styled.div`
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
-    width: 40vw;
-    height: 90vh;
     overflow: scroll;
 `
 const WrapperInner = styled.div`

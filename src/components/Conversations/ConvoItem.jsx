@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { AccountCircle } from 'uiKit/Icon'
 
@@ -8,6 +8,12 @@ const WrapperOuter = styled.div`
     width: 100%;
     margin-bottom: 17px;
     padding: 8px;
+    &:hover {
+        background-color: #ebebeb;
+    } 
+    &:active {
+        background-color: #d4d4d4;
+    }
 `
 
 const WrapperInner = styled.div`
@@ -17,6 +23,13 @@ const WrapperInner = styled.div`
     display: flex;
     flex-direction: row;    
     justify-content: space-between;
+    &:hover {
+        background-color: #ebebeb;
+    } 
+    &:active {
+        background-color: #d4d4d4;
+    }
+
 `
 
 const AccountCircleIcon = styled(AccountCircle).attrs({ style: { fontSize: 42 } })`
@@ -24,7 +37,7 @@ const AccountCircleIcon = styled(AccountCircle).attrs({ style: { fontSize: 42 } 
 `
 
 const WrapperAccountCircleIcon = styled.div`
-    /* background-color: blueviolet; */
+    background-color: blueviolet;
     display: flex;
     flex-direction: column; 
     justify-content: center;
@@ -61,7 +74,7 @@ const WrapperConvoTime = styled.div`
     height: max-content;
 `
 
-const ConvoItem = ({ userConvo, admin, getCurrentMessages, currentMessagesLength }) => {
+const ConvoItem = ({ userConvo, admin, getCurrentMessages, currentMessagesLength, key }) => {
     const [ convoPartner, setConvoPartner ] = useState({});
     const [ convoSnippet, setConvoSnippet ] = useState(null);
     const [ convoLastMessageTime, setConvoLastMessageTime ] = useState(null);
