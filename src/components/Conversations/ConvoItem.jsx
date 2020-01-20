@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { AccountCircle } from 'uiKit/Icon'
+import { capitaliseString } from '../../utils/formatting-util';
 
 const WrapperOuter = styled.div`
     /* background-color: lightcyan; */
@@ -32,12 +33,22 @@ const WrapperInner = styled.div`
 
 `
 
+const ProfileImage = styled.div`
+  background-image: ${({ imageSrc }) => `url("${imageSrc}")`};
+  background-position: center;
+  background-size: cover;
+  width: 42px;
+  height: 42px;
+  border-radius: 100px;
+`;
+
+
 const AccountCircleIcon = styled(AccountCircle).attrs({ style: { fontSize: 42 } })`
   color: rgba(0, 0, 0, 0.4);
 `
 
-const WrapperAccountCircleIcon = styled.div`
-    background-color: blueviolet;
+const WrapperProfilePicture = styled.div`
+    /* background-color: blueviolet; */
     display: flex;
     flex-direction: column; 
     justify-content: center;
@@ -78,6 +89,7 @@ const ConvoItem = ({ userConvo, admin, getCurrentMessages, currentMessagesLength
     const [ convoPartner, setConvoPartner ] = useState({});
     const [ convoSnippet, setConvoSnippet ] = useState(null);
     const [ convoLastMessageTime, setConvoLastMessageTime ] = useState(null);
+    const convoPartnerProfileImg = userConvo.participants[0].profileImage;
 
     const getConvoPartner = (admin) => {
         console.log('in getConvoPartner - ConvoItem');
@@ -124,13 +136,17 @@ const ConvoItem = ({ userConvo, admin, getCurrentMessages, currentMessagesLength
     return (
         <WrapperOuter onClick={handleDisplayMessages}>
             <WrapperInner>
-                <WrapperAccountCircleIcon>
-                    <AccountCircleIcon />
-                </WrapperAccountCircleIcon>
+                <WrapperProfilePicture>
+                    {convoPartnerProfileImg ? <ProfileImage imageSrc={convoPartnerProfileImg}/> : (
+                        <AccountCircleIcon />
+                    )}
+                </WrapperProfilePicture>
                 <WrapperConvoContent>
-                    <WrapperConvoPartner>
-                        {`${convoPartner.firstName} ${convoPartner.lastName}`}
-                    </WrapperConvoPartner>
+                    {convoPartner.firstName && convoPartner.lastName ? (
+                        <WrapperConvoPartner>
+                            {`${capitaliseString(convoPartner.firstName) + ' ' + capitaliseString(convoPartner.lastName)}`}
+                        </WrapperConvoPartner>
+                    ) : (null)}
                     <WrapperConvoSnippet>
                         {convoSnippet}
                     </WrapperConvoSnippet>

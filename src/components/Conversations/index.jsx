@@ -24,7 +24,6 @@ const ConversationsPage = (props) => {
     // conversation and message states
     const [ userConvos, setUserConvos ] = useState([]);
     const [ currentConvoId, setCurrentConvoId ] = useState(null);
-    const [ currentMessagePartner, setCurrentMessagePartner ] = useState(null);
     const [ currentMessages, setCurrentMessages ] = useState([]);
     const [ currentMessagesLength, setCurrentMessagesLength ] = useState(0);
   

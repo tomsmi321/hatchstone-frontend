@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { AccountCircle } from "uiKit/Icon";
+import { capitaliseString, capitaliseAddress } from '../../utils/formatting-util';
 
 const Wrapper = styled.div`
   /* background-color: lightpink; */
@@ -47,18 +48,6 @@ const FieldData = styled.p`
 
 const ClientProfileTable = props => {
   let { firstName, lastName, phone, address, investorType, profileImage } = props.client;
-
-  const capitaliseString = str => {
-    return `${str[0].toUpperCase() + str.slice(1, str.length)}`;
-  };
-
-  const capitaliseAddress = strOfWords => {
-    const arrOfWords = strOfWords.split(" ");
-    const arrOfWordsCapitalised = arrOfWords.map(word => {
-      return word[0].toUpperCase() + word.substr(1);
-    });
-    return arrOfWordsCapitalised.join(" ");
-  };
 
   const isEmpty = obj => {
     return Object.keys(obj).length === 0;

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import { AccountCircle } from 'uiKit/Icon'
+import { capitaliseString } from '../../utils/formatting-util';
 
 const WrapperOuter = styled.div`
     /* background-color: teal; */
@@ -46,11 +47,20 @@ const WrapperMessageTimeInner = styled.div`
     font-size: 14px;
 `
 
+const ProfileImage = styled.div`
+  background-image: ${({ imageSrc }) => `url("${imageSrc}")`};
+  background-position: center;
+  background-size: cover;
+  width: 42px;
+  height: 42px;
+  border-radius: 100px;
+`;
+
 const AccountCircleIcon = styled(AccountCircle).attrs({ style: { fontSize: 42 } })`
   color: rgba(0, 0, 0, 0.4);
 `
 
-const WrapperAccountCircleIcon = styled.div`
+const WrapperProfileImage = styled.div`
     /* background-color: blueviolet; */
     display: flex;
     flex-direction: column;
@@ -60,7 +70,7 @@ const WrapperAccountCircleIcon = styled.div`
     display: ${props => props.alignRight ? "none" : ""};
 `
 
-const WrapperAccountCircleIconFname = styled.div`
+const WrapperProfileImageFname = styled.div`
     /* background-color: wheat; */
     font-size: 12px;
 `
@@ -83,12 +93,14 @@ const MessageItem = ({ message, currentUserId }) => {
     return (
         <WrapperOuter alignRight={alignRight()}>
             <WrapperInner>
-                <WrapperAccountCircleIcon alignRight={alignRight()}>
-                    <AccountCircleIcon /> 
-                    <WrapperAccountCircleIconFname>
-                        {`${profileId.firstName}`}
-                    </WrapperAccountCircleIconFname>
-                </WrapperAccountCircleIcon>
+                <WrapperProfileImage alignRight={alignRight()}>
+                    {profileId.profileImage ? <ProfileImage imageSrc={profileId.profileImage}/> : (
+                        <AccountCircleIcon /> 
+                    )}
+                    <WrapperProfileImageFname>
+                        {`${capitaliseString(profileId.firstName)}`}
+                    </WrapperProfileImageFname>
+                </WrapperProfileImage>
                 <WrapperMessageBox alignRight={alignRight()}>
                     <WrapperMessageContent>
                         {content}
