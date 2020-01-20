@@ -2,8 +2,8 @@ import React from "react";
 import "react-dropzone-uploader/dist/styles.css";
 import Dropzone from "react-dropzone-uploader";
 import styled from "styled-components";
-import CloseIcon from '@material-ui/icons/Close';
-
+import CloseIcon from "@material-ui/icons/Close";
+import axios from "../../config/axiosConfig";
 
 const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { maxFiles } }) => {
   return (
@@ -17,9 +17,17 @@ const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { 
   );
 };
 
+const deleteDocument = async (params) => {
+  const docFileName = document.fileName;
+  const id = params.profileId;
+  console.log(docFileName);
+  const response = await axios.post(`/profiles/${id}/delete-document`, { docFileName });
+  console.log(response)
+};
 
 const Preview = ({ meta }) => {
   const { name, percent, status } = meta;
+  console.log(meta);
   return (
     <span
       style={{
@@ -35,7 +43,11 @@ const Preview = ({ meta }) => {
         borderRadius: "4px"
       }}
     >
-      {name} <CloseIcon/>
+      <a href={document.url} target="_blank" rel="noopener noreferrer" download={document.fileName}>
+        {" "}
+        {document.fileName}
+      </a>
+      {name} <CloseIcon onClick={deleteDocument} />
     </span>
   );
 };
@@ -43,7 +55,7 @@ const Preview = ({ meta }) => {
 const FileUpload = params => {
   const documentId = params.documentId;
   const profileId = params.profileId;
-  console.log(profileId);
+  // console.log(profileId);
 
   const PreviewComponent = () => {
     return (

@@ -6,6 +6,7 @@ import { OUTER_APP_PATHS } from 'common/constants'
 import { SignUpLink, LogInLink, SignOutLink, AdminLinks } from './Links'
 import ProfileDropdown from './ProfileDropdown'
 
+
 const LOG_IN_PATH = "/log-in"
 const SIGN_UP_PATH = "/sign-up"
 const CREATE_PROFILE_PATH = "/create-profile"
