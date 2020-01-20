@@ -12,7 +12,7 @@ const WrapperOuter = styled.div`
     &:hover {
         background-color: #ebebeb;
     } 
-    &:active {
+    &:focus {
         background-color: #d4d4d4;
     }
 `
@@ -27,7 +27,7 @@ const WrapperInner = styled.div`
     &:hover {
         background-color: #ebebeb;
     } 
-    &:active {
+    &:focus {
         background-color: #d4d4d4;
     }
 
@@ -89,7 +89,6 @@ const ConvoItem = ({ userConvo, admin, getCurrentMessages, currentMessagesLength
     const [ convoPartner, setConvoPartner ] = useState({});
     const [ convoSnippet, setConvoSnippet ] = useState(null);
     const [ convoLastMessageTime, setConvoLastMessageTime ] = useState(null);
-    const convoPartnerProfileImg = userConvo.participants[0].profileImage;
 
     const getConvoPartner = (admin) => {
         console.log('in getConvoPartner - ConvoItem');
@@ -133,6 +132,7 @@ const ConvoItem = ({ userConvo, admin, getCurrentMessages, currentMessagesLength
 
 
     console.log('currentMessagesLength - ConvoItem', currentMessagesLength);
+    const convoPartnerProfileImg = getConvoPartner(admin).profileImage;
     return (
         <WrapperOuter onClick={handleDisplayMessages}>
             <WrapperInner>
