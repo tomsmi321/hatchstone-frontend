@@ -1,8 +1,10 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 import { AccountCircle, MoreHoriz } from 'uiKit/Icon'
 import DropdownMenu from 'uiKit/DropdownMenu'
+import axios from '../../config/axiosConfig';
+import { UserContext } from '../../contexts/UserContext';
 
 const Container = styled.div`
   margin-top: 10px;
@@ -59,6 +61,22 @@ const Client = ({ approvedClient, isLastItem }) => {
   const [menuIsShowing, toggleMenuIsShowing] = useState(false)
   const menuIcon = useRef()
   const history = useHistory()
+  const { currentUserProfile } = useContext(UserContext);
+  const clientUserProfile = approvedClient;
+  const adminUserProfile = currentUserProfile
+
+  const sendMessage = async (clientUserProfile, adminUserProfile) => {
+    try {
+      const clientUserId = clientUserProfile.userId._id;
+      const adminUserId = adminUserProfile.userId._id;
+      const response = await axios.post('/conversations', {
+        clientUserId,
+        adminUserId
+      })
+    } catch(err) {
+      console.log(err);
+    }
+  }
 
   const toggleShowMenu = () => toggleMenuIsShowing(!menuIsShowing)
 
@@ -84,7 +102,10 @@ const Client = ({ approvedClient, isLastItem }) => {
             label: 'View'
           },
           {
-            onClick: () => history.push(`/conversations/${approvedClient.userId._id}`),
+            onClick: () => {
+              sendMessage(clientUserProfile, adminUserProfile);
+              history.push(`/conversations/${adminUserProfile.userId._id}`)
+            },
             label: 'Send a message'
           },
         ]}
