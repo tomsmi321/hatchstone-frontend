@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import {Redirect, Route} from 'react-router-dom';
 import axios from './config/axiosConfig'
 
+// ProtectedRoute is rendered where a Route component would be and returns a Route which returns component/s to be rendered
+// This allows us to wrap the component/s for a route in another component which we can place logic in to only render if 'xyz' conditions are met
 const ProtectedRoute = ({ component: Component, ...props }) => ( 
   <Route path={props.path} render={() => {
     return (
@@ -12,29 +14,29 @@ const ProtectedRoute = ({ component: Component, ...props }) => (
   }} />
 );
 
+// Contains the logic to verify whether a user is authroised and what to do if they're not
 const ProtectedContainer = ({ children }) => {
 
   const [user, setUser] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
   const checkToken = async () => {
-    console.log('IN CHECK TOKEN')
     const token = localStorage.getItem('token')
 
+    // If no token, user is not logged in, we redirect them to log-in
     if (token) {
+      // Hit server checkAuth middleware to veryify JWT. If verified, user is verified and can access route
       try {
-        console.log('IN TRY', token)
         const result = await axios.get('/auth/checkToken', {
           headers: {
             Authorization: token,
           } 
         }) 
-        console.log('RESULT:', result)
         setUser(result)
         setIsLoading(false)
       }
       catch (err) {
-        console.log('IN CATCH')
+        console.log('IN CHECKTOKEN() CATCH')
         setIsLoading(false)
       }
     } else {
@@ -42,13 +44,10 @@ const ProtectedContainer = ({ children }) => {
     }
   }
   
+  // run on all changes to this component to update authorised status accordingly
   useEffect(() => { checkToken() }, [])
 
-  console.log('is loading', isLoading)
-  console.log('user', user)
-
   if (isLoading) {
-    console.log('RETURNING NULL')
     return null
   } 
   
@@ -56,6 +55,8 @@ const ProtectedContainer = ({ children }) => {
     return <Redirect to="/log-in" />
   }
   
+  // Clone and return a new React element using element. The resulting element will have the original element’s props with the new props. 
+  // New children will replace existing children
   return React.cloneElement(children, {user})
 
 }
