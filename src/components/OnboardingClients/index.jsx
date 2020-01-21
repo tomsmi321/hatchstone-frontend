@@ -70,6 +70,16 @@ const OnboardingClientsPage = () => {
     return clients.sort(compareProgress)
   }
 
+  const handleSearchAndFilter = (searchClients, sortClientsByProgress, searchTerm, clients, compareProgress, filter) => {
+    const searchedClients = searchClients(searchTerm, clients);
+    if(filter === 'Progress') {
+      return sortClientsByProgress(searchedClients, compareProgress);
+    } else {
+      return searchedClients
+    }
+  }
+
+
     return (
       <>
         {!isLoading ? (
@@ -83,7 +93,8 @@ const OnboardingClientsPage = () => {
                     </WrapperSearchField>
                   </WrapperSearchAndFilterFields>
                   {/* <ClientsTable clients={searchClients(searchState, onboardingClients)} /> */}
-                  <ClientsTable clients={sortClientsByProgress(onboardingClients, compareProgress)} />
+                  {/* <ClientsTable clients={sortClientsByProgress(onboardingClients, compareProgress)} /> */}
+                  <ClientsTable clients={handleSearchAndFilter(searchClients, sortClientsByProgress, searchState, onboardingClients, compareProgress, filter)} />
                 </>
               ) : (
                 <div>There are no approved clients</div>

@@ -9,7 +9,7 @@ const Wrapper = styled.div`
     border-radius: 4px;
 `
   
-const WarrperFiller = styled.div`
+const WrapperFiller = styled.div`
     background-color: #326FBB;
     height: 100%;
     border-radius: inherit;
@@ -18,7 +18,7 @@ const WarrperFiller = styled.div`
 
 const Filler = ({ appProgress }) => {
     return (
-        <WarrperFiller width={appProgress}></WarrperFiller>
+        <WrapperFiller width={appProgress}></WrapperFiller>
     )
 }
 
