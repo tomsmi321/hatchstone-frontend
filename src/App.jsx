@@ -45,7 +45,7 @@ const App = () => {
             <ProtectedRoute path="/edit-profile-client/:id" component={EditProfileClientPage} />
             <ProtectedRouteAdmin path="/approved-clients" component={ApprovedClientsPage} />
             <ProtectedRouteAdmin path="/onboarding-clients" component={OnboardingClientsPage} />
-            <ProtectedRouteAdmin path="/conversations/:id" component={ConversationsPage} />
+            <ProtectedRoute path="/conversations/:id" component={ConversationsPage} />
             <ProtectedRouteAdmin path="/client-details/:userId" component={ClientDetailPage} />
             <ProtectedRoute exact path="/create-profile" component={CreateProfilePage} />
           </UsersContextProvider>
