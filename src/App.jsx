@@ -43,10 +43,10 @@ const App = () => {
             <ProtectedRoute path="/submit-documents/:id" component={SubmitDocuments} />
             <ProtectedRouteAdmin path="/edit-profile-admin/:id" component={EditProfileAdminPage} />
             <ProtectedRoute path="/edit-profile-client/:id" component={EditProfileClientPage} />
-            <Route path="/approved-clients" component={ApprovedClientsPage} />
-            <Route path="/onboarding-clients" component={OnboardingClientsPage} />
-            <Route path="/conversations/:id" component={ConversationsPage} />
-            <Route path="/client-details/:userId" component={ClientDetailPage} />
+            <ProtectedRouteAdmin path="/approved-clients" component={ApprovedClientsPage} />
+            <ProtectedRouteAdmin path="/onboarding-clients" component={OnboardingClientsPage} />
+            <ProtectedRouteAdmin path="/conversations/:id" component={ConversationsPage} />
+            <ProtectedRouteAdmin path="/client-details/:userId" component={ClientDetailPage} />
             <ProtectedRoute exact path="/create-profile" component={CreateProfilePage} />
           </UsersContextProvider>
         </Switch>
