@@ -22,11 +22,7 @@ import ProtectedRoute from './ProtectedRoute'
 
 
 const App = () => {
-<<<<<<< HEAD
-  console.log('in app')
-=======
   
->>>>>>> 4f244b8fb739f2b1cb2d80e2a0d9155f278fc84d
   return (
     // wrapping components in custom MuiThemeProvider to match Hatchstone style guide
     <MuiThemeProvider theme={theme}>

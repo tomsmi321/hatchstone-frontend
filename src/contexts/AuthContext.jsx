@@ -1,18 +1,13 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-<<<<<<< HEAD
-import axios from './../config/axiosConfig';
-=======
 // import axios from "../config/axiosConfig";
 import axios from '../config/axiosConfig'
->>>>>>> 4f244b8fb739f2b1cb2d80e2a0d9155f278fc84d
 
 export const AuthContext = createContext();
 
 // calling this function as initial value for currentUser solves the initial empty user object bug on page changes/refreshes
 const getInitialCurrentUserState = () => {
   let user = JSON.parse(localStorage.getItem("currentUser"));
-  // console.log(user);
   if (!user) return {};
   return user;
 };
@@ -25,11 +20,7 @@ const AuthContextProvider = ({ children }) => {
   const loginUser = async (email, password) => {
     console.log(`in AuthContext loginUser function`);
     try {
-<<<<<<< HEAD
-      const response = await axios.post('auth/login', {
-=======
       const response = await axios.post("/auth/login", {
->>>>>>> 4f244b8fb739f2b1cb2d80e2a0d9155f278fc84d
         email,
         password
       });
@@ -43,14 +34,9 @@ const AuthContextProvider = ({ children }) => {
         setCurrentUser(currentUserData);
         console.log(currentUserData);
         // storing response data into a const first and passing the const to updating state function is to counter a race condition that's happening
-<<<<<<< HEAD
         localStorage.setItem("currentUser", JSON.stringify(currentUserData))
         localStorage.setItem("token", JSON.stringify(token))
         history.push(`/conversations/`)
-=======
-        localStorage.setItem("currentUser", JSON.stringify(currentUserData));
-        history.push(`/conversations/${currentUserData._id}`);
->>>>>>> 4f244b8fb739f2b1cb2d80e2a0d9155f278fc84d
         return true;
       }
     } catch (err) {
