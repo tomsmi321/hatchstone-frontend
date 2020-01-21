@@ -106,7 +106,7 @@ const FileUpload = params => {
           inputLabel: {
             borderRadius: "4px",
             color: "black",
-            fontSize: "16px",
+            fontSize: "10px",
             fontWeight: "normal",
             fontFamily: "Lato",
             border: "1px dashed #1A237E",

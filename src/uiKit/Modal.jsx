@@ -102,3 +102,4 @@ export const SimpleModal = ({ approved, showModal, handModalClose, firstName}) =
     </div>
   );
 };
+
