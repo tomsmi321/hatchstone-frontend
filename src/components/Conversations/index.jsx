@@ -5,8 +5,8 @@ import MessagesTable from './MessagesTable';
 import { LoadSpinner } from '../../uiKit/LoadSpinner';
 import { SimpleModal } from '../../uiKit/Modal';
 import { UserContext } from '../../contexts/UserContext';
-import { AuthContext } from '../../contexts/AuthContext';
 import axios from '../../config/axiosConfig';
+import { capitaliseString } from '../../utils/formatting-util';
 
 
 // fix this
@@ -17,8 +17,6 @@ const Wrapper = styled.div`
 const ConversationsPage = (props) => {
     // context
     const { currentUserProfile } = useContext(UserContext);
-    // profile attributes of currentUser
-    const { approved, firstName } = currentUserProfile;
     // approved / in-review modal states
     const [ showModal, setShowModal ] = useState(true);
     // conversation and message states
@@ -95,14 +93,14 @@ const ConversationsPage = (props) => {
     return (
         <Wrapper>
             {/* remove below, for testing UserContext only */}
-            { Object.keys(currentUserProfile).length ? (
+            { (currentUserProfile && Object.keys(currentUserProfile).length) ? (
                     <>  
                         {!currentUserProfile.userId.admin ? (
                             <SimpleModal 
-                            approved={approved} 
+                            approved={currentUserProfile.approved} 
                             showModal={showModal}
                             handModalClose={handModalClose}
-                            firstName={`${firstName[0].toUpperCase() + firstName.slice(1, firstName.length)}`}
+                            firstName={capitaliseString(currentUserProfile.firstName)}
                         />
                         ) : null }
                     

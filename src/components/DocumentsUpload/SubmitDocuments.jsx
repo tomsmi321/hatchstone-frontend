@@ -3,10 +3,11 @@ import { useHistory } from "react-router-dom";
 import FileUpload from "./UploadFile";
 import styled from "styled-components";
 import { PrimaryButton } from "../../uiKit/Button";
-import { PrimaryLink, SecondaryLink } from "../../uiKit/Link";
+import { PrimaryLink } from "../../uiKit/Link";
+import { UserContext } from "../../contexts/UserContext";
+import { LoadSpinner } from '../../uiKit/LoadSpinner';
 import {StepA} from "../../uiKit/Stepper";
 import { InfoModal } from "../../uiKit/InfoModal";
-import { AuthContext } from "../../contexts/AuthContext";
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -102,16 +103,15 @@ const WholeSaleInvestorCertDesc = () => {
     </i>
   );
 };
+
 const SubmitDocuments = props => {
   const history = useHistory();
-  const userId = props.match.params.id.trim();
-  console.log(userId);
-
-  const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
-  return (
-    <PageWrapper>
-      {currentUser && <StepA inputSteps={["Sign Up", "Create Profile", "Submit Documents"]} stepNumber={2} />}
+  const { currentUserProfile, isLoading } = useContext(UserContext);
+  const userId = props.match.params.id;
+  if (isLoading === false) {
+    return (
+      <PageWrapper>
+      <StepA inputSteps={["Sign Up", "Create Profile", "Submit Documents"]} stepNumber={2} />}
       <Container>
         <Title>Submit your documents</Title>
 
@@ -158,6 +158,8 @@ const SubmitDocuments = props => {
       </Container>
     </PageWrapper>
   );
+
+  } else return <LoadSpinner topMargin="38vh"/>;
 };
 
 export default SubmitDocuments;

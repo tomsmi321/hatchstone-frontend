@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { SearchField } from 'uiKit/userInput/TextField'
 import ClientsTable from './ClientsTable'
 import { UsersContext } from '../../contexts/UsersContext';
+import { LoadSpinner } from '../../uiKit/LoadSpinner';
 
 const Container = styled.div`
   margin: 60px auto 0px auto;
@@ -16,7 +17,7 @@ const SearchContainer = styled.div`
 
 const ApprovedClientsPage = () => {
   // consume context 
-  const { approvedClients, getApprovedClients } = useContext(UsersContext);
+  const { approvedClients, getApprovedClients, isLoading } = useContext(UsersContext);
   // setting initial state for the search term in SearchContainer
   const [searchState, setSearchState] = useState('');
 
@@ -35,18 +36,23 @@ const ApprovedClientsPage = () => {
     return clientFullName.indexOf(searchState) !== -1;
   });
 
+  console.log('in render', isLoading);
   return (
     <Container>
-        { approvedClients.length ? (
-          <>
-            <SearchContainer label="search" onChange={handleSearchChange}>
-              <SearchField placeholder="Search your clients" />
-            </SearchContainer>
-            <ClientsTable approvedClients={filteredApprovedClients} />
-          </>
-        ) : (
-          <div>There are no approved clients</div>
-        )}
+      {!isLoading ? (
+        <>
+          { approvedClients.length ? (
+            <>
+              <SearchContainer label="search" onChange={handleSearchChange}>
+                <SearchField placeholder="Search your clients" />
+              </SearchContainer>
+              <ClientsTable approvedClients={filteredApprovedClients} />
+            </>
+          ) : (
+            <div>There are no approved clients</div>
+          )}
+        </>
+      ) : (<LoadSpinner topMargin="38vh"/>)}
     </Container>
   )
 }
