@@ -44,7 +44,7 @@ const LeftNavContainer = styled.div`
 
 const NavBar = () => {
   const { pathname } = useLocation();
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, logout } = useContext(AuthContext);
   console.log(currentUser)
   const isLoggedIn = !PRE_APP_PATHS.includes(pathname) && !PRE_APP_PATHS.includes(pathname);
   // TODO replace this
@@ -60,7 +60,7 @@ const NavBar = () => {
 
         {pathname === LOG_IN_PATH && <SignUpLink />}
         {pathname === SIGN_UP_PATH && <LogInLink />}
-        {pathname === CREATE_PROFILE_PATH && <SignOutLink />}
+        {pathname === CREATE_PROFILE_PATH && <SignOutLink onClick={logout} />}
         {isLoggedIn && <ProfileDropdown />}
       </Inner>
     </Container>
