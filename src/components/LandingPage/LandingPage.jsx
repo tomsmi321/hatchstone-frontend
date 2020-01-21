@@ -5,7 +5,7 @@ import { DarkFooter } from "uiKit/Footer";
 import NavBar from "uiKit/navbars/LandingPageNav";
 import { useHistory } from "react-router-dom";
 
-import { AuthContext } from "../../contexts/AuthContext";
+// import { AuthContext } from "../../contexts/AuthContext"
 
 const Heading = styled.h1`
   font-family: Lato;
@@ -18,23 +18,23 @@ const Heading = styled.h1`
 
 export const LandingPage = () => {
   const history = useHistory();
-  const { currentUser } = useContext(AuthContext);
- 
-  if (currentUser) {
-    const id = currentUser._id
-    history.push(`/conversations/${id}`);
-    return null
-  } else {
-    return (
-      <>
-        <Background>
-          <BackgroundOverlay>
-            <NavBar />
-            <Heading>Welcome to Hatchstone Client Onboarding</Heading>
-            <DarkFooter />
-          </BackgroundOverlay>
-        </Background>
-      </>
-    );
-  }
+  // const { currentUser } = useContext(AuthContext);
+
+  // if (currentUser) {
+  //   const id = currentUser._id
+  //   history.push(`/conversations/${id}`);
+  //   return null
+  // } else {
+  return (
+    <>
+      <Background>
+        <BackgroundOverlay>
+          <NavBar />
+          <Heading>Welcome to Hatchstone Client Onboarding</Heading>
+          <DarkFooter />
+        </BackgroundOverlay>
+      </Background>
+    </>
+  );
 };
+// };
