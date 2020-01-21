@@ -4,9 +4,10 @@ import FileUpload from "./UploadFile";
 import styled from "styled-components";
 import { PrimaryButton } from "../../uiKit/Button";
 import { PrimaryLink, SecondaryLink } from "../../uiKit/Link";
-import {StepA} from "../../uiKit/Stepper";
+import { StepA } from "../../uiKit/Stepper";
 import { InfoModal } from "../../uiKit/InfoModal";
 import { AuthContext } from "../../contexts/AuthContext";
+import { UserContext } from "../../contexts/UserContext";
 
 const TitleWrapper = styled.div`
   display: flex;

@@ -9,7 +9,8 @@ import { UserContext } from "../../contexts/UserContext";
 import axios from "../../config/axiosConfig";
 import { useHistory } from "react-router-dom";
 import AuthContextProvider from "../../contexts/AuthContext";
-import UploadFile from "../DocumentsUpload/UploadFile";
+import FileUpload from "../DocumentsUpload/UploadFileEdit";
+import { InfoModal } from "../../uiKit/InfoModal";
 
 const PageWrapper = styled.div`
   padding-bottom: 70px;
@@ -75,6 +76,28 @@ const WrapperTextFieldLower = styled.div`
   width: 26.5vw;
 `;
 
+const TitleWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  /* margin: 25px; */
+  font-size: 16px;
+  align-items: center;
+  width: 300px;
+`;
+
+const Info = styled.div`
+  font-size: 16px;
+  align-items: center;
+  /* margin: 25px; */
+`;
+
+const Label = styled.div`
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: flex-start;
+`;
+
 const WrapperDocsFieldsOuter = styled.div`
   /* background-color: lightcoral; */
   display: flex;
@@ -102,19 +125,91 @@ const WrapperClientDocsFieldDesc = styled.div`
   margin-bottom: 8px;
 `;
 
-const ClientDocField = ({userId}) => {
-  console.log(userId)
+const CompanyVerificationDesc = () => {
+  return (
+    <i>
+      {" "}
+      A certified copy of an Australian Securities and Investments Commission extract or your most recent company
+      statement issued by ASIC showing all company directors and members
+    </i>
+  );
+};
+
+const DirectorIdentificationDesc = () => {
+  return (
+    <i>
+      For each Director and Beneficial Owner of the company, a certified copy of their Australian driver's licence
+      (front and back) that contains a photograph of the licence holder and displaying current residential address
+    </i>
+  );
+};
+
+const WholeSaleInvestorCertDesc = () => {
+  return (
+    <i>
+      An accountant certificate under section 708(8) of the Corporations Act for the purpose of confirming your
+      sophisticated investor status. The accountant certificate must contain the name of the accountant, the
+      accountant's professional accounting body membership type and membership number, accountant's sign-off, and the
+      date that the certificate was signed. <br /> <br /> *Please note that accountant certificates are valid for 2
+      years from the date of signing.
+    </i>
+  );
+};
+
+const ClientDocFieldA = ({ userId }) => {
+  console.log(userId);
   return (
     <WrapperClientDocsField>
-      <WrapperClientDocsFieldDesc>Approved Identification</WrapperClientDocsFieldDesc>
-      <UploadFile userId={userId} style={{width: "60px"}} documentId="Company Verification" />
+      <TitleWrapper>
+        <Label>Company Verification</Label>
+        <Info>
+          <InfoModal documentType="Company Verification" desc={<CompanyVerificationDesc />} />
+        </Info>
+      </TitleWrapper>
+      <FileUpload userId={userId} documentId="Company Verification" style={{ width: "100px" }} />
+    </WrapperClientDocsField>
+  );
+};
+const ClientDocFieldB = ({ userId }) => {
+  console.log(userId);
+  return (
+    <WrapperClientDocsField>
+      <TitleWrapper>
+        <Label>Director and Beneficial Owner Identification</Label>
+        <Info>
+          <InfoModal documentType="Director and Beneficial Owner Identification" desc={<DirectorIdentificationDesc />} />
+        </Info>
+      </TitleWrapper>
+      <FileUpload
+        userId={userId}
+        documentId="Director and Beneficial Owner Identification"
+        style={{ width: "100px" }}
+      />
+    </WrapperClientDocsField>
+  );
+};
+const ClientDocFieldC = ({ userId }) => {
+  console.log(userId);
+  return (
+    <WrapperClientDocsField>
+      <TitleWrapper>
+        <Label>Section 708 Wholesale Investor Certification</Label>
+        <Info>
+          <InfoModal documentType="Section 708 Wholesale Investor Certification" desc={<WholeSaleInvestorCertDesc />} />
+        </Info>
+      </TitleWrapper>
+      <FileUpload
+        userId={userId}
+        documentId="Section 708 Wholesale Investor Certification"
+        style={{ width: "100px" }}
+      />
     </WrapperClientDocsField>
   );
 };
 
-const EditProfileClientPage = (props) => {
+const EditProfileClientPage = props => {
   const userId = props.match.params.id.trim();
-  console.log(userId)
+  console.log(userId);
   const history = useHistory();
   const { currentUserProfile } = useContext(UserContext);
 
@@ -139,7 +234,7 @@ const EditProfileClientPage = (props) => {
 
     const handleSubmit = async e => {
       e.preventDefault();
-     
+
       const response = await axios.put(`/profiles/updateByUser/${userId}`);
       console.log(response);
       history.push(`/conversations/${userId}`);
@@ -217,13 +312,17 @@ const EditProfileClientPage = (props) => {
               </WrapperTextFieldLower>
             </WrapperProfileDetailsLower>
             <WrapperDocsFieldsOuter>
-              {documents && documents.length > 0 ? (
+              {/* {documents && documents.length > 0 ? (
                 documents.map((document, i) => (
                   <DocumentField key={i} document={document} userId={userId} onChange={onChange} />
                 ))
-              ) : (
-                <ClientDocField userId={userId}  />
-              )}
+              ) : ( */}
+              <>
+                <ClientDocFieldA userId={userId} />
+                <ClientDocFieldB userId={userId} />
+                <ClientDocFieldC userId={userId} />
+              </>
+              
             </WrapperDocsFieldsOuter>
             <WrapperUpdateButton>
               <PrimaryButton type="submit">Update</PrimaryButton>

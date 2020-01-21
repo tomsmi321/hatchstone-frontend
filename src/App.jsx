@@ -19,7 +19,9 @@ import NavBar from 'uiKit/navbars/AppNav';
 import { Footer } from 'uiKit/Footer';
 import SubmitDocuments from "./components/DocumentsUpload/SubmitDocuments";
 
+
 const App = () => {
+  
   return (
     // wrapping components in custom MuiThemeProvider to match Hatchstone style guide
     <MuiThemeProvider theme={theme}>
