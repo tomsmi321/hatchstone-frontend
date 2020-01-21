@@ -17,12 +17,12 @@ const Layout = ({ input, previews, submitButton, dropzoneProps, files, extra: { 
   );
 };
 
-const deleteDocument = async (params) => {
+const deleteDocument = async params => {
   const docFileName = document.fileName;
-  const id = params.profileId;
+  const id = params.userId;
   console.log(docFileName);
   const response = await axios.post(`/profiles/${id}/delete-document`, { docFileName });
-  console.log(response)
+  console.log(response);
 };
 
 const Preview = ({ meta }) => {
@@ -52,9 +52,9 @@ const Preview = ({ meta }) => {
   );
 };
 
-const FileUpload = params => {
-  const documentId = params.documentId;
-  const profileId = params.profileId;
+const FileUpload = ({ documentId, userId }) => {
+  console.log(documentId)
+  console.log(userId);
   // console.log(profileId);
 
   const PreviewComponent = () => {
@@ -71,7 +71,7 @@ const FileUpload = params => {
     body.append("document", documentId);
     body.append("file", file);
 
-    return { url: `http://localhost:5000/profiles/${profileId}/uploadDocument`, body };
+    return { url: `http://localhost:5000/profiles/${userId}/uploadDocument`, body };
   };
 
   // called every time a file's `status` changes
@@ -106,13 +106,12 @@ const FileUpload = params => {
           inputLabel: {
             borderRadius: "4px",
             color: "black",
-            fontSize: "10px",
             fontWeight: "normal",
             fontFamily: "Lato",
             border: "1px dashed #1A237E",
             background: "white",
             padding: "1px",
-            fontSize: "16px",
+            fontSize: "12px",
             width: "388px",
             maxWidth: "388px"
           },
