@@ -1,52 +1,63 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
-import { useHistory } from 'react-router-dom'
+import {Redirect, Route} from 'react-router-dom';
 import axios from './config/axiosConfig'
 
-const ProtectedRoute = ({ component: Component, ...props }) => {
-  let history = useHistory()
+const ProtectedRoute = ({ component: Component, ...props }) => ( 
+  <Route path={props.path} render={() => {
+    return (
+      <ProtectedContainer>
+        <Component />
+      </ProtectedContainer>
+    )
+  }} />
+);
 
-  const [user, setUser] = useState({
-    auth: null,
-    loading: true,
-  })
+const ProtectedContainer = ({ children }) => {
 
-  const token = localStorage.getItem('token')
+  const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
   const checkToken = async () => {
-    try {
-      await axios.get('auth/check-token', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        } 
-      }) 
-      setUser({
-        auth: true,
-        loading: false,
-      })
-    }
-    catch (err) {
-      setUser({
-        auth: false,
-        loading: false,
-      })
-    }
-  }
-
-  useEffect(() => {
-    console.log('IN USEFFECT() PROTECTEDROUTE')
+    console.log('IN CHECK TOKEN')
     const token = localStorage.getItem('token')
-    console.log(token)
-    checkToken(token)
-  }, [])
 
-  if (user.loading) {
-    return null
-  } else if (!user.auth) {
-    return <Redirect to="/login" />
-  } else {
-    return <Component user={user.auth} history={history} {...props} />
+    if (token) {
+      try {
+        console.log('IN TRY', token)
+        const result = await axios.get('/auth/checkToken', {
+          headers: {
+            Authorization: token,
+          } 
+        }) 
+        console.log('RESULT:', result)
+        setUser(result)
+        setIsLoading(false)
+      }
+      catch (err) {
+        console.log('IN CATCH')
+        setIsLoading(false)
+      }
+    } else {
+      setIsLoading(false)
+    }
   }
+  
+  useEffect(() => { checkToken() }, [])
+
+  console.log('is loading', isLoading)
+  console.log('user', user)
+
+  if (isLoading) {
+    console.log('RETURNING NULL')
+    return null
+  } 
+  
+  if (!user) {
+    return <Redirect to="/log-in" />
+  }
+  
+  return React.cloneElement(children, {user})
+
 }
 
 export default ProtectedRoute
-
