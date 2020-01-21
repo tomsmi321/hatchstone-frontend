@@ -37,7 +37,7 @@ const AuthContextProvider = ({ children }) => {
         console.log(currentUserData);
         // storing response data into a const first and passing the const to updating state function is to counter a race condition that's happening
         localStorage.setItem("currentUser", JSON.stringify(currentUserData));
-        history.push(`/conversations/`);
+        history.push(`/conversations/${currentUserData._id}`);
         return true;
       }
     } catch (err) {

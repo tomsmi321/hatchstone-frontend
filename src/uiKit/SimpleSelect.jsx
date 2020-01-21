@@ -52,7 +52,7 @@ export function SimpleSelect() {
             value={filter}
             onChange={handleChange}
             labelWidth={labelWidth}
-            labelHeight={100}
+            labelheight={100}
             >
             <MenuItem value="">
                 <em>None</em>

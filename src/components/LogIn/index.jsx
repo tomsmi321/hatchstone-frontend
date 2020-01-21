@@ -8,6 +8,7 @@ import { Formik } from 'formik'
 import * as Yup from "yup"
 import { AuthContext } from '../../contexts/AuthContext'
 
+
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -65,7 +66,7 @@ const LogInPage = () => {
           email: "",
           password: ""
         }}
-        // validationSchema={ValidationSchema}
+        validationSchema={ValidationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
           loginUser(values.email, values.password)
