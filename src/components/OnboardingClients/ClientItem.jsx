@@ -5,6 +5,7 @@ import DropdownMenu from 'uiKit/DropdownMenu'
 import { ProgressBar } from 'uiKit/ProgressBar';
 import { AccountCircle, MoreHoriz } from 'uiKit/Icon'
 import { handleSendMessage } from '../../utils/request-utils';
+import { UserContext } from '../../contexts/UserContext';
 
 const Wrapper = styled.div`
   /* background-color: lightskyblue; */
@@ -62,10 +63,11 @@ const WrapperProgressBar = styled.div`
 
 const ClientItem = ({ client, isLastItem, appProgress }) => {
     const [menuIsShowing, toggleMenuIsShowing] = useState(false)
+    const { currentUserProfile } = useContext(UserContext);
     const menuIcon = useRef()
     const history = useHistory()
     const clientUserProfile = client;
-    const 
+    const adminUserProfile = currentUserProfile;
 
 
     const toggleShowMenu = () => toggleMenuIsShowing(!menuIsShowing)

@@ -39,8 +39,8 @@ export const PrimaryButton = ({ children, onClick, disabled, type }) => {
   );
 };
 
-export const SecondaryButton = ({ children }) => (
-  <BaseButton variant="contained" color="secondary">
+export const SecondaryButton = ({ children, onClick }) => (
+  <BaseButton variant="contained" color="secondary" onClick={onClick}>
     {children}
   </BaseButton>
 );
