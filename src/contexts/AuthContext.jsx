@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+import axios from './../config/axiosConfig';
 
 export const AuthContext = createContext();
 
@@ -20,7 +20,7 @@ const AuthContextProvider = ({ children }) => {
   const loginUser = async (email, password) => {
     console.log(`in AuthContext loginUser function`);
     try {
-      const response = await axios.post("http://localhost:5000/auth/login", {
+      const response = await axios.post('auth/login', {
         email,
         password
       });

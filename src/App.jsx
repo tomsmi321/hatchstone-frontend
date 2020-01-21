@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AuthContextProvider from './contexts/AuthContext'
 import UserContextProvider from './contexts/UserContext';
 import UsersContextProvider from './contexts/UsersContext';
@@ -18,8 +18,10 @@ import UIKit from 'components/UIKit'
 import NavBar from 'uiKit/navbars/AppNav';
 import { Footer } from 'uiKit/Footer';
 import SubmitDocuments from "./components/DocumentsUpload/SubmitDocuments";
+import ProtectedRoute from './ProtectedRoute'
 
 const App = () => {
+  console.log('in app')
   return (
     // wrapping components in custom MuiThemeProvider to match Hatchstone style guide
     <MuiThemeProvider theme={theme}>
@@ -36,7 +38,6 @@ const App = () => {
           <Route path="/log-in" component={LogInPage} />
           <Route path="/sign-up" component={SignUpPage} />
           <UsersContextProvider>
-            <Route path="/create-profile" component={CreateProfilePage} />
             <Route path="/submit-documents/:id" component={SubmitDocuments} />
             <Route path="/edit-profile-admin/:id" component={EditProfileAdminPage} />
             <Route path="/edit-profile-client/:id" component={EditProfileClientPage} />
@@ -44,6 +45,7 @@ const App = () => {
             <Route path="/onboarding-clients" component={OnboardingClientsPage} />
             <Route path="/conversations/:id" component={ConversationsPage} />
             <Route path="/client-details/:userId" component={ClientDetailPage} />
+            <ProtectedRoute exact path="/create-profile" component={CreateProfilePage} />
           </UsersContextProvider>
         </Switch>
         <Footer />
