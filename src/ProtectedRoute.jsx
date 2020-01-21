@@ -5,10 +5,10 @@ import axios from './config/axiosConfig'
 // ProtectedRoute is rendered where a Route component would be and returns a Route which returns component/s to be rendered
 // This allows us to wrap the component/s for a route in another component which we can place logic in to only render if 'xyz' conditions are met
 const ProtectedRoute = ({ component: Component, ...props }) => ( 
-  <Route path={props.path} render={() => {
+  <Route path={props.path} render={(props) => {
     return (
       <ProtectedContainer>
-        <Component />
+        <Component {...props} />
       </ProtectedContainer>
     )
   }} />

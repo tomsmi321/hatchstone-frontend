@@ -39,9 +39,9 @@ const App = () => {
           <Route path="/log-in" component={LogInPage} />
           <Route path="/sign-up" component={SignUpPage} />
           <UsersContextProvider>
-            <Route path="/submit-documents/:id" component={SubmitDocuments} />
+            <ProtectedRoute path="/submit-documents/:id" component={SubmitDocuments} />
             <Route path="/edit-profile-admin/:id" component={EditProfileAdminPage} />
-            <Route path="/edit-profile-client/:id" component={EditProfileClientPage} />
+            <ProtectedRoute path="/edit-profile-client/:id" component={EditProfileClientPage} />
             <Route path="/approved-clients" component={ApprovedClientsPage} />
             <Route path="/onboarding-clients" component={OnboardingClientsPage} />
             <Route path="/conversations/:id" component={ConversationsPage} />
