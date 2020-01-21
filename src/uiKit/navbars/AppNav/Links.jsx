@@ -47,10 +47,10 @@ export const LogInLink = () => {
   )
 }
 
-export const SignOutLink = () => {
+export const SignOutLink = ({onClick}) => {
   const history = useHistory()
   return (
-    <PrimaryLink onClick={() => history.push("/")}>
+    <PrimaryLink onClick={onClick}>
       Sign out
     </PrimaryLink>
   )
