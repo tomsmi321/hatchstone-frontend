@@ -8,6 +8,7 @@ import { Footer, DarkFooter } from "uiKit/Footer";
 import { SimpleModal } from "uiKit/Modal";
 import { ProgressBar } from "uiKit/ProgressBar";
 import { SimpleSelect } from "uiKit/SimpleSelect";
+import DropdownMenu from 'uiKit/DropdownMenu';
 
 import { StepA } from "uiKit/Stepper";
 import SubmitDocuments from "./DocumentsUpload/SubmitDocuments";
@@ -38,6 +39,7 @@ const UIKit = () => {
       <DarkFooter />
       <ProgressBar appProgress={25} />
       <SimpleSelect />
+      <DropdownMenu />
     </Wrapper>
   );
 };
