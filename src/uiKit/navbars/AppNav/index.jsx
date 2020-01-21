@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import logo from "assets/hatchstoneAssets/hatchstone-logo-black.svg";
 import { OUTER_APP_PATHS } from "common/constants";
 import { SignUpLink, LogInLink, SignOutLink, AdminLinks } from "./Links";
@@ -34,6 +34,7 @@ const Logo = styled.div`
   background-size: contain;
   height: 37px;
   width: 197px;
+  cursor: pointer;
 `;
 
 const LeftNavContainer = styled.div`
@@ -43,18 +44,19 @@ const LeftNavContainer = styled.div`
 `;
 
 const NavBar = () => {
-  const { pathname } = useLocation();
-  const { currentUser, logout } = useContext(AuthContext);
+  const { pathname } = useLocation()
+  const history = useHistory()
+  const { currentUser, logout } = useContext(AuthContext)
   console.log(currentUser)
-  const isLoggedIn = !PRE_APP_PATHS.includes(pathname) && !PRE_APP_PATHS.includes(pathname);
-  // TODO replace this
-  const isAdmin = true;
+  const isLoggedIn = !PRE_APP_PATHS.includes(pathname) && !PRE_APP_PATHS.includes(pathname)
+  const isAdmin = currentUser.admin
 
   return !OUTER_APP_PATHS.includes(pathname) ? (
     <Container>
       <Inner>
         <LeftNavContainer>
-          <Logo />
+          {isAdmin && <Logo onClick={ () => (history.push('/onboarding-clients'))} />}
+          {!isAdmin && <Logo onClick={ () => (history.push(`/conversations/${currentUser._id}`))} />}
           {isLoggedIn && isAdmin && <AdminLinks />}
         </LeftNavContainer>
 
