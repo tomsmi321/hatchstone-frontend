@@ -1,8 +1,10 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 import { AccountCircle, MoreHoriz } from 'uiKit/Icon'
 import DropdownMenu from 'uiKit/DropdownMenu'
+import { UserContext } from '../../contexts/UserContext';
+import { handleSendMessage } from '../../utils/request-utils';
 
 const Container = styled.div`
   margin-top: 10px;
@@ -59,6 +61,9 @@ const Client = ({ approvedClient, isLastItem }) => {
   const [menuIsShowing, toggleMenuIsShowing] = useState(false)
   const menuIcon = useRef()
   const history = useHistory()
+  const { currentUserProfile } = useContext(UserContext);
+  const clientUserProfile = approvedClient;
+  const adminUserProfile = currentUserProfile
 
   const toggleShowMenu = () => toggleMenuIsShowing(!menuIsShowing)
 
@@ -84,9 +89,12 @@ const Client = ({ approvedClient, isLastItem }) => {
             label: 'View'
           },
           {
-            onClick: () => history.push(`/conversations/${approvedClient.userId._id}`),
+            onClick: () => {
+              handleSendMessage(clientUserProfile, adminUserProfile);
+              history.push(`/conversations/${adminUserProfile.userId._id}`)
+            },
             label: 'Send a message'
-          },
+          }
         ]}
       />
     </TableItem>

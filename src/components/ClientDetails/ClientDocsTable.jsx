@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { PrimaryButton, SecondaryButton, ApprovedButton } from "../../uiKit/Button";
-import { Link } from "react-router-dom";
+import { UserContext } from '../../contexts/UserContext';
+import { handleSendMessage } from '../../utils/request-utils';
+import { useHistory } from "react-router-dom";
 
 //axios is making a request to s3 so don't change this 
 import axios from "axios";
@@ -87,13 +89,6 @@ const WrapperSendMessageButton = styled.div`
   display: flex;
 `;
 
-const StyledLink = styled(Link)`
-  &&& {
-    display: flex;
-    text-decoration: none;
-  }
-`;
-
 const WrapperNoDocs = styled.div`
   background-color: #e8eaf6;
   height: 20vh;
@@ -138,10 +133,14 @@ const ClientDocField = ({ docType, docFileName, uri }) => {
 };
 
 const ClientDocsTable = props => {
+  const { currentUserProfile } = useContext(UserContext);
   const { documents, approved, userId } = props.client;
   const { updateApproveStatus } = props;
   const [approveButtonDisabled, setApproveButtonDisabled] = useState(false);
   const [documentsActive, setDocumentsActive] = useState(false);
+  const history = useHistory()
+  const clientUserProfile = props.client;
+  const adminUserProfile = currentUserProfile
 
   // refactor this later. This can be simplified
   useEffect(() => {
@@ -165,9 +164,6 @@ const ClientDocsTable = props => {
     console.log(approved);
     updateApproveStatus(userId._id, !approved);
   };
-
-  
-
 
   return (
     <Wrapper>
@@ -201,9 +197,10 @@ const ClientDocsTable = props => {
           </WrapperApproveButton>
           <WrapperSendMessageButton>
             {userId ? (
-              <StyledLink to={`/conversations/${userId._id}`}>
-                <SecondaryButton>Send a message</SecondaryButton>
-              </StyledLink>
+              <SecondaryButton onClick={() => {
+                handleSendMessage(clientUserProfile, adminUserProfile);
+                history.push(`/conversations/${adminUserProfile.userId._id}`);
+              }}>Send a message</SecondaryButton>
             ) : null}
           </WrapperSendMessageButton>
         </WrapperButtonsInner>
