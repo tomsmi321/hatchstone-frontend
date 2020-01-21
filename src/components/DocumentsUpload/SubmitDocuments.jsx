@@ -3,12 +3,13 @@ import { useHistory } from "react-router-dom";
 import FileUpload from "./UploadFile";
 import styled from "styled-components";
 import { PrimaryButton } from "../../uiKit/Button";
-import { PrimaryLink, SecondaryLink } from "../../uiKit/Link";
-import Stepper from "../../uiKit/Stepper";
-import { InfoModal } from "../../uiKit/InfoModal";
-import { UserContext } from "../../contexts/UserContext";
-
 import { AuthContext } from "../../contexts/AuthContext";
+import { PrimaryLink } from "../../uiKit/Link";
+import { UserContext } from "../../contexts/UserContext";
+import { LoadSpinner } from '../../uiKit/LoadSpinner';
+import {StepA} from "../../uiKit/Stepper";
+import { InfoModal } from "../../uiKit/InfoModal";
+
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -46,11 +47,6 @@ const ButtonWrapper = styled.div`
 const PageWrapper = styled.div`
   min-height: 100vh;
   padding: 60px;
-`;
-
-const ProgressWrapper = styled.div`
-  display: flex;
-  justify-content: center;
 `;
 
 const Container = styled.div`
@@ -109,70 +105,63 @@ const WholeSaleInvestorCertDesc = () => {
     </i>
   );
 };
+
 const SubmitDocuments = props => {
-  const [isLoading, setLoading] = useState(true);
   const history = useHistory();
-  const { currentUserProfile } = useContext(UserContext);
-  const [profile, setProfile] = useState(null);
+  const { currentUserProfile, isLoading } = useContext(UserContext);
   const userId = props.match.params.id;
-
-  useEffect(() => {
-    setLoading(false);
-    setProfile(currentUserProfile);
-  }, [currentUserProfile]);
-
   if (isLoading === false) {
-    const profileId = currentUserProfile._id;
-    console.log(profileId);
     return (
       <PageWrapper>
-        <Stepper inputSteps={["Sign Up", "Create Profile", "Submit Documents"]} />
-        <Container>
-          <Title>Submit your documents</Title>
+      <StepA inputSteps={["Sign Up", "Create Profile", "Submit Documents"]} stepNumber={2} />}
+      <Container>
+        <Title>Submit your documents</Title>
 
-          <UploadWrapper>
-            <TitleWrapper>
-              <Label>Company Verification</Label>
-              <Info>
-                <InfoModal documentType="Company Verification" desc={<CompanyVerificationDesc />} />
-              </Info>
-            </TitleWrapper>
-            <FileUpload profileId={profileId} documentId="Company Verification" />
-          </UploadWrapper>
+        <UploadWrapper>
+          <TitleWrapper>
+            <Label>Company Verification</Label>
+            <Info>
+              <InfoModal documentType="Company Verification" desc={<CompanyVerificationDesc />} />
+            </Info>
+          </TitleWrapper>
+          <FileUpload userId={userId} documentId="Company Verification" />
+        </UploadWrapper>
 
-          <UploadWrapper>
-            <TitleWrapper>
-              <Label>Director and Beneficial Owner Identification </Label>
-              <Info>
-                <InfoModal
-                  documentType="Director and Beneficial Owner Identification"
-                  desc={<DirectorIdentificationDesc />}
-                />
-              </Info>
-            </TitleWrapper>
-            <FileUpload profileId={profileId} documentId="Director and Beneficial Owner Identification" />
-          </UploadWrapper>
+        <UploadWrapper>
+          <TitleWrapper>
+            <Label>Director and Beneficial Owner Identification </Label>
+            <Info>
+              <InfoModal
+                documentType="Director and Beneficial Owner Identification"
+                desc={<DirectorIdentificationDesc />}
+              />
+            </Info>
+          </TitleWrapper>
+          <FileUpload userId={userId} documentId="Director and Beneficial Owner Identification" />
+        </UploadWrapper>
 
-          <UploadWrapper>
-            <TitleWrapper>
-              <Label>Section 708 Wholesale Investor Certification</Label>
-              <Info>
-                <InfoModal
-                  documentType="Section 708 Wholesale Investor Certification"
-                  desc={<WholeSaleInvestorCertDesc />}
-                />
-              </Info>
-            </TitleWrapper>
-            <FileUpload profileId={profileId} documentId="Section 708 Wholesale Investor Certification" />
-          </UploadWrapper>
-          <ButtonWrapper>
-            <PrimaryButton onClick={() => history.push(`/conversations/${userId}`)}>Submit</PrimaryButton>
-          </ButtonWrapper>
-          <PrimaryLink onClick={() => history.push(`/conversations/${userId}`)}>Skip</PrimaryLink>
-        </Container>
-      </PageWrapper>
-    );
-  } else return null;
+        <UploadWrapper>
+          <TitleWrapper>
+            <Label>Section 708 Wholesale Investor Certification</Label>
+            <Info>
+              <InfoModal
+                documentType="Section 708 Wholesale Investor Certification"
+                desc={<WholeSaleInvestorCertDesc />}
+              />
+            </Info>
+          </TitleWrapper>
+          <FileUpload userId={userId} documentId="Section 708 Wholesale Investor Certification" />
+        </UploadWrapper>
+
+        <ButtonWrapper>
+          <PrimaryButton onClick={() => history.push(`/conversations/${userId}`)}>Submit</PrimaryButton>
+        </ButtonWrapper>
+        <PrimaryLink onClick={() => history.push(`/conversations/${userId}`)}>Skip</PrimaryLink>
+      </Container>
+    </PageWrapper>
+  );
+
+  } else return <LoadSpinner topMargin="38vh"/>;
 };
 
 export default SubmitDocuments;

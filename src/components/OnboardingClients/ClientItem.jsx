@@ -1,9 +1,11 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import DropdownMenu from 'uiKit/DropdownMenu'
 import { ProgressBar } from 'uiKit/ProgressBar';
 import { AccountCircle, MoreHoriz } from 'uiKit/Icon'
+import { handleSendMessage } from '../../utils/request-utils';
+import { UserContext } from '../../contexts/UserContext';
 
 const Wrapper = styled.div`
   /* background-color: lightskyblue; */
@@ -61,8 +63,12 @@ const WrapperProgressBar = styled.div`
 
 const ClientItem = ({ client, isLastItem, appProgress }) => {
     const [menuIsShowing, toggleMenuIsShowing] = useState(false)
+    const { currentUserProfile } = useContext(UserContext);
     const menuIcon = useRef()
     const history = useHistory()
+    const clientUserProfile = client;
+    const adminUserProfile = currentUserProfile;
+
 
     const toggleShowMenu = () => toggleMenuIsShowing(!menuIsShowing)
 
@@ -88,14 +94,17 @@ const ClientItem = ({ client, isLastItem, appProgress }) => {
                 isOpen={menuIsShowing}
                 onClose={toggleShowMenu}
                 menuItems={[
-                {
-                    onClick: () => history.push(`/client-details/${client.userId._id}`),
-                    label: 'View'
-                },
-                {
-                    onClick: () => history.push(`/conversations/${client.userId._id}`),
+                  {
+                      onClick: () => history.push(`/client-details/${client.userId._id}`),
+                      label: 'View'
+                  },
+                  {
+                    onClick: () => {
+                      handleSendMessage(clientUserProfile, adminUserProfile);
+                      history.push(`/conversations/${adminUserProfile.userId._id}`)
+                    },
                     label: 'Send a message'
-                },
+                  }
                 ]}
             />
         </Wrapper>

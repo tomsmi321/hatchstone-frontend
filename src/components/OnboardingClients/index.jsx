@@ -4,6 +4,7 @@ import { SearchField } from 'uiKit/userInput/TextField'
 import ClientsTable from './ClientsTable'
 import { SimpleSelect} from '../../uiKit/SimpleSelect';
 import { UsersContext } from '../../contexts/UsersContext';
+import { LoadSpinner } from '../../uiKit/LoadSpinner';
 
 const Wrapper = styled.div`
   margin: 60px auto 0px auto;
@@ -22,7 +23,7 @@ const WrapperSearchAndFilterFields =styled.div`
 
 const OnboardingClientsPage = () => {
   // consume context
-  const { onboardingClients, getOnboardingClients } = useContext(UsersContext);
+  const { onboardingClients, getOnboardingClients, isLoading } = useContext(UsersContext);
   // setting initial state for the search term in SearchContainer
   const [searchState, setSearchState] = useState('');
 
@@ -42,22 +43,26 @@ const OnboardingClientsPage = () => {
   });
       
     return (
-        <Wrapper>
-            { onboardingClients.length ? (
-              <>
-                <WrapperSearchAndFilterFields>
-                  <SimpleSelect />
-                  <WrapperSearchField label="search" onChange={handleSearchChange}>
-                    <SearchField placeholder="Search your clients" />
-                  </WrapperSearchField>
-                </WrapperSearchAndFilterFields>
-                <ClientsTable clients={filteredOnboardingClients} />
-              </>
-            ) : (
-              <div>There are no approved clients</div>
-            )}
-        </Wrapper>
-      )
+      <>
+        {!isLoading ? (
+          <Wrapper>
+              { onboardingClients.length ? (
+                <>
+                  <WrapperSearchAndFilterFields>
+                    <SimpleSelect />
+                    <WrapperSearchField label="search" onChange={handleSearchChange}>
+                      <SearchField placeholder="Search your clients" />
+                    </WrapperSearchField>
+                  </WrapperSearchAndFilterFields>
+                  <ClientsTable clients={filteredOnboardingClients} />
+                </>
+              ) : (
+                <div>There are no approved clients</div>
+              )}
+          </Wrapper>) : (<LoadSpinner topMargin="38vh"/>)}
+      </>
+    )
+      
 }
 
 export default OnboardingClientsPage;

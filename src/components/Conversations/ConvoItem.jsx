@@ -85,11 +85,10 @@ const WrapperConvoTime = styled.div`
     height: max-content;
 `
 
-const ConvoItem = ({ userConvo, admin, getCurrentMessages, currentMessagesLength, key }) => {
+const ConvoItem = ({ userConvo, admin, getCurrentMessages, currentMessagesLength }) => {
     const [ convoPartner, setConvoPartner ] = useState({});
     const [ convoSnippet, setConvoSnippet ] = useState(null);
     const [ convoLastMessageTime, setConvoLastMessageTime ] = useState(null);
-    const convoPartnerProfileImg = userConvo.participants[0].profileImage;
 
     const getConvoPartner = (admin) => {
         console.log('in getConvoPartner - ConvoItem');
@@ -100,21 +99,25 @@ const ConvoItem = ({ userConvo, admin, getCurrentMessages, currentMessagesLength
 
     const getConvoSnippet = (convo) => {
         console.log('in getConvoSnippet - ConvoItem');
-        const messages = convo.messages;
-        const lastMessage = messages[messages.length - 1];
-        const convoSnippetResult = lastMessage.content;
-        console.log('convoSnippetResult', convoSnippetResult);
-        return convoSnippetResult;
+        if(convo.messages.length) {
+            const messages = convo.messages;
+            const lastMessage = messages[messages.length - 1];
+            const convoSnippetResult = lastMessage.content;
+            console.log('convoSnippetResult', convoSnippetResult);
+            return convoSnippetResult;
+        }
     }
 
     const getConvoLastMessageTime = (convo) => {
         console.log('in getConvoLastMessageTime - ConvoItem');
         console.log('covo', convo);
-        const messages = convo.messages;
-        const lastMessage = messages[messages.length - 1];
-        const { dateCreated } = lastMessage;
-        const date = new Date(dateCreated)
-        return `${date.getHours()}:${date.getMinutes()}`;
+        if(convo.messages.length) {
+            const messages = convo.messages;
+            const lastMessage = messages[messages.length - 1];
+            const { dateCreated } = lastMessage;
+            const date = new Date(dateCreated)
+            return `${date.getHours()}:${date.getMinutes()}`;
+        }
     }
 
     const handleDisplayMessages = () => {
@@ -133,6 +136,7 @@ const ConvoItem = ({ userConvo, admin, getCurrentMessages, currentMessagesLength
 
 
     console.log('currentMessagesLength - ConvoItem', currentMessagesLength);
+    const convoPartnerProfileImg = getConvoPartner(admin).profileImage;
     return (
         <WrapperOuter onClick={handleDisplayMessages}>
             <WrapperInner>
@@ -141,19 +145,37 @@ const ConvoItem = ({ userConvo, admin, getCurrentMessages, currentMessagesLength
                         <AccountCircleIcon />
                     )}
                 </WrapperProfilePicture>
-                <WrapperConvoContent>
-                    {convoPartner.firstName && convoPartner.lastName ? (
-                        <WrapperConvoPartner>
-                            {`${capitaliseString(convoPartner.firstName) + ' ' + capitaliseString(convoPartner.lastName)}`}
-                        </WrapperConvoPartner>
-                    ) : (null)}
-                    <WrapperConvoSnippet>
-                        {convoSnippet}
-                    </WrapperConvoSnippet>
-                </WrapperConvoContent>
-                <WrapperConvoTime>
-                        {convoLastMessageTime}
-                </WrapperConvoTime>
+                {userConvo.messages.length !== 0  ? (
+                    <>
+                        <WrapperConvoContent>
+                            {convoPartner.firstName && convoPartner.lastName ? (
+                                <WrapperConvoPartner>
+                                    {`${capitaliseString(convoPartner.firstName) + ' ' + capitaliseString(convoPartner.lastName)}`}
+                                </WrapperConvoPartner>
+                            ) : (null)}
+                            <WrapperConvoSnippet>
+                                {convoSnippet}
+                            </WrapperConvoSnippet>
+                        </WrapperConvoContent>
+                        <WrapperConvoTime>
+                                {convoLastMessageTime}
+                        </WrapperConvoTime>
+                    </>
+                ) : (
+                    <>
+                        <WrapperConvoContent>
+                            {convoPartner.firstName && convoPartner.lastName ? (
+                                <WrapperConvoPartner>
+                                    {`${capitaliseString(convoPartner.firstName) + ' ' + capitaliseString(convoPartner.lastName)}`}
+                                </WrapperConvoPartner>
+                                ) : (null)}
+                            <WrapperConvoSnippet>
+                                {`this is the beginning of your messages with ${convoPartner.firstName}...`}
+                            </WrapperConvoSnippet>
+                        </WrapperConvoContent>
+                    </>
+                )}
+               
             </WrapperInner>
         </WrapperOuter>
     )

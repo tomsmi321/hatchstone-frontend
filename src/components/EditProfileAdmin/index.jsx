@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { Formik } from 'formik'
 import EditProfileForm from './EditProfileForm';
@@ -38,47 +37,37 @@ const ValidationSchema = Yup.object().shape({
 
 const EditProfileAdminPage = (props) => {
   // consume context
-  const { currentUserProfile } = useContext(UserContext)
-
+  const { currentUserProfile, updateProfile, isLoading } = useContext(UserContext);
+  const [ submitted, setSubmitted ] = useState(false);
   // extract userId from route params, this is more performant than from context
   const userId = props.match.params.id;
-  // console.log('userId', userId);
   
-
-  const history = useHistory()
-
-  const updateProfile = async ( userId, firstName, lastName, profileImage ) => {
-    try {
-      const response = await axios.put(`http://localhost:5000/profiles/updateByUser/${userId}`, {
-        firstName,
-        lastName,
-        profileImage
-      })
-      console.log(response.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  
+  console.log('submitted status', submitted);
+  console.log('currentUserProfile context', currentUserProfile);
+  console.log('in render', isLoading);
   return (
     <Wrapper>
       <WrapperHeader>Edit Profile</WrapperHeader>
-      {Object.keys(currentUserProfile).length ? (
-        <Formik
-          initialValues={{
-            firstName: currentUserProfile.firstName,
-            lastName: currentUserProfile.lastName
-          }}
-          validationSchema={ValidationSchema}
-          onSubmit={(values, { setSubmitting, resetForm }) => {
-            setSubmitting(true);
-            updateProfile(userId, values.firstName, values.lastName, values.profileImage )
-            resetForm()
-          }}
-          >
-          {(props) => <EditProfileForm {...props} />}
-        </Formik>
-      ) : <LoadSpinner topMargin='15vh'/> }
+        {!isLoading ? (
+          <Formik
+            initialValues={{
+              firstName: currentUserProfile.firstName,
+              lastName: currentUserProfile.lastName
+            }}
+            validationSchema={ValidationSchema}
+            onSubmit={(values, { setSubmitting, resetForm }) => {
+              setSubmitting(true);
+              updateProfile(userId, values.firstName, values.lastName, values.profileImage )
+              resetForm()
+              setSubmitted(!submitted)
+              alert('Profile successfully updated')
+              // Formik was not passing in the new state so manual reload here to display the updated details
+              window.location.reload()
+            }}
+            >
+            {(props) => <EditProfileForm {...props} />}
+          </Formik>
+        ) : <LoadSpinner /> }
    
     </Wrapper>  
   );

@@ -44,7 +44,8 @@ const WrapperClientDocFieldDownloadField = styled.div`
   }
 `;
 
-const DocumentField = ({ document, profileId }) => {
+const DocumentField = ({ document, userId }) => {
+  console.log(userId)
   const currentUserProfile = useContext(UserContextProvider);
   console.log(currentUserProfile);
 
@@ -52,8 +53,8 @@ const DocumentField = ({ document, profileId }) => {
 
   const deleteDocument = async () => {
     const docFileName = document.fileName;
-    const id = profileId;
-    const response = await axios.post(`/profiles/${id}/delete-document`, { docFileName }) 
+
+    const response = await axios.post(`/profiles/${userId}/delete-document`, { docFileName }) 
   };
   return (
     <Wrapper>
@@ -64,7 +65,7 @@ const DocumentField = ({ document, profileId }) => {
           target="_blank"
           rel="noopener noreferrer"
           download={document.fileName}
-          profileid={profileId}
+          userId={userId}
         >
           {" "}
           {document.fileName}

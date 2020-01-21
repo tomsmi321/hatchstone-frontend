@@ -101,7 +101,7 @@ const FileUpload = ({ documentId, userId }) => {
             border: "none",
             overflow: "visible",
             // padding: "5px",
-            width: "398px"
+            width: "300px"
           },
           inputLabel: {
             borderRadius: "4px",
@@ -112,8 +112,8 @@ const FileUpload = ({ documentId, userId }) => {
             background: "white",
             padding: "1px",
             fontSize: "12px",
-            width: "388px",
-            maxWidth: "388px"
+            width: "290px",
+            maxWidth: "290px"
           },
           inputLabelWithFiles: {
             justifySelf: "flex-start",

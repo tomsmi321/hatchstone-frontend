@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useCallback } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { PrimaryButton, TertiaryButton } from "uiKit/Button";
@@ -10,7 +10,7 @@ import axios from "../../config/axiosConfig";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useDropzone } from "react-dropzone";
 import { UploadPictureField } from "../../uiKit/UploadPictureField";
-import Stepper from '../../uiKit/Stepper'
+import { StepA } from "../../uiKit/Stepper";
 
 const PageWrapper = styled.div`
   padding-bottom: 60px;
@@ -42,7 +42,7 @@ const TextFieldContainer = styled.div`
 
 const ButtonContainer = styled.div`
   margin: 28px 0px 0px;
-`
+`;
 
 const Form = styled.form`
   display: flex;
@@ -68,10 +68,9 @@ const ValidationSchema = Yup.object().shape({
     .required("Please select an investor type")
 });
 
-const CreateProfilePage = () => {
+const CreateProfilePage = props => {
   const { currentUser, currentUserProfile, setCurrentUserProfile } = useContext(AuthContext);
-  console.log(currentUser)
-  const history = useHistory();
+  console.log(currentUser);
 
   const createProfile = async (firstName, lastName, address, contactNumber, investorType, profileImage) => {
     try {
@@ -96,9 +95,11 @@ const CreateProfilePage = () => {
     }
   };
 
+  const [showLoading, setShowLoading] = useState(false);
+
   return (
     <PageWrapper>
-       <Stepper inputSteps={['Sign Up', 'Create Profile', 'Submit Documents']}/>
+      <StepA inputSteps={["Sign Up", "Create Profile", "Submit Documents"]} stepNumber={1} />
       <Container>
         <Formik
           initialValues={{
@@ -121,9 +122,16 @@ const CreateProfilePage = () => {
                 values.investorType,
                 values.profileImage
               );
-              history.push(`/submit-documents/${currentUser._id}
-              `);
-              // resetForm();
+
+              const { history } = props;
+              setTimeout(() => {
+                console.log("Creating profile", values);
+                setSubmitting(false);
+                history.push(`/submit-documents/${currentUser._id}`);
+              }, 500);
+              // history.push(`/submit-documents/${currentUser._id}
+              // `);
+
               setStatus({ success: true });
             } catch (error) {
               setStatus({ success: false });
@@ -157,7 +165,7 @@ const CreateProfileForm = ({
 
   // console.log(touched)
   // console.log(errors)
-  console.log(values);
+  // console.log(values);
   // console.log(isValid)
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -228,7 +236,7 @@ const CreateProfileForm = ({
           error={errors.investorType}
         />
       </TextFieldContainer>
-      <UploadPictureField/>
+      <UploadPictureField />
       <ButtonContainer>
         <PrimaryButton
           label="submit"
