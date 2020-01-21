@@ -56,7 +56,7 @@ export const SignOutLink = ({onClick}) => {
   )
 }
 
-export const AdminLinks = () => {
+export const AdminLinks = ({ userId }) => {
   const links = [
     {
       label: "Onboarding Area",
@@ -68,7 +68,7 @@ export const AdminLinks = () => {
     },
     {
       label: "Conversations",
-      path: "/conversations"
+      path: `/conversations/${userId}`
     },
   ]
 
