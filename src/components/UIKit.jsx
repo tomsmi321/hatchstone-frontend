@@ -37,9 +37,8 @@ const UIKit = () => {
       <SimpleModal />
       <Footer />
       <DarkFooter />
-      <ProgressBar appProgress={25} />
+      <ProgressBar appProgress={25}/>
       <SimpleSelect />
-      <DropdownMenu />
     </Wrapper>
   );
 };
