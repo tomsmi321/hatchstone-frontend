@@ -23,6 +23,7 @@ const ConversationsPage = (props) => {
     const [ showModal, setShowModal ] = useState(true);
     // conversation and message states
     const [ userConvos, setUserConvos ] = useState([]);
+    const [ userConvosLength, setUserConvosLength ] = useState(0);
     const [ currentConvoId, setCurrentConvoId ] = useState(null);
     const [ currentMessages, setCurrentMessages ] = useState([]);
     const [ currentMessagesLength, setCurrentMessagesLength ] = useState(0);
@@ -40,6 +41,7 @@ const ConversationsPage = (props) => {
             console.log('getUserCovosData \n', result.data);
             if(result.data) {
                 setUserConvos(result.data);
+                setUserConvosLength(result.data.length);
             }
         } catch(err) {
             console.log(err);
@@ -86,7 +88,7 @@ const ConversationsPage = (props) => {
         console.log('in useEffect - index');
         const userId = props.match.params.id;
         getUserConvos(userId);
-    }, [currentMessagesLength])
+    }, [currentMessagesLength, userConvosLength])
 
 
     console.log('currentMessagesLength - index', currentMessagesLength);

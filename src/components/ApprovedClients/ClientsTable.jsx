@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 import { AccountCircle, MoreHoriz } from 'uiKit/Icon'
 import DropdownMenu from 'uiKit/DropdownMenu'
-import axios from '../../config/axiosConfig';
 import { UserContext } from '../../contexts/UserContext';
+import { handleSendMessage } from '../../utils/request-utils';
 
 const Container = styled.div`
   margin-top: 10px;
@@ -65,19 +65,6 @@ const Client = ({ approvedClient, isLastItem }) => {
   const clientUserProfile = approvedClient;
   const adminUserProfile = currentUserProfile
 
-  const sendMessage = async (clientUserProfile, adminUserProfile) => {
-    try {
-      const clientUserId = clientUserProfile.userId._id;
-      const adminUserId = adminUserProfile.userId._id;
-      const response = await axios.post('/conversations', {
-        clientUserId,
-        adminUserId
-      })
-    } catch(err) {
-      console.log(err);
-    }
-  }
-
   const toggleShowMenu = () => toggleMenuIsShowing(!menuIsShowing)
 
   const clientName = `${approvedClient.firstName[0].toUpperCase() + 
@@ -103,11 +90,11 @@ const Client = ({ approvedClient, isLastItem }) => {
           },
           {
             onClick: () => {
-              sendMessage(clientUserProfile, adminUserProfile);
+              handleSendMessage(clientUserProfile, adminUserProfile);
               history.push(`/conversations/${adminUserProfile.userId._id}`)
             },
             label: 'Send a message'
-          },
+          }
         ]}
       />
     </TableItem>
