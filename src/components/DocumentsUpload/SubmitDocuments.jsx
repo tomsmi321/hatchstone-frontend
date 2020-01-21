@@ -3,11 +3,13 @@ import { useHistory } from "react-router-dom";
 import FileUpload from "./UploadFile";
 import styled from "styled-components";
 import { PrimaryButton } from "../../uiKit/Button";
+import { AuthContext } from "../../contexts/AuthContext";
 import { PrimaryLink } from "../../uiKit/Link";
 import { UserContext } from "../../contexts/UserContext";
 import { LoadSpinner } from '../../uiKit/LoadSpinner';
 import {StepA} from "../../uiKit/Stepper";
 import { InfoModal } from "../../uiKit/InfoModal";
+
 
 const TitleWrapper = styled.div`
   display: flex;
