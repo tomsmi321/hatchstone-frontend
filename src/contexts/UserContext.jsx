@@ -29,6 +29,20 @@ const UserContextProvider = ({ children }) => {
     }
   };
 
+  const updateProfile = async ( userId, firstName, lastName, profileImage ) => {
+    try {
+      const response = await axios.put(`http://localhost:5000/profiles/updateByUser/${userId}`, {
+        firstName,
+        lastName,
+        profileImage
+      })
+      console.log(response.data)
+      setCurrentUserProfile(response.data);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   
 //   userId will be undefined first time, handle this and monitor for change in currentUser
 useEffect(() => {
@@ -42,7 +56,8 @@ useEffect(() => {
   return (
     <UserContext.Provider
       value={{
-        currentUserProfile: currentUserProfile
+        currentUserProfile: currentUserProfile,
+        updateProfile: updateProfile
       }}
     >
       {children}
