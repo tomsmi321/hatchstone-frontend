@@ -80,3 +80,19 @@ export const AdminLinks = () => {
     </>
   )
 }
+
+export const ClientLinks = ({ userId }) => {
+  const links = [
+    {
+      label: "Conversations",
+      path: `/conversations/${userId}`
+    }
+  ]
+  return (
+    <>
+      {links.map((link, i) => (
+        <NavItem key={i} label={link.label} path={link.path} />
+      ))}
+    </>
+  )
+}
