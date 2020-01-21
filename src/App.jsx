@@ -19,6 +19,7 @@ import NavBar from 'uiKit/navbars/AppNav';
 import { Footer } from 'uiKit/Footer';
 import SubmitDocuments from "./components/DocumentsUpload/SubmitDocuments";
 import ProtectedRoute from './ProtectedRoute'
+import ProtectedRouteAdmin from './ProtectedRouteAdmin'
 
 
 const App = () => {
@@ -40,7 +41,7 @@ const App = () => {
           <Route path="/sign-up" component={SignUpPage} />
           <UsersContextProvider>
             <ProtectedRoute path="/submit-documents/:id" component={SubmitDocuments} />
-            <Route path="/edit-profile-admin/:id" component={EditProfileAdminPage} />
+            <ProtectedRouteAdmin path="/edit-profile-admin/:id" component={EditProfileAdminPage} />
             <ProtectedRoute path="/edit-profile-client/:id" component={EditProfileClientPage} />
             <Route path="/approved-clients" component={ApprovedClientsPage} />
             <Route path="/onboarding-clients" component={OnboardingClientsPage} />

@@ -26,10 +26,12 @@ const AuthContextProvider = ({ children }) => {
       });
       const user = response.data.user;
       const token = response.data.token;
+      console.log(user)
       if (user) {
         const currentUserData = {
           _id: user._id,
-          email: user.email
+          email: user.email,
+          admin: user.admin
         };
         setCurrentUser(currentUserData);
         console.log(currentUserData);
