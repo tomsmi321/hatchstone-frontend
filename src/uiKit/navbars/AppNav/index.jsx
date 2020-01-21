@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import logo from "assets/hatchstoneAssets/hatchstone-logo-black.svg";
 import { OUTER_APP_PATHS } from "common/constants";
 import { SignUpLink, LogInLink, SignOutLink, AdminLinks } from "./Links";
 import ProfileDropdown from "./ProfileDropdown";
-import AuthContextProvider from "../../../contexts/AuthContext";
+import { AuthContext } from "../../../contexts/AuthContext";
 
 const LOG_IN_PATH = "/log-in";
 const SIGN_UP_PATH = "/sign-up";
@@ -44,7 +44,7 @@ const LeftNavContainer = styled.div`
 
 const NavBar = () => {
   const { pathname } = useLocation();
-  const { currentUser } = AuthContextProvider;
+  const { currentUser } = useContext(AuthContext);
   console.log(currentUser)
   const isLoggedIn = !PRE_APP_PATHS.includes(pathname) && !PRE_APP_PATHS.includes(pathname);
   // TODO replace this

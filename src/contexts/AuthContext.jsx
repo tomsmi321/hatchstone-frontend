@@ -29,14 +29,14 @@ const AuthContextProvider = ({ children }) => {
       if (user) {
         const currentUserData = {
           _id: user._id,
-          email: user.email,
-          token: token
+          email: user.email
         };
         setCurrentUser(currentUserData);
         console.log(currentUserData);
         // storing response data into a const first and passing the const to updating state function is to counter a race condition that's happening
-        localStorage.setItem("currentUser", JSON.stringify(currentUserData));
-        history.push(`/conversations/`);
+        localStorage.setItem("currentUser", JSON.stringify(currentUserData))
+        localStorage.setItem("token", JSON.stringify(token))
+        history.push(`/conversations/`)
         return true;
       }
     } catch (err) {
@@ -47,6 +47,7 @@ const AuthContextProvider = ({ children }) => {
   const logout = async () => {
     console.log("in AuthContext logout function");
     localStorage.removeItem("currentUser");
+    localStorage.removeItem("token")
     setCurrentUser({});
     history.push(`/`);
   };
@@ -67,11 +68,11 @@ const AuthContextProvider = ({ children }) => {
         const currentUserData = {
           _id: user._id,
           email: user.email,
-          token: token
         };
         setCurrentUser(currentUserData);
         // storing response data into a const first and passing the const to updating state function is to counter a race condition that's happening
         localStorage.setItem("currentUser", JSON.stringify(currentUserData));
+        localStorage.setItem("token", JSON.stringify(token))
         history.push(`/create-profile`);
         return true;
       }
