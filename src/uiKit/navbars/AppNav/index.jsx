@@ -57,7 +57,7 @@ const NavBar = () => {
         <LeftNavContainer>
           {isAdmin && <Logo onClick={ () => (history.push('/onboarding-clients'))} />}
           {!isAdmin && <Logo onClick={ () => (history.push(`/conversations/${currentUser._id}`))} />}
-          {isLoggedIn && isAdmin && <AdminLinks />}
+          {isLoggedIn && isAdmin && <AdminLinks userId={currentUser._id} />}
           {isLoggedIn && !isAdmin && <ClientLinks userId={currentUser._id}/>}
         </LeftNavContainer>
 
