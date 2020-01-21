@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useLocation, useHistory } from "react-router-dom";
 import logo from "assets/hatchstoneAssets/hatchstone-logo-black.svg";
 import { OUTER_APP_PATHS } from "common/constants";
-import { SignUpLink, LogInLink, SignOutLink, AdminLinks } from "./Links";
+import { SignUpLink, LogInLink, SignOutLink, AdminLinks, ClientLinks } from "./Links";
 import ProfileDropdown from "./ProfileDropdown";
 import { AuthContext } from "../../../contexts/AuthContext";
 
@@ -58,6 +58,7 @@ const NavBar = () => {
           {isAdmin && <Logo onClick={ () => (history.push('/onboarding-clients'))} />}
           {!isAdmin && <Logo onClick={ () => (history.push(`/conversations/${currentUser._id}`))} />}
           {isLoggedIn && isAdmin && <AdminLinks />}
+          {isLoggedIn && !isAdmin && <ClientLinks userId={currentUser._id}/>}
         </LeftNavContainer>
 
         {pathname === LOG_IN_PATH && <SignUpLink />}
