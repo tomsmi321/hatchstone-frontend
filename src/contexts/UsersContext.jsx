@@ -9,10 +9,11 @@ export const UsersContext = createContext({})
 class UsersContextProvider extends Component {
     // set some inital state for users
     state = {
-        es: [],
+        profiles: [],
         approvedClients: [],
         onboardingClients: [],
-        profileDetails: {}
+        profileDetails: {},
+        isLoading: true
     }
 
     // this will run first and provide all the profiles to anwhere that UsersContext is consumed
@@ -22,7 +23,8 @@ class UsersContextProvider extends Component {
             const result = await axios.get('/profiles');
             if(result.data) {
                 this.setState({
-                    profiles: result.data
+                    profiles: result.data,
+                    isLoading: false
                 })
             }
         } catch(err) {
@@ -37,7 +39,8 @@ class UsersContextProvider extends Component {
             const result = await axios.get('/profiles/profilesApproved');
             if(result.data) {
                 this.setState({
-                    approvedClients: result.data
+                    approvedClients: result.data,
+                    isLoading: false
                 })
             }
         } catch(err) {
@@ -52,7 +55,8 @@ class UsersContextProvider extends Component {
             const result = await axios.get('/profiles/profilesOnboarding');
             if(result.data) {
                 this.setState({
-                    onboardingClients: result.data
+                    onboardingClients: result.data,
+                    isLoading: false
                 })
             }
         } catch(err) {
@@ -68,7 +72,8 @@ class UsersContextProvider extends Component {
             console.log(result.data[0]);
                 if(result.data) {
                     this.setState({
-                        profileDetails: result.data[0]
+                        profileDetails: result.data[0],
+                        isLoading: false
                     })
                 }
         } catch(err) {
@@ -88,7 +93,8 @@ class UsersContextProvider extends Component {
                     profileDetails: {
                         ...this.state.profileDetails,
                         approved: newApproveVal
-                    } 
+                    },
+                    isLoading: false 
                 })
             }
             // this.setState({ someProperty: { ...this.state.someProperty, flag: false} });

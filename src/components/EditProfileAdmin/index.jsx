@@ -37,36 +37,37 @@ const ValidationSchema = Yup.object().shape({
 
 const EditProfileAdminPage = (props) => {
   // consume context
-  const { currentUserProfile, updateProfile } = useContext(UserContext);
+  const { currentUserProfile, updateProfile, isLoading } = useContext(UserContext);
   const [ submitted, setSubmitted ] = useState(false);
   // extract userId from route params, this is more performant than from context
   const userId = props.match.params.id;
   
   console.log('submitted status', submitted);
   console.log('currentUserProfile context', currentUserProfile);
+  console.log('in render', isLoading);
   return (
     <Wrapper>
       <WrapperHeader>Edit Profile</WrapperHeader>
-      {Object.keys(currentUserProfile).length ? (
-        <Formik
-          initialValues={{
-            firstName: currentUserProfile.firstName,
-            lastName: currentUserProfile.lastName
-          }}
-          validationSchema={ValidationSchema}
-          onSubmit={(values, { setSubmitting, resetForm }) => {
-            setSubmitting(true);
-            updateProfile(userId, values.firstName, values.lastName, values.profileImage )
-            resetForm()
-            setSubmitted(!submitted)
-            alert('Profile successfully updated')
-            // Formik was not passing in the new state so manual reload here to display the updated details
-            window.location.reload()
-          }}
-          >
-          {(props) => <EditProfileForm {...props} />}
-        </Formik>
-      ) : <LoadSpinner topMargin='15vh'/> }
+        {!isLoading ? (
+          <Formik
+            initialValues={{
+              firstName: currentUserProfile.firstName,
+              lastName: currentUserProfile.lastName
+            }}
+            validationSchema={ValidationSchema}
+            onSubmit={(values, { setSubmitting, resetForm }) => {
+              setSubmitting(true);
+              updateProfile(userId, values.firstName, values.lastName, values.profileImage )
+              resetForm()
+              setSubmitted(!submitted)
+              alert('Profile successfully updated')
+              // Formik was not passing in the new state so manual reload here to display the updated details
+              window.location.reload()
+            }}
+            >
+            {(props) => <EditProfileForm {...props} />}
+          </Formik>
+        ) : <LoadSpinner /> }
    
     </Wrapper>  
   );

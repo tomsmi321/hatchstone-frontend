@@ -10,6 +10,7 @@ export const UserContext = createContext({});
 const UserContextProvider = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
   const [currentUserProfile, setCurrentUserProfile] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const history = useHistory()
 
 
@@ -23,6 +24,7 @@ const UserContextProvider = ({ children }) => {
       console.log(result.data[0]);
       if (result.data) {
         setCurrentUserProfile(result.data[0]);
+        setIsLoading(false);
       }
     } catch (err) {
       console.log(err);
@@ -38,6 +40,7 @@ const UserContextProvider = ({ children }) => {
       })
       console.log(response.data)
       setCurrentUserProfile(response.data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error)
     }
@@ -57,7 +60,8 @@ useEffect(() => {
     <UserContext.Provider
       value={{
         currentUserProfile: currentUserProfile,
-        updateProfile: updateProfile
+        updateProfile: updateProfile,
+        isLoading: isLoading
       }}
     >
       {children}

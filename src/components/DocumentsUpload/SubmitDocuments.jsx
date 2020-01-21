@@ -3,12 +3,11 @@ import { useHistory } from "react-router-dom";
 import FileUpload from "./UploadFile";
 import styled from "styled-components";
 import { PrimaryButton } from "../../uiKit/Button";
-import { PrimaryLink, SecondaryLink } from "../../uiKit/Link";
+import { PrimaryLink } from "../../uiKit/Link";
 import Stepper from "../../uiKit/Stepper";
 import { InfoModal } from "../../uiKit/InfoModal";
 import { UserContext } from "../../contexts/UserContext";
-
-import { AuthContext } from "../../contexts/AuthContext";
+import { LoadSpinner } from '../../uiKit/LoadSpinner';
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -110,16 +109,14 @@ const WholeSaleInvestorCertDesc = () => {
   );
 };
 const SubmitDocuments = props => {
-  const [isLoading, setLoading] = useState(true);
   const history = useHistory();
-  const { currentUserProfile } = useContext(UserContext);
-  const [profile, setProfile] = useState(null);
+  const { currentUserProfile, isLoading } = useContext(UserContext);
+  // const [profile, setProfile] = useState(null);
   const userId = props.match.params.id;
 
-  useEffect(() => {
-    setLoading(false);
-    setProfile(currentUserProfile);
-  }, [currentUserProfile]);
+  // useEffect(() => {
+  //   setProfile(currentUserProfile);
+  // }, [currentUserProfile]);
 
   if (isLoading === false) {
     const profileId = currentUserProfile._id;
@@ -172,7 +169,7 @@ const SubmitDocuments = props => {
         </Container>
       </PageWrapper>
     );
-  } else return null;
+  } else return <LoadSpinner topMargin="38vh"/>;
 };
 
 export default SubmitDocuments;
