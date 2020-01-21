@@ -102,17 +102,19 @@ const WrapperClientDocsFieldDesc = styled.div`
   margin-bottom: 8px;
 `;
 
-const ClientDocField = ({ docType, docFileName, uri }) => {
-  // const
+const ClientDocField = ({userId}) => {
+  console.log(userId)
   return (
     <WrapperClientDocsField>
       <WrapperClientDocsFieldDesc>Approved Identification</WrapperClientDocsFieldDesc>
-      <UploadFile style={{width: "60px"}} />
+      <UploadFile userId={userId} style={{width: "60px"}} documentId="Company Verification" />
     </WrapperClientDocsField>
   );
 };
 
-const EditProfileClientPage = props => {
+const EditProfileClientPage = (props) => {
+  const userId = props.match.params.id.trim();
+  console.log(userId)
   const history = useHistory();
   const { currentUserProfile } = useContext(UserContext);
 
@@ -137,10 +139,10 @@ const EditProfileClientPage = props => {
 
     const handleSubmit = async e => {
       e.preventDefault();
-      const { userId } = currentUserProfile;
-      const response = await axios.put(`/profiles/updateByUser/${userId._id}`);
+     
+      const response = await axios.put(`/profiles/updateByUser/${userId}`);
       console.log(response);
-      history.push(`/conversations/${userId._id}`);
+      history.push(`/conversations/${userId}`);
     };
 
     return (
@@ -217,10 +219,10 @@ const EditProfileClientPage = props => {
             <WrapperDocsFieldsOuter>
               {documents && documents.length > 0 ? (
                 documents.map((document, i) => (
-                  <DocumentField key={i} document={document} profileId={currentUserProfile._id} onChange={onChange} />
+                  <DocumentField key={i} document={document} userId={userId} onChange={onChange} />
                 ))
               ) : (
-                <ClientDocField />
+                <ClientDocField userId={userId}  />
               )}
             </WrapperDocsFieldsOuter>
             <WrapperUpdateButton>
