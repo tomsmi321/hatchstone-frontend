@@ -65,7 +65,7 @@ const DocumentField = ({ document, userId }) => {
           target="_blank"
           rel="noopener noreferrer"
           download={document.fileName}
-          userId={userId}
+          userid={userId}
         >
           {" "}
           {document.fileName}

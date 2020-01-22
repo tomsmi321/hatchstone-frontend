@@ -6,10 +6,9 @@ import { PrimaryButton } from "../../uiKit/Button";
 import { AuthContext } from "../../contexts/AuthContext";
 import { PrimaryLink } from "../../uiKit/Link";
 import { UserContext } from "../../contexts/UserContext";
-import { LoadSpinner } from '../../uiKit/LoadSpinner';
-import {StepA} from "../../uiKit/Stepper";
+import { LoadSpinner } from "../../uiKit/LoadSpinner";
+import { StepA } from "../../uiKit/Stepper";
 import { InfoModal } from "../../uiKit/InfoModal";
-
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -113,55 +112,54 @@ const SubmitDocuments = props => {
   if (isLoading === false) {
     return (
       <PageWrapper>
-      <StepA inputSteps={["Sign Up", "Create Profile", "Submit Documents"]} stepNumber={2} />}
-      <Container>
-        <Title>Submit your documents</Title>
+        <StepA inputSteps={["Sign Up", "Create Profile", "Submit Documents"]} stepNumber={2} />
+        <Container>
+          <Title>Submit your documents</Title>
 
-        <UploadWrapper>
-          <TitleWrapper>
-            <Label>Company Verification</Label>
-            <Info>
-              <InfoModal documentType="Company Verification" desc={<CompanyVerificationDesc />} />
-            </Info>
-          </TitleWrapper>
-          <FileUpload userId={userId} documentId="Company Verification" />
-        </UploadWrapper>
+          <UploadWrapper>
+            <TitleWrapper>
+              <Label>Company Verification</Label>
+              <Info>
+                <InfoModal documentType="Company Verification" desc={<CompanyVerificationDesc />} />
+              </Info>
+            </TitleWrapper>
+            <FileUpload userId={userId} documentId="Company Verification" />
+          </UploadWrapper>
 
-        <UploadWrapper>
-          <TitleWrapper>
-            <Label>Director and Beneficial Owner Identification </Label>
-            <Info>
-              <InfoModal
-                documentType="Director and Beneficial Owner Identification"
-                desc={<DirectorIdentificationDesc />}
-              />
-            </Info>
-          </TitleWrapper>
-          <FileUpload userId={userId} documentId="Director and Beneficial Owner Identification" />
-        </UploadWrapper>
+          <UploadWrapper>
+            <TitleWrapper>
+              <Label>Director and Beneficial Owner Identification </Label>
+              <Info>
+                <InfoModal
+                  documentType="Director and Beneficial Owner Identification"
+                  desc={<DirectorIdentificationDesc />}
+                />
+              </Info>
+            </TitleWrapper>
+            <FileUpload userId={userId} documentId="Director and Beneficial Owner Identification" />
+          </UploadWrapper>
 
-        <UploadWrapper>
-          <TitleWrapper>
-            <Label>Section 708 Wholesale Investor Certification</Label>
-            <Info>
-              <InfoModal
-                documentType="Section 708 Wholesale Investor Certification"
-                desc={<WholeSaleInvestorCertDesc />}
-              />
-            </Info>
-          </TitleWrapper>
-          <FileUpload userId={userId} documentId="Section 708 Wholesale Investor Certification" />
-        </UploadWrapper>
+          <UploadWrapper>
+            <TitleWrapper>
+              <Label>Section 708 Wholesale Investor Certification</Label>
+              <Info>
+                <InfoModal
+                  documentType="Section 708 Wholesale Investor Certification"
+                  desc={<WholeSaleInvestorCertDesc />}
+                />
+              </Info>
+            </TitleWrapper>
+            <FileUpload userId={userId} documentId="Section 708 Wholesale Investor Certification" />
+          </UploadWrapper>
 
-        <ButtonWrapper>
-          <PrimaryButton onClick={() => history.push(`/conversations/${userId}`)}>Submit</PrimaryButton>
-        </ButtonWrapper>
-        <PrimaryLink onClick={() => history.push(`/conversations/${userId}`)}>Skip</PrimaryLink>
-      </Container>
-    </PageWrapper>
-  );
-
-  } else return <LoadSpinner topMargin="38vh"/>;
+          <ButtonWrapper>
+            <PrimaryButton onClick={() => history.push(`/conversations/${userId}`)}>Submit</PrimaryButton>
+          </ButtonWrapper>
+          <PrimaryLink onClick={() => history.push(`/conversations/${userId}`)}>Skip</PrimaryLink>
+        </Container>
+      </PageWrapper>
+    );
+  } else return <LoadSpinner topMargin="38vh" />;
 };
 
 export default SubmitDocuments;

@@ -23,7 +23,7 @@ const Wrapper = styled.div`
 `;
 
 const WrapperProfilePic = styled.div`
-background: "lightblue";
+  /* background: blue; */
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
@@ -38,9 +38,9 @@ const ProfileImage = styled.div`
     `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("${imageSrc}")`};
   background-position: center;
   background-size: cover;
-  width: 11.11vw;
-  height: 17.8vh;
-  border-radius: 100px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,7 +60,7 @@ const ProfileImageChangePicText = styled.div`
   color: #ffffff;
 `;
 
-const WrapperProfileDetailsUppper = styled.div`
+const WrapperProfileDetailsUpper = styled.div`
   /* background-color: bisque; */
   margin-bottom: 28px;
   display: flex;
@@ -162,8 +162,8 @@ const WholeSaleInvestorCertDesc = () => {
   );
 };
 
-const ClientDocFieldA = ({ userId }) => {
-  console.log(userId);
+const ClientDocFieldA = ({ userId, onChange, setFields }) => {
+  const [success, setSuccess] = useState(null);
   return (
     <WrapperClientDocsField>
       <TitleWrapper>
@@ -172,11 +172,11 @@ const ClientDocFieldA = ({ userId }) => {
           <InfoModal documentType="Company Verification" desc={<CompanyVerificationDesc />} />
         </Info>
       </TitleWrapper>
-      <FileUpload userId={userId} documentId="Company Verification" style={{ width: "100px" }} />
+      <FileUpload onChange={onChange} userId={userId} setFields={setFields} documentId="Company Verification" style={{ width: "100px" }} />
     </WrapperClientDocsField>
   );
 };
-const ClientDocFieldB = ({ userId }) => {
+const ClientDocFieldB = ({ userId, onChange }) => {
   console.log(userId);
   return (
     <WrapperClientDocsField>
@@ -193,11 +193,12 @@ const ClientDocFieldB = ({ userId }) => {
         userId={userId}
         documentId="Director and Beneficial Owner Identification"
         style={{ width: "100px" }}
+        onChange={onChange}
       />
     </WrapperClientDocsField>
   );
 };
-const ClientDocFieldC = ({ userId }) => {
+const ClientDocFieldC = ({ userId, onChange }) => {
   console.log(userId);
   return (
     <WrapperClientDocsField>
@@ -211,6 +212,7 @@ const ClientDocFieldC = ({ userId }) => {
         userId={userId}
         documentId="Section 708 Wholesale Investor Certification"
         style={{ width: "100px" }}
+        onChange={onChange}
       />
     </WrapperClientDocsField>
   );
@@ -223,10 +225,12 @@ const EditProfileClientPage = props => {
   const { currentUserProfile } = useContext(UserContext);
 
   const [fields, setFields] = useState(null);
+
   const onChange = e => {
     e.preventDefault();
     const value = e.target.value;
     const name = e.target.name;
+
     setFields(prevState => {
       return { ...prevState, [name]: value };
     });
@@ -238,6 +242,8 @@ const EditProfileClientPage = props => {
 
   if (currentUserProfile) {
     const { documents, firstName, lastName, address, investorType, profileImage, phone } = currentUserProfile;
+    console.log(currentUserProfile);
+
 
     const handleSubmit = async e => {
       e.preventDefault();
@@ -253,11 +259,15 @@ const EditProfileClientPage = props => {
         <form onSubmit={handleSubmit}>
           <Wrapper>
             <WrapperProfilePic>
-              {profileImage ? <ProfileImage imageSrc={profileImage} /> : <AccountCircleIcon />}
-              <StyledPhotoCameraIcon />
-              <ProfileImageChangePicText>Change image</ProfileImageChangePicText>
-            </WrapperProfilePic>
-            <WrapperProfileDetailsUppper>
+            <ProfileImage imageSrc={profileImage}>
+                {/* ) : ( */}
+                {/* <AccountCircleIcon> */} <StyledPhotoCameraIcon />
+                <ProfileImageChangePicText>Change profile image</ProfileImageChangePicText>{" "}
+              </ProfileImage>
+             
+            </WrapperProfilePic>{" "}
+            <p style={{ margin: "10px" }}>Profile Details</p>
+            <WrapperProfileDetailsUpper>
               <WrapperTextFieldUpper>
                 <TextField
                   onChange={onChange}
@@ -288,7 +298,7 @@ const EditProfileClientPage = props => {
               <WrapperTextFieldUpper>
                 <SelectInvestorType value={investorType} defaultValue={investorType} key={investorType} />
               </WrapperTextFieldUpper>
-            </WrapperProfileDetailsUppper>
+            </WrapperProfileDetailsUpper>
             <WrapperProfileDetailsLower>
               <WrapperTextFieldLower>
                 <TextField
@@ -318,17 +328,19 @@ const EditProfileClientPage = props => {
                 />
               </WrapperTextFieldLower>
             </WrapperProfileDetailsLower>
+            <p style={{ margin: "10px" }}>Documents</p>
             <WrapperDocsFieldsOuter>
-              {/* {documents && documents.length > 0 ? (
-                documents.map((document, i) => (
-                  <DocumentField key={i} document={document} userId={userId} onChange={onChange} />
-                ))
-              ) : ( */}
-              <>
-                <ClientDocFieldA userId={userId} />
-                <ClientDocFieldB userId={userId} />
-                <ClientDocFieldC userId={userId} />
-              </>
+              {documents ? (documents.map((document,index) => {
+                if(documents.length < 3){
+                if(document.name === "Company Verification"  || document.name === "Director and Beneficial Owner Identification"  || document.name === "Section 708 Wholesale Investor Certification"){
+                  
+                  return <DocumentField document={document}  userId={userId} key={index}/>
+                } else if (documents.length < 3) {
+                  return <ClientDocFieldA userId={userId}/>
+                }
+              } })
+               ) : (null) }
+
             </WrapperDocsFieldsOuter>
             <WrapperUpdateButton>
               <PrimaryButton type="submit">Update</PrimaryButton>
