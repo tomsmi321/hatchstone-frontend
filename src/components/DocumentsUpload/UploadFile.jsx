@@ -92,7 +92,7 @@ const FileUpload = ({ documentId, userId }) => {
     body.append('file', file)
 
     return {
-      url: `http://localhost:5000/profiles/${userId}/uploadDocument`,
+      url: `https://young-sierra-89309.herokuapp.com/profiles/${userId}/uploadDocument`,
       body,
     }
   }
