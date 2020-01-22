@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 import AuthContextProvider from "../../contexts/AuthContext";
 import FileUpload from "../DocumentsUpload/UploadFileEdit";
 import { InfoModal } from "../../uiKit/InfoModal";
+import { AccountCircle } from "uiKit/Icon";
 
 const PageWrapper = styled.div`
   padding-bottom: 70px;
@@ -22,9 +23,14 @@ const Wrapper = styled.div`
 `;
 
 const WrapperProfilePic = styled.div`
+background: "lightblue";
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
+`;
+
+const AccountCircleIcon = styled(AccountCircle).attrs({ style: { fontSize: 120 } })`
+  color: rgba(0, 0, 0, 0.4);
 `;
 
 const ProfileImage = styled.div`
@@ -230,16 +236,15 @@ const EditProfileClientPage = props => {
     setFields(currentUserProfile);
   }, [currentUserProfile]);
 
-  const imageSrc = "https://devilsworkshop.org/wp-content/uploads/sites/8/2013/01/small-facebook-profile-picture.jpg";
-  console.log(fields);
   if (currentUserProfile) {
     const { documents, firstName, lastName, address, investorType, profileImage, phone } = currentUserProfile;
 
     const handleSubmit = async e => {
       e.preventDefault();
 
-      const response = await axios.put(`/profiles/updateByUser/${userId}`, { fields });
-      console.log(response);
+      const response = await axios.put(`/profiles/updateByUser/${userId}`, fields);
+      const profile = response.data;
+      console.log(profile);
       history.push(`/conversations/${userId}`);
     };
 
@@ -248,10 +253,9 @@ const EditProfileClientPage = props => {
         <form onSubmit={handleSubmit}>
           <Wrapper>
             <WrapperProfilePic>
-              <ProfileImage imageSrc={imageSrc} onChange={onChange}>
-                <StyledPhotoCameraIcon />
-                <ProfileImageChangePicText>Change image</ProfileImageChangePicText>
-              </ProfileImage>
+              {profileImage ? <ProfileImage imageSrc={profileImage} /> : <AccountCircleIcon />}
+              <StyledPhotoCameraIcon />
+              <ProfileImageChangePicText>Change image</ProfileImageChangePicText>
             </WrapperProfilePic>
             <WrapperProfileDetailsUppper>
               <WrapperTextFieldUpper>
