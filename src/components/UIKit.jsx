@@ -8,7 +8,8 @@ import { Footer, DarkFooter } from "uiKit/Footer";
 import { SimpleModal } from "uiKit/Modal";
 import { ProgressBar } from "uiKit/ProgressBar";
 import { SimpleSelect } from "uiKit/SimpleSelect";
-import DropdownMenu from 'uiKit/DropdownMenu';
+import { StyledLaunchIcon } from 'uiKit/Icon';
+
 
 import { StepA } from "uiKit/Stepper";
 import SubmitDocuments from "./DocumentsUpload/SubmitDocuments";
@@ -25,6 +26,7 @@ const Wrapper = styled.div`
 const UIKit = () => {
   return (
     <Wrapper>
+      <StyledLaunchIcon />
       <PrimaryButton>Primary</PrimaryButton>
       <SecondaryButton>Secondary</SecondaryButton>
       <TertiaryButton>Tertiary</TertiaryButton>

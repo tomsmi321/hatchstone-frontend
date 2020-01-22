@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { SearchField } from 'uiKit/userInput/TextField';
 import ConvoItem from './ConvoItem';
+import { StyledLaunchIcon } from '../../uiKit/Icon';
 
 // fix this
 const WrapperOuter = styled.div`
@@ -13,7 +14,7 @@ const WrapperOuter = styled.div`
     overflow: scroll;
 `
 const WrapperInner = styled.div`
-    /* background-color: lightyellow; */
+    background-color: lightyellow;
     width: 25.5vw;
     display: flex;
     flex-direction: column;
@@ -22,18 +23,31 @@ const WrapperInner = styled.div`
     margin: 60px 2.3vw 0 12.5vw;
 `
 
+const WrapperSearchAndNewConvo = styled.div`
+    background-color: lightsteelblue;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+`
+
 const WrapperSearchField = styled.div`
-  /* background-color: whitesmoke; */
   width: 23.2vw;
   height: 4.22vh;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: flex-start;
   margin-bottom: 17px;
 `
 
+const WrapperLaunchIcon = styled.div`
+    /* background-color: green; */
+    display: flex;
+    height: max-content;
+    margin-top: 10px;
+`
+
 const WrapperConvoItems = styled.div`
-    /* background-color: lightgreen; */
+    background-color: lightgreen;
     width: 100%;
     display: flex;
     flex-direction: column-reverse;
@@ -56,9 +70,14 @@ const ConversationsTable = ({ userConvos, admin, getCurrentMessages, currentMess
     return (
         <WrapperOuter>
             <WrapperInner>
-                <WrapperSearchField label="search" onChange={handleSearchChange}>
-                    <SearchField placeholder="Search your conversations" />
-                </WrapperSearchField>
+                <WrapperSearchAndNewConvo>
+                    <WrapperSearchField >
+                        <SearchField placeholder="Search your conversations" label="search" onChange={handleSearchChange}/>
+                    </WrapperSearchField>
+                    <WrapperLaunchIcon>
+                        <StyledLaunchIcon />
+                    </WrapperLaunchIcon>
+                </WrapperSearchAndNewConvo>
                 <WrapperConvoItems>
                     {filteredUserConvos.length ? filteredUserConvos.map((userConvo, index) => {
                         return (
