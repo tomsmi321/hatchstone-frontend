@@ -42,19 +42,12 @@ const OnboardingClientsPage = () => {
     setFilter(event.target.value);
   };
 
-
-  // const filteredOnboardingClients = onboardingClients.filter(onboardingClients => {
-  //   const clientFullName = `${onboardingClients.firstName + ' ' + onboardingClients.lastName}`
-  //   return clientFullName.indexOf(searchState) !== -1;
-  // });
-
   const searchClients = (searchTerm, clients) => {
     return clients.filter(client => {
       const clientFullName = `${client.firstName + ' ' + client.lastName}`
       return clientFullName.indexOf(searchTerm) !== -1;
     });
   } 
-
 
   const compareProgress = (clientA, clientB) => {
     if(clientA.appProgress > clientB.appProgress) {
@@ -79,7 +72,6 @@ const OnboardingClientsPage = () => {
     }
   }
 
-
     return (
       <>
         {!isLoading ? (
@@ -92,8 +84,6 @@ const OnboardingClientsPage = () => {
                       <SearchField placeholder="Search your clients" />
                     </WrapperSearchField>
                   </WrapperSearchAndFilterFields>
-                  {/* <ClientsTable clients={searchClients(searchState, onboardingClients)} /> */}
-                  {/* <ClientsTable clients={sortClientsByProgress(onboardingClients, compareProgress)} /> */}
                   <ClientsTable clients={handleSearchAndFilter(searchClients, sortClientsByProgress, searchState, onboardingClients, compareProgress, filter)} />
                 </>
               ) : (
