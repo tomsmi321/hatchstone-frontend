@@ -1,11 +1,10 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import styled from 'styled-components';
-
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
+import styled from 'styled-components'
 
 const StyledSelect = styled(Select)`
   &&& {
@@ -16,20 +15,16 @@ const StyledSelect = styled(Select)`
   }
 `
 
-export const SimpleSelect = ({filter, handleFilterChange}) => {
+export const SimpleSelect = ({ filter, handleFilterChange }) => {
   return (
     <>
-      <FormControl variant="outlined" >
+      <FormControl variant="outlined">
         <InputLabel margin="dense">Sort</InputLabel>
-        <StyledSelect
-          value={filter}
-          onChange={handleFilterChange}
-        >
+        <StyledSelect value={filter} onChange={handleFilterChange}>
           <MenuItem value="">No Filter</MenuItem>
           <MenuItem value="Progress">Sort By: Progress</MenuItem>
         </StyledSelect>
       </FormControl>
     </>
   )
-
 }

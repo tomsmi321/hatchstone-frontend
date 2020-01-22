@@ -1,4 +1,4 @@
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import 'assets/fonts/leaguespartan-bold.ttf'
 
 const theme = createMuiTheme({
@@ -18,12 +18,8 @@ const theme = createMuiTheme({
     // error: will us the default color
   },
   typography: {
-    fontFamily: [
-      'Lato',
-      'Roboto',
-      'sans-serif'
-    ].join(','),
+    fontFamily: ['Lato', 'Roboto', 'sans-serif'].join(','),
   },
-});
+})
 
-export { theme, MuiThemeProvider };
+export { theme, MuiThemeProvider }

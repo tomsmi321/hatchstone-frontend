@@ -1,17 +1,22 @@
-import React from "react";
-import styled from "styled-components";
-import { PrimaryButton, SecondaryButton, TertiaryButton, ApprovedButton } from "uiKit/Button";
-import { PrimaryLink, SecondaryLink } from "uiKit/Link";
-import { TextField } from "uiKit/userInput/TextField";
-import { TextArea } from "uiKit/userInput/TextArea";
-import { Footer, DarkFooter } from "uiKit/Footer";
-import { SimpleModal } from "uiKit/Modal";
-import { ProgressBar } from "uiKit/ProgressBar";
-import { SimpleSelect } from "uiKit/SimpleSelect";
-import DropdownMenu from 'uiKit/DropdownMenu';
+import React from 'react'
+import styled from 'styled-components'
+import {
+  PrimaryButton,
+  SecondaryButton,
+  TertiaryButton,
+  ApprovedButton,
+} from 'uiKit/Button'
+import { PrimaryLink, SecondaryLink } from 'uiKit/Link'
+import { TextField } from 'uiKit/userInput/TextField'
+import { TextArea } from 'uiKit/userInput/TextArea'
+import { Footer, DarkFooter } from 'uiKit/Footer'
+import { SimpleModal } from 'uiKit/Modal'
+import { ProgressBar } from 'uiKit/ProgressBar'
+import { SimpleSelect } from 'uiKit/SimpleSelect'
+import DropdownMenu from 'uiKit/DropdownMenu'
 
-import { StepA } from "uiKit/Stepper";
-import SubmitDocuments from "./DocumentsUpload/SubmitDocuments";
+import { StepA } from 'uiKit/Stepper'
+import SubmitDocuments from './DocumentsUpload/SubmitDocuments'
 
 const Wrapper = styled.div`
   display: flex;
@@ -20,7 +25,7 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   height: 100vh;
   background-color: #fafafa;
-`;
+`
 
 const UIKit = () => {
   return (
@@ -32,15 +37,15 @@ const UIKit = () => {
       <PrimaryLink>PrimaryLink</PrimaryLink>
       <SecondaryLink underline="always">SecondaryLink</SecondaryLink>
       <TextField label="Input field"></TextField>
-      <StepA inputSteps={["Sign Up", "Create Profile", "Submit Documents"]} />
+      <StepA inputSteps={['Sign Up', 'Create Profile', 'Submit Documents']} />
       <TextArea placeholder="Type your message here..." />
       <SimpleModal />
       <Footer />
       <DarkFooter />
-      <ProgressBar appProgress={25}/>
+      <ProgressBar appProgress={25} />
       <SimpleSelect />
     </Wrapper>
-  );
-};
+  )
+}
 
-export default UIKit;
+export default UIKit

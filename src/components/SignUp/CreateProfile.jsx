@@ -1,20 +1,20 @@
-import React, { useEffect, useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
-import styled from "styled-components";
-import { PrimaryButton, TertiaryButton } from "uiKit/Button";
-import { TextField } from "uiKit/userInput/TextField";
-import { SelectInvestorType } from "uiKit/userInput/SelectInvestorType";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import axios from "../../config/axiosConfig";
-import { AuthContext } from "../../contexts/AuthContext";
-import { useDropzone } from "react-dropzone";
-import { UploadPictureField } from "../../uiKit/UploadPictureField";
-import { StepA } from "../../uiKit/Stepper";
+import React, { useEffect, useContext, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import styled from 'styled-components'
+import { PrimaryButton, TertiaryButton } from 'uiKit/Button'
+import { TextField } from 'uiKit/userInput/TextField'
+import { SelectInvestorType } from 'uiKit/userInput/SelectInvestorType'
+import { Formik } from 'formik'
+import * as Yup from 'yup'
+import axios from '../../config/axiosConfig'
+import { AuthContext } from '../../contexts/AuthContext'
+import { useDropzone } from 'react-dropzone'
+import { UploadPictureField } from '../../uiKit/UploadPictureField'
+import { StepA } from '../../uiKit/Stepper'
 
 const PageWrapper = styled.div`
   padding-bottom: 60px;
-`;
+`
 
 const Container = styled.div`
   display: flex;
@@ -28,21 +28,21 @@ const Container = styled.div`
   background-color: #ffffff;
   border-radius: 4px;
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
-`;
+`
 
 const Title = styled.div`
   font-size: 16px;
   margin-bottom: 12px;
-`;
+`
 
 const TextFieldContainer = styled.div`
   margin: 16px 0;
   width: 100%;
-`;
+`
 
 const ButtonContainer = styled.div`
   margin: 28px 0px 0px;
-`;
+`
 
 const Form = styled.form`
   display: flex;
@@ -50,32 +50,41 @@ const Form = styled.form`
   justify-content: center;
   flex-direction: column;
   width: 100%;
-`;
+`
 
 const ValidationSchema = Yup.object().shape({
   firstName: Yup.string()
-    .min(2, "Must be at least 2 characters")
-    .required("This field is required"),
+    .min(2, 'Must be at least 2 characters')
+    .required('This field is required'),
   lastName: Yup.string()
-    .min(2, "Must be at least 2 characters")
-    .required("This field is required"),
-  address: Yup.string().required("This field is required"),
+    .min(2, 'Must be at least 2 characters')
+    .required('This field is required'),
+  address: Yup.string().required('This field is required'),
   contactNumber: Yup.string()
-    .matches(/^[0-9]+$/, "Must be only digits")
-    .required("This field is required"),
+    .matches(/^[0-9]+$/, 'Must be only digits')
+    .required('This field is required'),
   investorType: Yup.string()
-    .oneOf(["individual", "individualTrustee", "company", "corporateTrustee"])
-    .required("Please select an investor type")
-});
+    .oneOf(['individual', 'individualTrustee', 'company', 'corporateTrustee'])
+    .required('Please select an investor type'),
+})
 
-const CreateProfilePage = props => {
-  const { currentUser, currentUserProfile, setCurrentUserProfile } = useContext(AuthContext);
-  console.log(currentUser);
+const CreateProfilePage = (props) => {
+  const { currentUser, currentUserProfile, setCurrentUserProfile } = useContext(
+    AuthContext,
+  )
+  console.log(currentUser)
 
-  const createProfile = async (firstName, lastName, address, contactNumber, investorType, profileImage) => {
+  const createProfile = async (
+    firstName,
+    lastName,
+    address,
+    contactNumber,
+    investorType,
+    profileImage,
+  ) => {
     try {
-      console.log("in AuthContext createProfile function");
-      const response = await axios.post("/profiles", {
+      console.log('in AuthContext createProfile function')
+      const response = await axios.post('/profiles', {
         userId: currentUser._id,
         firstName,
         lastName,
@@ -85,67 +94,73 @@ const CreateProfilePage = props => {
         appProgress: 0,
         approved: false,
         dateStarted: new Date(),
-        profileImage: ""
-      });
-      console.log(response.data);
-      const profile = response.data;
-      setCurrentUserProfile(profile);
+        profileImage: '',
+      })
+      console.log(response.data)
+      const profile = response.data
+      setCurrentUserProfile(profile)
     } catch (error) {
-      console.log(error.message);
+      console.log(error.message)
     }
-  };
+  }
 
-  const [showLoading, setShowLoading] = useState(false);
+  const [showLoading, setShowLoading] = useState(false)
 
   return (
     <PageWrapper>
-      <StepA inputSteps={["Sign Up", "Create Profile", "Submit Documents"]} stepNumber={1} />
+      <StepA
+        inputSteps={['Sign Up', 'Create Profile', 'Submit Documents']}
+        stepNumber={1}
+      />
       <Container>
         <Formik
           initialValues={{
-            firstName: "",
-            lastName: "",
-            address: "",
-            contactNumber: "",
-            investorType: "",
-            profileImage: ""
+            firstName: '',
+            lastName: '',
+            address: '',
+            contactNumber: '',
+            investorType: '',
+            profileImage: '',
           }}
           validationSchema={ValidationSchema}
-          onSubmit={(values, { setSubmitting, setErrors, setStatus, resetForm }) => {
+          onSubmit={(
+            values,
+            { setSubmitting, setErrors, setStatus, resetForm },
+          ) => {
             try {
-              setSubmitting(true);
+              setSubmitting(true)
               createProfile(
                 values.firstName,
                 values.lastName,
                 values.address,
                 values.contactNumber,
                 values.investorType,
-                values.profileImage
-              );
+                values.profileImage,
+              )
 
-              const { history } = props;
+              const { history } = props
               setTimeout(() => {
-                console.log("Creating profile", values);
-                setSubmitting(false);
-                history.push(`/submit-documents/${currentUser._id}`);
-              }, 500);
+                console.log('Creating profile', values)
+                setSubmitting(false)
+                history.push(`/submit-documents/${currentUser._id}`)
+              }, 500)
               // history.push(`/submit-documents/${currentUser._id}
               // `);
 
-              setStatus({ success: true });
+              setStatus({ success: true })
             } catch (error) {
-              setStatus({ success: false });
-              setSubmitting(false);
-              setErrors({ submit: error.message });
+              setStatus({ success: false })
+              setSubmitting(false)
+              setErrors({ submit: error.message })
             }
           }}
         >
-          {props => <CreateProfileForm {...props} />}
+          {(props) => <CreateProfileForm {...props} />}
         </Formik>
       </Container>
     </PageWrapper>
-  );
-};
+  )
+}
 
 const CreateProfileForm = ({
   values,
@@ -157,18 +172,18 @@ const CreateProfileForm = ({
   isSubmitting,
   isValid,
   validateForm,
-  onDrop
+  onDrop,
 }) => {
   useEffect(() => {
-    (() => validateForm())();
-  }, []);
+    ;(() => validateForm())()
+  }, [])
 
   // console.log(touched)
   // console.log(errors)
   // console.log(values);
   // console.log(isValid)
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -249,7 +264,7 @@ const CreateProfileForm = ({
         </PrimaryButton>
       </ButtonContainer>
     </Form>
-  );
-};
+  )
+}
 
-export default CreateProfilePage;
+export default CreateProfilePage

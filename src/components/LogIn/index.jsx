@@ -1,13 +1,12 @@
 import React, { useContext } from 'react'
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { PrimaryLink } from 'uiKit/Link'
 import { PrimaryButton } from 'uiKit/Button'
 import { TextField } from 'uiKit/userInput/TextField'
 import { Formik } from 'formik'
-import * as Yup from "yup"
+import * as Yup from 'yup'
 import { AuthContext } from '../../contexts/AuthContext'
-
 
 const Container = styled.div`
   display: flex;
@@ -49,26 +48,24 @@ const ButtonContainer = styled.div`
 `
 
 const ValidationSchema = Yup.object().shape({
-  email: Yup.string()
-    .required("This field is required"),
-  password: Yup.string()
-    .required("This field is required")
+  email: Yup.string().required('This field is required'),
+  password: Yup.string().required('This field is required'),
 })
 
 const LogInPage = () => {
   const history = useHistory()
   const { loginUser } = useContext(AuthContext)
-  
+
   return (
     <Container>
       <Formik
         initialValues={{
-          email: "",
-          password: ""
+          email: '',
+          password: '',
         }}
         validationSchema={ValidationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          setSubmitting(true);
+          setSubmitting(true)
           loginUser(values.email, values.password)
           resetForm()
         }}
@@ -77,13 +74,12 @@ const LogInPage = () => {
       </Formik>
       <SignUpPrompt>
         <NoAccountText>No account?</NoAccountText>
-        <PrimaryLink onClick={() => history.push("/sign-up")}>
+        <PrimaryLink onClick={() => history.push('/sign-up')}>
           Create account
         </PrimaryLink>
-
       </SignUpPrompt>
     </Container>
-  );
+  )
 }
 
 const LogInForm = ({
@@ -97,13 +93,10 @@ const LogInForm = ({
   isValid,
   // validateForm
 }) => {
-  
-
   return (
     <Form onSubmit={handleSubmit}>
-
       <TextFieldContainer>
-        <TextField 
+        <TextField
           required
           label="Email"
           type="email"
@@ -117,9 +110,9 @@ const LogInForm = ({
       </TextFieldContainer>
 
       <TextFieldContainer>
-        <TextField 
+        <TextField
           required
-          label="Password" 
+          label="Password"
           type="password"
           name="password"
           onChange={handleChange}
@@ -129,9 +122,14 @@ const LogInForm = ({
           error={errors.password}
         />
       </TextFieldContainer>
-      
+
       <ButtonContainer>
-        <PrimaryButton type="submit" disabled={isSubmitting || (!isValid && touched !== {})}>Login</PrimaryButton>
+        <PrimaryButton
+          type="submit"
+          disabled={isSubmitting || (!isValid && touched !== {})}
+        >
+          Login
+        </PrimaryButton>
       </ButtonContainer>
     </Form>
   )

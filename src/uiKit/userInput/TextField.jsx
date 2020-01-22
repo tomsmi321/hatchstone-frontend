@@ -1,15 +1,16 @@
 import React from 'react'
-import { TextField as MUITextField, InputAdornment } from '@material-ui/core';
+import { TextField as MUITextField, InputAdornment } from '@material-ui/core'
 import { Search } from 'uiKit/Icon'
 import styled from 'styled-components'
 
-
-export const BaseTextField = styled(MUITextField).attrs({ variant: "outlined" })`
+export const BaseTextField = styled(MUITextField).attrs({
+  variant: 'outlined',
+})`
   &&& {
     width: 100%;
     :hover {
       .MuiOutlinedInput-notchedOutline {
-        border: 1px solid #326FBB;
+        border: 1px solid #326fbb;
       }
     }
   }
@@ -21,7 +22,21 @@ const ErrorMessage = styled.div`
   color: red;
 `
 
-export const TextField = ({ label, onChange, onBlur, name, touched, error, size, value, inputProps, InputLabelProps, type, required, defaultValue }) => (
+export const TextField = ({
+  label,
+  onChange,
+  onBlur,
+  name,
+  touched,
+  error,
+  size,
+  value,
+  inputProps,
+  InputLabelProps,
+  type,
+  required,
+  defaultValue,
+}) => (
   <>
     <BaseTextField
       name={name}
@@ -31,19 +46,19 @@ export const TextField = ({ label, onChange, onBlur, name, touched, error, size,
       value={value}
       onChange={onChange}
       onBlur={onBlur}
-      variant="outlined" 
+      variant="outlined"
       size={size}
       inputProps={inputProps}
       InputLabelProps={InputLabelProps}
       defaultValue={defaultValue}
     />
-    { touched && error && <ErrorMessage>{error}</ErrorMessage> }
+    {touched && error && <ErrorMessage>{error}</ErrorMessage>}
   </>
 )
 
 const BaseSearchField = styled(BaseTextField).attrs({
-  id: "outlined-start-adornment",
-  type: "search",
+  id: 'outlined-start-adornment',
+  type: 'search',
 })`
   &&& {
     width: 100%;
@@ -55,7 +70,7 @@ const BaseSearchField = styled(BaseTextField).attrs({
     }
     :hover {
       .MuiOutlinedInput-notchedOutline {
-        border: 1px solid #326FBB;
+        border: 1px solid #326fbb;
       }
     }
   }
@@ -70,7 +85,11 @@ export const SearchField = ({ placeholder, onChange }) => (
     placeholder={placeholder}
     onChange={onChange}
     InputProps={{
-      startAdornment: <InputAdornment position="start"><StyledSearchIcon /></InputAdornment>,
+      startAdornment: (
+        <InputAdornment position="start">
+          <StyledSearchIcon />
+        </InputAdornment>
+      ),
     }}
   />
 )
