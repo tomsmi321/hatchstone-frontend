@@ -1,4 +1,4 @@
-describe('Create Profile Form', () => {
+describe('Create Profile Page', () => {
 
   beforeEach( () => {
     cy.visit('http://localhost:3000/sign-up')
@@ -25,6 +25,21 @@ describe('Create Profile Form', () => {
         .click()
       cy.get("[type='submit']")
         .click()
+        .should(() => {
+          expect(localStorage.getItem('currentUser')).to.exist
+          expect(localStorage.getItem('token')).to.exist
+        })
+    })
+  })
+
+  context('sign out process', () => {
+    it('signs out and redirects to landing page', () => {
+      cy.get('.sc-kLIISr')
+        .children('a')
+        .click().should(() => {
+          expect(localStorage.getItem('currentUser')).to.be.null
+          expect(localStorage.getItem('token')).to.be.null
+        })
     })
   })
 })
