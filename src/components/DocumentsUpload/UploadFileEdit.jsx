@@ -1,3 +1,4 @@
+
 import React from 'react'
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
@@ -72,11 +73,11 @@ const Preview = ({ meta }) => {
   )
 }
 
-const FileUpload = ({ documentId, userId }) => {
-  console.log(documentId)
-  console.log(userId)
-  // console.log(profileId);
 
+
+const FileUpload = ({ documentId, userId, onChange, setFields }) => {
+
+  console.log(documentId)
   const PreviewComponent = () => {
     return (
       <div>
@@ -90,12 +91,11 @@ const FileUpload = ({ documentId, userId }) => {
     const body = new FormData()
     body.append('document', documentId)
     body.append('file', file)
-
     return {
-      url: `http://localhost:5000/profiles/${userId}/uploadDocument`,
-      body,
-    }
-  }
+        url: `http://localhost:5000/profiles/${userId}/uploadDocument`,
+        body,
+      }
+   }
 
   // called every time a file's `status` changes
   const handleChangeStatus = ({ meta, file }, status) => {
@@ -114,6 +114,7 @@ const FileUpload = ({ documentId, userId }) => {
   return (
     <>
       <Dropzone
+      onChange={onChange}
         label={documentId}
         className="dzu-dropzone"
         LayoutComponent={Layout}

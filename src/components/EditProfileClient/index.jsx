@@ -1,16 +1,18 @@
-import React, { useContext, useState, useEffect } from 'react'
-import styled from 'styled-components'
-import { TextField } from '../../uiKit/userInput/TextField'
-import { PrimaryButton } from '../../uiKit/Button'
-import PhotoCameraIcon from '@material-ui/icons/PhotoCamera'
-import DocumentField from './DocumentField'
-import { SelectInvestorType } from '../../uiKit/userInput/SelectInvestorType'
-import { UserContext } from '../../contexts/UserContext'
-import axios from '../../config/axiosConfig'
-import { useHistory } from 'react-router-dom'
-import AuthContextProvider from '../../contexts/AuthContext'
-import FileUpload from '../DocumentsUpload/UploadFileEdit'
-import { InfoModal } from '../../uiKit/InfoModal'
+import React, { useContext, useState, useEffect } from "react";
+import styled from "styled-components";
+import { TextField } from "../../uiKit/userInput/TextField";
+import { PrimaryButton } from "../../uiKit/Button";
+import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
+import DocumentField from "./DocumentField";
+import { SelectInvestorType } from "../../uiKit/userInput/SelectInvestorType";
+import { UserContext } from "../../contexts/UserContext";
+import axios from "../../config/axiosConfig";
+import { useHistory } from "react-router-dom";
+import AuthContextProvider from "../../contexts/AuthContext";
+import FileUpload from "../DocumentsUpload/UploadFileEdit";
+import { InfoModal } from "../../uiKit/InfoModal";
+import { AccountCircle } from "uiKit/Icon";
+
 
 const PageWrapper = styled.div`
   padding-bottom: 70px;
@@ -22,19 +24,24 @@ const Wrapper = styled.div`
 `
 
 const WrapperProfilePic = styled.div`
+  /* background: blue; */
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
 `
+
+const AccountCircleIcon = styled(AccountCircle).attrs({ style: { fontSize: 120 } })`
+  color: rgba(0, 0, 0, 0.4);
+`;
 
 const ProfileImage = styled.div`
   background-image: ${({ imageSrc }) =>
     `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("${imageSrc}")`};
   background-position: center;
   background-size: cover;
-  width: 11.11vw;
-  height: 17.8vh;
-  border-radius: 100px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -54,7 +61,7 @@ const ProfileImageChangePicText = styled.div`
   color: #ffffff;
 `
 
-const WrapperProfileDetailsUppper = styled.div`
+const WrapperProfileDetailsUpper = styled.div`
   /* background-color: bisque; */
   margin-bottom: 28px;
   display: flex;
@@ -161,8 +168,11 @@ const WholeSaleInvestorCertDesc = () => {
   )
 }
 
+
+
 const ClientDocFieldA = ({ userId }) => {
   console.log(userId)
+
   return (
     <WrapperClientDocsField>
       <TitleWrapper>
@@ -174,6 +184,7 @@ const ClientDocFieldA = ({ userId }) => {
           />
         </Info>
       </TitleWrapper>
+
       <FileUpload
         userId={userId}
         documentId="Company Verification"
@@ -184,6 +195,7 @@ const ClientDocFieldA = ({ userId }) => {
 }
 const ClientDocFieldB = ({ userId }) => {
   console.log(userId)
+
   return (
     <WrapperClientDocsField>
       <TitleWrapper>
@@ -205,6 +217,7 @@ const ClientDocFieldB = ({ userId }) => {
 }
 const ClientDocFieldC = ({ userId }) => {
   console.log(userId)
+
   return (
     <WrapperClientDocsField>
       <TitleWrapper>
@@ -241,47 +254,40 @@ const EditProfileClientPage = (props) => {
     })
   }
 
+
   useEffect(() => {
     setFields(currentUserProfile)
   }, [currentUserProfile])
 
-  const imageSrc =
-    'https://devilsworkshop.org/wp-content/uploads/sites/8/2013/01/small-facebook-profile-picture.jpg'
-  console.log(fields)
   if (currentUserProfile) {
-    const {
-      documents,
-      firstName,
-      lastName,
-      address,
-      investorType,
-      profileImage,
-      phone,
-    } = currentUserProfile
+    const { documents, firstName, lastName, address, investorType, profileImage, phone } = currentUserProfile;
+    console.log(currentUserProfile);
+
 
     const handleSubmit = async (e) => {
       e.preventDefault()
 
-      const response = await axios.put(`/profiles/updateByUser/${userId}`, {
-        fields,
-      })
-      console.log(response)
-      history.push(`/conversations/${userId}`)
-    }
+      const response = await axios.put(`/profiles/updateByUser/${userId}`, fields);
+      const profile = response.data;
+      console.log(profile);
+      history.push(`/conversations/${userId}`);
+    };
+
 
     return (
       <PageWrapper>
         <form onSubmit={handleSubmit}>
           <Wrapper>
             <WrapperProfilePic>
-              <ProfileImage imageSrc={imageSrc} onChange={onChange}>
+
+            <ProfileImage imageSrc={profileImage}>
                 <StyledPhotoCameraIcon />
-                <ProfileImageChangePicText>
-                  Change image
-                </ProfileImageChangePicText>
+                <ProfileImageChangePicText>Change profile image</ProfileImageChangePicText>{" "}
               </ProfileImage>
-            </WrapperProfilePic>
-            <WrapperProfileDetailsUppper>
+             
+            </WrapperProfilePic>{" "}
+            <p style={{ margin: "10px" }}>Profile Details</p>
+            <WrapperProfileDetailsUpper>
               <WrapperTextFieldUpper>
                 <TextField
                   onChange={onChange}
@@ -316,7 +322,7 @@ const EditProfileClientPage = (props) => {
                   key={investorType}
                 />
               </WrapperTextFieldUpper>
-            </WrapperProfileDetailsUppper>
+            </WrapperProfileDetailsUpper>
             <WrapperProfileDetailsLower>
               <WrapperTextFieldLower>
                 <TextField
@@ -346,17 +352,19 @@ const EditProfileClientPage = (props) => {
                 />
               </WrapperTextFieldLower>
             </WrapperProfileDetailsLower>
+            <p style={{ margin: "10px" }}>Documents</p>
             <WrapperDocsFieldsOuter>
-              {/* {documents && documents.length > 0 ? (
-                documents.map((document, i) => (
-                  <DocumentField key={i} document={document} userId={userId} onChange={onChange} />
-                ))
-              ) : ( */}
-              <>
-                <ClientDocFieldA userId={userId} />
-                <ClientDocFieldB userId={userId} />
-                <ClientDocFieldC userId={userId} />
-              </>
+              {documents ? (documents.map((document,index) => {
+                if(documents.length < 3){
+                if(document.name === "Company Verification"  || document.name === "Director and Beneficial Owner Identification"  || document.name === "Section 708 Wholesale Investor Certification"){
+                  
+                  return <DocumentField document={document}  userId={userId} key={index}/>
+                } else if (documents.length < 3) {
+                  return <ClientDocFieldA userId={userId}/>
+                }
+              } })
+               ) : (null) }
+
             </WrapperDocsFieldsOuter>
             <WrapperUpdateButton>
               <PrimaryButton type="submit">Update</PrimaryButton>

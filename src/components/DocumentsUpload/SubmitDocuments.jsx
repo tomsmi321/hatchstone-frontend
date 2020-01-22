@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import FileUpload from './UploadFile'
-import styled from 'styled-components'
-import { PrimaryButton } from '../../uiKit/Button'
-import { AuthContext } from '../../contexts/AuthContext'
-import { PrimaryLink } from '../../uiKit/Link'
-import { UserContext } from '../../contexts/UserContext'
-import { LoadSpinner } from '../../uiKit/LoadSpinner'
-import { StepA } from '../../uiKit/Stepper'
-import { InfoModal } from '../../uiKit/InfoModal'
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import FileUpload from "./UploadFile";
+import styled from "styled-components";
+import { PrimaryButton } from "../../uiKit/Button";
+import { AuthContext } from "../../contexts/AuthContext";
+import { PrimaryLink } from "../../uiKit/Link";
+import { UserContext } from "../../contexts/UserContext";
+import { LoadSpinner } from "../../uiKit/LoadSpinner";
+import { StepA } from "../../uiKit/Stepper";
+import { InfoModal } from "../../uiKit/InfoModal";
+
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -117,11 +118,9 @@ const SubmitDocuments = (props) => {
   if (isLoading === false) {
     return (
       <PageWrapper>
-        <StepA
-          inputSteps={['Sign Up', 'Create Profile', 'Submit Documents']}
-          stepNumber={2}
-        />
-        }
+
+        <StepA inputSteps={["Sign Up", "Create Profile", "Submit Documents"]} stepNumber={2} />
+
         <Container>
           <Title>Submit your documents</Title>
 
@@ -129,10 +128,9 @@ const SubmitDocuments = (props) => {
             <TitleWrapper>
               <Label>Company Verification</Label>
               <Info>
-                <InfoModal
-                  documentType="Company Verification"
-                  desc={<CompanyVerificationDesc />}
-                />
+
+                <InfoModal documentType="Company Verification" desc={<CompanyVerificationDesc />} />
+
               </Info>
             </TitleWrapper>
             <FileUpload userId={userId} documentId="Company Verification" />
@@ -148,12 +146,9 @@ const SubmitDocuments = (props) => {
                 />
               </Info>
             </TitleWrapper>
-            <FileUpload
-              userId={userId}
-              documentId="Director and Beneficial Owner Identification"
-            />
+            <FileUpload userId={userId} documentId="Director and Beneficial Owner Identification" />
           </UploadWrapper>
-
+          
           <UploadWrapper>
             <TitleWrapper>
               <Label>Section 708 Wholesale Investor Certification</Label>
@@ -164,26 +159,20 @@ const SubmitDocuments = (props) => {
                 />
               </Info>
             </TitleWrapper>
-            <FileUpload
-              userId={userId}
-              documentId="Section 708 Wholesale Investor Certification"
-            />
+
+            <FileUpload userId={userId} documentId="Section 708 Wholesale Investor Certification" />
           </UploadWrapper>
 
           <ButtonWrapper>
-            <PrimaryButton
-              onClick={() => history.push(`/conversations/${userId}`)}
-            >
-              Submit
-            </PrimaryButton>
+            <PrimaryButton onClick={() => history.push(`/conversations/${userId}`)}>Submit</PrimaryButton>
           </ButtonWrapper>
-          <PrimaryLink onClick={() => history.push(`/conversations/${userId}`)}>
-            Skip
-          </PrimaryLink>
+          <PrimaryLink onClick={() => history.push(`/conversations/${userId}`)}>Skip</PrimaryLink>
         </Container>
       </PageWrapper>
-    )
-  } else return <LoadSpinner topMargin="38vh" />
-}
+    );
+  } else return <LoadSpinner topMargin="38vh" />;
+};
 
-export default SubmitDocuments
+export default SubmitDocuments;
+
+
