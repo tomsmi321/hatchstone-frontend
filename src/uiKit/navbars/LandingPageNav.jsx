@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from 'react-router-dom'
 import logo from 'assets/hatchstoneAssets/hatchstone-logo-white.svg'
-import { Link } from '@material-ui/core';
+import { Link } from '@material-ui/core'
 
 const Container = styled.div`
   width: 100vw;
@@ -46,46 +46,38 @@ const BaseLink = styled(Link)`
 const SignUp = styled(BaseLink)`
   &&& {
     padding-right: 40px;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 `
 
 const Login = styled(BaseLink)`
   &&& {
-    color: #FFFFFF;
+    color: #ffffff;
   }
 `
 
 const NavBar = () => {
   return (
-  <Container>
-    <Inner>
-      <Logo/>
-      <LogInSignupContainer>
-        <SignUpLink />
-        <LogInLink />
-      </LogInSignupContainer>
-    </Inner>
-  </Container>
+    <Container>
+      <Inner>
+        <Logo />
+        <LogInSignupContainer>
+          <SignUpLink />
+          <LogInLink />
+        </LogInSignupContainer>
+      </Inner>
+    </Container>
   )
 }
 
 const SignUpLink = () => {
   const history = useHistory()
-  return (
-    <SignUp onClick={() => history.push("/sign-up")}>
-      Sign Up
-    </SignUp>
-  )
+  return <SignUp onClick={() => history.push('/sign-up')}>Sign Up</SignUp>
 }
 
 const LogInLink = () => {
   const history = useHistory()
-  return (
-    <Login onClick={() => history.push("/log-in")}>
-      Login
-    </Login>
-  )
+  return <Login onClick={() => history.push('/log-in')}>Login</Login>
 }
 
 export default NavBar

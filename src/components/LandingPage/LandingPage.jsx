@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import { Background, BackgroundOverlay } from "./Background";
-import { DarkFooter } from "uiKit/Footer";
-import NavBar from "uiKit/navbars/LandingPageNav";
-import { useHistory } from "react-router-dom";
+import React, { useContext } from 'react'
+import styled from 'styled-components'
+import { Background, BackgroundOverlay } from './Background'
+import { DarkFooter } from 'uiKit/Footer'
+import NavBar from 'uiKit/navbars/LandingPageNav'
+import { useHistory } from 'react-router-dom'
 
 // import { AuthContext } from "../../contexts/AuthContext"
 
@@ -14,10 +14,10 @@ const Heading = styled.h1`
   font-size: 40px;
   line-height: 48px;
   text-align: center;
-`;
+`
 
 export const LandingPage = () => {
-  const history = useHistory();
+  const history = useHistory()
   // const { currentUser } = useContext(AuthContext);
 
   // if (currentUser) {
@@ -35,6 +35,6 @@ export const LandingPage = () => {
         </BackgroundOverlay>
       </Background>
     </>
-  );
-};
+  )
+}
 // };

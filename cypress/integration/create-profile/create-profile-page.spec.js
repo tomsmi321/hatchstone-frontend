@@ -1,9 +1,7 @@
 describe('Create Profile Page', () => {
-
-  beforeEach( () => {
+  beforeEach(() => {
     cy.visit('http://localhost:3000/sign-up')
-    cy.get("[type='email']")
-        .type(randomEmail())
+    cy.get("[type='email']").type(randomEmail())
     cy.get("[type='password']")
       .type('Password1!')
       .type('{enter}')
@@ -11,18 +9,12 @@ describe('Create Profile Page', () => {
 
   context('create profile form submission', () => {
     it('submits when fields are filled in', () => {
-      cy.get("[name='firstName']")
-        .type('dummy first name')
-      cy.get("[name='lastName']")
-        .type('dummy last name')
-      cy.get("[name='address']")
-        .type('dummy address')
-      cy.get("[name='contactNumber']")
-        .type('0400000000') 
-      cy.get("[role='button']")
-        .click()
-      cy.get("[data-value='company']")
-        .click()
+      cy.get("[name='firstName']").type('dummy first name')
+      cy.get("[name='lastName']").type('dummy last name')
+      cy.get("[name='address']").type('dummy address')
+      cy.get("[name='contactNumber']").type('0400000000')
+      cy.get("[role='button']").click()
+      cy.get("[data-value='company']").click()
       cy.get("[type='submit']")
         .click()
         .should(() => {
@@ -36,7 +28,8 @@ describe('Create Profile Page', () => {
     it('signs out and redirects to landing page', () => {
       cy.get('.sc-kLIISr')
         .children('a')
-        .click().should(() => {
+        .click()
+        .should(() => {
           expect(localStorage.getItem('currentUser')).to.be.null
           expect(localStorage.getItem('token')).to.be.null
         })
@@ -47,9 +40,10 @@ describe('Create Profile Page', () => {
 const randomEmail = () => {
   let dummyEmail = 'dummy@mail.com'
   let randomText = ''
-  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const possible =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   for (let i = 0; i < 10; i++) {
-    randomText += possible.charAt(Math.floor(Math.random() * possible.length));
+    randomText += possible.charAt(Math.floor(Math.random() * possible.length))
   }
   return randomText + dummyEmail
 }
