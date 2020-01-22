@@ -177,7 +177,10 @@ const ClientDocFieldB = ({ userId }) => {
       <TitleWrapper>
         <Label>Director and Beneficial Owner Identification</Label>
         <Info>
-          <InfoModal documentType="Director and Beneficial Owner Identification" desc={<DirectorIdentificationDesc />} />
+          <InfoModal
+            documentType="Director and Beneficial Owner Identification"
+            desc={<DirectorIdentificationDesc />}
+          />
         </Info>
       </TitleWrapper>
       <FileUpload
@@ -235,7 +238,7 @@ const EditProfileClientPage = props => {
     const handleSubmit = async e => {
       e.preventDefault();
 
-      const response = await axios.put(`/profiles/updateByUser/${userId}`,fields);
+      const response = await axios.put(`/profiles/updateByUser/${userId}`, { fields });
       console.log(response);
       history.push(`/conversations/${userId}`);
     };
@@ -322,7 +325,6 @@ const EditProfileClientPage = props => {
                 <ClientDocFieldB userId={userId} />
                 <ClientDocFieldC userId={userId} />
               </>
-              
             </WrapperDocsFieldsOuter>
             <WrapperUpdateButton>
               <PrimaryButton type="submit">Update</PrimaryButton>
