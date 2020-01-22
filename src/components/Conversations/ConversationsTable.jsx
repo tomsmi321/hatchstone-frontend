@@ -14,7 +14,7 @@ const WrapperOuter = styled.div`
     overflow: scroll;
 `
 const WrapperInner = styled.div`
-    background-color: lightyellow;
+    /* background-color: lightyellow; */
     width: 25.5vw;
     display: flex;
     flex-direction: column;
@@ -24,7 +24,7 @@ const WrapperInner = styled.div`
 `
 
 const WrapperSearchAndNewConvo = styled.div`
-    background-color: lightsteelblue;
+    /* background-color: lightsteelblue; */
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -47,7 +47,7 @@ const WrapperLaunchIcon = styled.div`
 `
 
 const WrapperConvoItems = styled.div`
-    background-color: lightgreen;
+    /* background-color: lightgreen; */
     width: 100%;
     display: flex;
     flex-direction: column-reverse;
@@ -62,6 +62,10 @@ const ConversationsTable = ({ userConvos, admin, getCurrentMessages, currentMess
         console.log(searchState);
     }
 
+    const handleDisplayNewConvo = () => {
+        console.log('in handleDisplayNewConvo - ConversationsTable');
+    }
+
     const filteredUserConvos = userConvos.filter(userConvo => {
         const clientFullName = `${userConvo.participants[0].firstName + ' ' + userConvo.participants[0].lastName}`
         return clientFullName.indexOf(searchState) !== -1;
@@ -74,8 +78,8 @@ const ConversationsTable = ({ userConvos, admin, getCurrentMessages, currentMess
                     <WrapperSearchField >
                         <SearchField placeholder="Search your conversations" label="search" onChange={handleSearchChange}/>
                     </WrapperSearchField>
-                    <WrapperLaunchIcon>
-                        <StyledLaunchIcon />
+                    <WrapperLaunchIcon onClick={handleDisplayNewConvo}>
+                        <StyledLaunchIcon/>
                     </WrapperLaunchIcon>
                 </WrapperSearchAndNewConvo>
                 <WrapperConvoItems>
