@@ -92,7 +92,7 @@ const FileUpload = ({ documentId, userId, onChange, setFields }) => {
     body.append('document', documentId)
     body.append('file', file)
     return {
-        url: `http://localhost:5000/profiles/${userId}/uploadDocument`,
+        url: `https://hatchstone-onboarding.netlify.com/profiles/${userId}/uploadDocument`,
         body,
       }
    }
