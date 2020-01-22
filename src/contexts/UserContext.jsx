@@ -1,20 +1,15 @@
 import React, {  createContext, useState, useContext, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
 import axios from "../config/axiosConfig";
-import { useHistory } from "react-router-dom";
-
 
 export const UserContext = createContext({});
 
 // Anything in here should only relate to the currentUser
 const UserContextProvider = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
+  // let currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const [currentUserProfile, setCurrentUserProfile] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const history = useHistory()
-
-
-  // const userId = currentUser._id
 
   // we can not do an async call directly in useEffect so we need a function
   const getProfile = async userId => {
@@ -45,23 +40,26 @@ const UserContextProvider = ({ children }) => {
       console.log(error)
     }
   }
-
   
 //   userId will be undefined first time, handle this and monitor for change in currentUser
 useEffect(() => {
   console.log('in useEffect - UserContext');
+  console.log('in useEffect - UserContext currentUser id', currentUser._id);
   if(currentUser && Object.keys(currentUser).length) {
+      console.log('in useEffect - UserContext If stat');
       getProfile(currentUser._id);
   }
   console.log(`currentUserProfile \n`, currentUserProfile);
 }, [currentUser])
+
 
   return (
     <UserContext.Provider
       value={{
         currentUserProfile: currentUserProfile,
         updateProfile: updateProfile,
-        isLoading: isLoading
+        isLoading: isLoading,
+        getProfile: getProfile
       }}
     >
       {children}

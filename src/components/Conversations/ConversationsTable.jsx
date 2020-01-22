@@ -53,8 +53,6 @@ const ConversationsTable = ({ userConvos, admin, getCurrentMessages, currentMess
         return clientFullName.indexOf(searchState) !== -1;
     });
           
-    
-
     return (
         <WrapperOuter>
             <WrapperInner>

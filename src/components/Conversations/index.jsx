@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 
 const ConversationsPage = (props) => {
     // context
-    const { currentUserProfile } = useContext(UserContext);
+    const { currentUserProfile, getProfile } = useContext(UserContext);
     // approved / in-review modal states
     const [ showModal, setShowModal ] = useState(true);
     // conversation and message states
@@ -35,6 +35,7 @@ const ConversationsPage = (props) => {
     const getUserConvos = async (userId) => {
         console.log('in getUserConvos - index');
         try {
+            console.log('userId', userId);
             const result = await axios.get(`/conversations/findByUser/${userId}`);
             console.log('getUserCovosData \n', result.data);
             if(result.data) {
@@ -49,13 +50,15 @@ const ConversationsPage = (props) => {
     const getCurrentMessages = async (convoId, name) => {
         console.log('in getCurrentMessages - index');
         try {
-            // get current messages is returning prior to create new message 
-            const result = await axios.get(`/messages/findByConversation/${convoId}`);
-            console.log('getCurrentMessages \n', result.data);
-            if(result.data) {
-                setCurrentMessages(result.data);
-                setCurrentConvoId(convoId);
-                setCurrentMessagesLength(result.data.length)
+            if(convoId) {
+                // get current messages is returning prior to create new message 
+                const result = await axios.get(`/messages/findByConversation/${convoId}`);
+                console.log('getCurrentMessages \n', result.data);
+                if(result.data) {
+                    setCurrentMessages(result.data);
+                    setCurrentConvoId(convoId);
+                    setCurrentMessagesLength(result.data.length)
+                }
             }
         } catch(err) {
             console.log(err);
@@ -86,10 +89,12 @@ const ConversationsPage = (props) => {
         console.log('in useEffect - index');
         const userId = props.match.params.id;
         getUserConvos(userId);
+        getProfile(userId);
     }, [currentMessagesLength, userConvosLength])
 
 
     console.log('currentMessagesLength - index', currentMessagesLength);
+    console.log('currentUserProfile', currentUserProfile);
     return (
         <Wrapper>
             {/* remove below, for testing UserContext only */}
