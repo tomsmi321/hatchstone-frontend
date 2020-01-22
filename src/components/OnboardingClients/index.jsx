@@ -1,10 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useContext, useState, useEffect } from 'react'
+import styled from 'styled-components'
 import { SearchField } from 'uiKit/userInput/TextField'
 import ClientsTable from './ClientsTable'
-import { SimpleSelect } from '../../uiKit/SimpleSelect';
-import { UsersContext } from '../../contexts/UsersContext';
-import { LoadSpinner } from '../../uiKit/LoadSpinner';
+import { SimpleSelect } from '../../uiKit/SimpleSelect'
+import { UsersContext } from '../../contexts/UsersContext'
+import { LoadSpinner } from '../../uiKit/LoadSpinner'
 
 const Wrapper = styled.div`
   margin: 60px auto 0px auto;
@@ -16,46 +16,48 @@ const WrapperSearchField = styled.div`
   width: 33%;
 `
 
-const WrapperSearchAndFilterFields =styled.div`
+const WrapperSearchAndFilterFields = styled.div`
   display: flex;
   justify-content: space-between;
 `
 
 const OnboardingClientsPage = () => {
   // consume context
-  const { onboardingClients, getOnboardingClients, isLoading } = useContext(UsersContext);
+  const { onboardingClients, getOnboardingClients, isLoading } = useContext(
+    UsersContext,
+  )
   // setting initial state for the search term in SearchContainer
-  const [searchState, setSearchState] = useState('');
-  const [filter, setFilter] = React.useState('');
+  const [searchState, setSearchState] = useState('')
+  const [filter, setFilter] = React.useState('')
 
   useEffect(() => {
-    console.log('in useEffect');
-    getOnboardingClients();
+    console.log('in useEffect')
+    getOnboardingClients()
   }, [])
 
   const handleSearchChange = (e) => {
-    setSearchState(e.target.value);
+    setSearchState(e.target.value)
   }
 
-  const handleFilterChange = event => {
+  const handleFilterChange = (event) => {
     console.log(event.target.value)
-    setFilter(event.target.value);
-  };
+    setFilter(event.target.value)
+  }
 
   const searchClients = (searchTerm, clients) => {
-    return clients.filter(client => {
+    return clients.filter((client) => {
       const clientFullName = `${client.firstName + ' ' + client.lastName}`
-      return clientFullName.indexOf(searchTerm) !== -1;
-    });
-  } 
+      return clientFullName.indexOf(searchTerm) !== -1
+    })
+  }
 
   const compareProgress = (clientA, clientB) => {
-    if(clientA.appProgress > clientB.appProgress) {
-      return -1;
-    } else if(clientA.appProgress < clientB.appProgress) {
-      return 1;
-    } else if(clientA.appProgress === clientB.appProgress) {
-      return 0;
+    if (clientA.appProgress > clientB.appProgress) {
+      return -1
+    } else if (clientA.appProgress < clientB.appProgress) {
+      return 1
+    } else if (clientA.appProgress === clientB.appProgress) {
+      return 0
     }
   }
 
@@ -63,36 +65,60 @@ const OnboardingClientsPage = () => {
     return clients.sort(compareProgress)
   }
 
-  const handleSearchAndFilter = (searchClients, sortClientsByProgress, searchTerm, clients, compareProgress, filter) => {
-    const searchedClients = searchClients(searchTerm, clients);
-    if(filter === 'Progress') {
-      return sortClientsByProgress(searchedClients, compareProgress);
+  const handleSearchAndFilter = (
+    searchClients,
+    sortClientsByProgress,
+    searchTerm,
+    clients,
+    compareProgress,
+    filter,
+  ) => {
+    const searchedClients = searchClients(searchTerm, clients)
+    if (filter === 'Progress') {
+      return sortClientsByProgress(searchedClients, compareProgress)
     } else {
       return searchedClients
     }
   }
 
-    return (
-      <>
-        {!isLoading ? (
-          <Wrapper>
-              { onboardingClients.length ? (
-                <>
-                  <WrapperSearchAndFilterFields>
-                    <SimpleSelect filter={filter} handleFilterChange={handleFilterChange}/>
-                    <WrapperSearchField label="search" onChange={handleSearchChange}>
-                      <SearchField placeholder="Search your clients" />
-                    </WrapperSearchField>
-                  </WrapperSearchAndFilterFields>
-                  <ClientsTable clients={handleSearchAndFilter(searchClients, sortClientsByProgress, searchState, onboardingClients, compareProgress, filter)} />
-                </>
-              ) : (
-                <div>There are no approved clients</div>
-              )}
-          </Wrapper>) : (<LoadSpinner topMargin="38vh"/>)}
-      </>
-    )
-      
+  return (
+    <>
+      {!isLoading ? (
+        <Wrapper>
+          {onboardingClients.length ? (
+            <>
+              <WrapperSearchAndFilterFields>
+                <SimpleSelect
+                  filter={filter}
+                  handleFilterChange={handleFilterChange}
+                />
+                <WrapperSearchField
+                  label="search"
+                  onChange={handleSearchChange}
+                >
+                  <SearchField placeholder="Search your clients" />
+                </WrapperSearchField>
+              </WrapperSearchAndFilterFields>
+              <ClientsTable
+                clients={handleSearchAndFilter(
+                  searchClients,
+                  sortClientsByProgress,
+                  searchState,
+                  onboardingClients,
+                  compareProgress,
+                  filter,
+                )}
+              />
+            </>
+          ) : (
+            <div>There are no approved clients</div>
+          )}
+        </Wrapper>
+      ) : (
+        <LoadSpinner topMargin="38vh" />
+      )}
+    </>
+  )
 }
 
-export default OnboardingClientsPage;
+export default OnboardingClientsPage

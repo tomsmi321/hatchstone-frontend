@@ -9,8 +9,7 @@ describe('Login Page', () => {
 
   context('Login form submission', () => {
     it('submits when fields are filled in', () => {
-      cy.get("[type='email']")
-        .type('alice@mail.com')
+      cy.get("[type='email']").type('alice@mail.com')
       cy.get("[type='password']")
         .type('Password1!')
         .type('{enter}')
@@ -27,8 +26,9 @@ describe('Login Page', () => {
         cy.get('.sc-ipXKqB').click()
         cy.get('ul')
           .children('li')
-          .eq(1) 
-          .click().should(() => {
+          .eq(1)
+          .click()
+          .should(() => {
             expect(localStorage.getItem('currentUser')).to.be.null
             expect(localStorage.getItem('token')).to.be.null
           })

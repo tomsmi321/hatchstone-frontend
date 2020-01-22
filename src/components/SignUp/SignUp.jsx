@@ -1,11 +1,11 @@
 import React, { useEffect, useContext } from 'react'
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { PrimaryLink } from 'uiKit/Link'
 import { PrimaryButton } from 'uiKit/Button'
 import { TextField } from 'uiKit/userInput/TextField'
 import { Formik } from 'formik'
-import * as Yup from "yup"
+import * as Yup from 'yup'
 import { AuthContext } from '../../contexts/AuthContext'
 
 const Container = styled.div`
@@ -50,14 +50,14 @@ const Form = styled.form`
 
 const ValidationSchema = Yup.object().shape({
   email: Yup.string()
-    .email("Must be an email address")
-    .required("This field is required"),
+    .email('Must be an email address')
+    .required('This field is required'),
   password: Yup.string()
-    .required("This field is required")
+    .required('This field is required')
     .matches(
       /^(?=.{8,})(?=.*[1-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[(!@#$%^&*()_+|~\- =\`{}[\]:”;'<>?,.\/, )])(?!.*(.)\1{2,}).+$/,
-      "Your password must be at least 8 characters long, include a number, and a special case character"
-    )
+      'Your password must be at least 8 characters long, include a number, and a special case character',
+    ),
 })
 
 const SignUpPage = () => {
@@ -68,20 +68,23 @@ const SignUpPage = () => {
     <Container>
       <Formik
         initialValues={{
-          email: "",
-          password: ""
+          email: '',
+          password: '',
         }}
         validationSchema={ValidationSchema}
-        onSubmit={(values, {setSubmitting, setErrors, setStatus, resetForm}) => {
+        onSubmit={(
+          values,
+          { setSubmitting, setErrors, setStatus, resetForm },
+        ) => {
           try {
-            setSubmitting(true);
+            setSubmitting(true)
             createAccount(values.email, values.password)
             resetForm()
-            setStatus({success: true})
+            setStatus({ success: true })
           } catch (error) {
-            setStatus({success: false})
+            setStatus({ success: false })
             setSubmitting(false)
-            setErrors({submit: error.message})
+            setErrors({ submit: error.message })
           }
         }}
       >
@@ -92,7 +95,7 @@ const SignUpPage = () => {
       </PrimaryLink>
       <LogInPrompt>
         <HaveAnAccountText>Already have an account?</HaveAnAccountText>
-        <PrimaryLink onClick={() => history.push("/log-in")}>
+        <PrimaryLink onClick={() => history.push('/log-in')}>
           Log in
         </PrimaryLink>
       </LogInPrompt>
@@ -109,11 +112,11 @@ const SignUpForm = ({
   handleSubmit,
   isSubmitting,
   isValid,
-  validateForm
+  validateForm,
 }) => {
   useEffect(() => {
-    (() => validateForm())();
-  }, []);
+    ;(() => validateForm())()
+  }, [])
 
   console.log(touched)
   console.log(errors)
@@ -121,9 +124,8 @@ const SignUpForm = ({
   console.log(isValid)
   return (
     <Form onSubmit={handleSubmit}>
-
       <TextFieldContainer>
-        <TextField 
+        <TextField
           required
           label="Email"
           type="email"
@@ -137,9 +139,9 @@ const SignUpForm = ({
       </TextFieldContainer>
 
       <TextFieldContainer>
-        <TextField 
+        <TextField
           required
-          label="Password" 
+          label="Password"
           type="password"
           name="password"
           onChange={handleChange}
@@ -149,13 +151,17 @@ const SignUpForm = ({
           error={errors.password}
         />
       </TextFieldContainer>
-      
+
       <ButtonContainer>
-        <PrimaryButton type="submit" disabled={isSubmitting || (!isValid && touched !== {})}>Sign up</PrimaryButton>
+        <PrimaryButton
+          type="submit"
+          disabled={isSubmitting || (!isValid && touched !== {})}
+        >
+          Sign up
+        </PrimaryButton>
       </ButtonContainer>
     </Form>
   )
 }
-
 
 export default SignUpPage

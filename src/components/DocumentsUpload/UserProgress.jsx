@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react'
+import styled from 'styled-components'
 
 const Container = styled.div`
   width: 40vw;
@@ -7,14 +7,14 @@ const Container = styled.div`
   height: 70px;
   display: flex;
   justify-content: space-between;
-`;
+`
 
 const Stage = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-`;
+`
 
 const CircleBlue = styled.div`
   background: #326fbb;
@@ -26,7 +26,7 @@ const CircleBlue = styled.div`
   align-items: center;
   color: white;
   /* border: 2px white solid; */
-`;
+`
 
 const CircleGrey = styled.div`
   background: #cccccc;
@@ -38,11 +38,11 @@ const CircleGrey = styled.div`
   align-items: center;
   color: white;
   /* border: 2px white solid; */
-`;
+`
 
 const Number = styled.p`
   color: white;
-`;
+`
 
 export const UserProgressA = () => {
   return (
@@ -67,8 +67,8 @@ export const UserProgressA = () => {
         <p>Upload Documents</p>
       </Stage>
     </Container>
-  );
-};
+  )
+}
 
 export const UserProgressB = () => {
   return (
@@ -92,5 +92,5 @@ export const UserProgressB = () => {
         <p>Upload Documents</p>
       </Stage>
     </Container>
-  );
-};
+  )
+}

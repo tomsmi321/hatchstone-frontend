@@ -9,8 +9,7 @@ describe('Sign up form', () => {
 
   context('Form submission', () => {
     it('submits when fields are filled in', () => {
-      cy.get("[type='email']")
-        .type(randomEmail())
+      cy.get("[type='email']").type(randomEmail())
       cy.get("[type='password']")
         .type('Password1!')
         .type('{enter}')
@@ -25,7 +24,8 @@ describe('Sign up form', () => {
     it('signs out and redirects to landing page', () => {
       cy.get('.sc-kLIISr')
         .children('a')
-        .click().should(() => {
+        .click()
+        .should(() => {
           expect(localStorage.getItem('currentUser')).to.be.null
           expect(localStorage.getItem('token')).to.be.null
         })
@@ -36,9 +36,10 @@ describe('Sign up form', () => {
 const randomEmail = () => {
   let dummyEmail = 'dummy@mail.com'
   let randomText = ''
-  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const possible =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   for (let i = 0; i < 10; i++) {
-    randomText += possible.charAt(Math.floor(Math.random() * possible.length));
+    randomText += possible.charAt(Math.floor(Math.random() * possible.length))
   }
   return randomText + dummyEmail
 }
