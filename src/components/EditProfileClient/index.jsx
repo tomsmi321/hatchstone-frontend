@@ -235,7 +235,7 @@ const EditProfileClientPage = props => {
     const handleSubmit = async e => {
       e.preventDefault();
 
-      const response = await axios.put(`/profiles/updateByUser/${userId}`);
+      const response = await axios.put(`/profiles/updateByUser/${userId}`,fields);
       console.log(response);
       history.push(`/conversations/${userId}`);
     };
