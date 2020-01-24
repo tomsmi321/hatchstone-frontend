@@ -92,7 +92,9 @@ const FileUpload = ({ documentId, userId }) => {
     body.append('file', file)
 
     return {
-      url: `https://young-sierra-89309.herokuapp.com/profiles/${userId}/uploadDocument`,
+      url: `http://localhost:5000/profiles/${userId}/uploadDocument`,
+      // Looks like dropzone library is not working well with .env variables. See network tab for details.
+      // url: `${process.env.REACT_APP_BACKEND_URL}profiles/${userId}/uploadDocument`,
       body,
     }
   }
