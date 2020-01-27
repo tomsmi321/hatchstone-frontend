@@ -1,7 +1,7 @@
-import React from "react";
-import { Button } from "@material-ui/core";
-import styled from "styled-components";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import React from 'react'
+import { Button } from '@material-ui/core'
+import styled from 'styled-components'
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline'
 
 //  sc-bdVaJa ggNnrl MuiButton-containedPrimary Mui-disabled Mui-disabled
 
@@ -17,7 +17,7 @@ const BaseButton = styled(Button)`
   &&&.MuiButton-contained.Mui-disabled {
     background-color: rgba(50, 111, 187, 0.7);
   }
-`;
+`
 
 const ApprovedBaseButton = styled(Button)`
   &&& {
@@ -26,26 +26,35 @@ const ApprovedBaseButton = styled(Button)`
     text-transform: none;
     background-color: #01be85;
   }
-`;
+`
 const DoneCircleIcon = styled(CheckCircleOutlineIcon)`
   padding-left: 5px;
-`;
+`
 
 export const PrimaryButton = ({ children, onClick, disabled, type }) => {
   return (
-    <BaseButton variant="contained" color="primary" onClick={onClick} disabled={disabled} type={type}>
+    <BaseButton
+      variant="contained"
+      color="primary"
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
+    >
       {children}
     </BaseButton>
-  );
-};
+  )
+}
 
 export const SecondaryButton = ({ children, onClick }) => (
   <BaseButton variant="contained" color="secondary" onClick={onClick}>
     {children}
   </BaseButton>
-);
+)
 
-export const TertiaryBaseButton = styled(Button).attrs({ variant: "contained", color: "default" })`
+export const TertiaryBaseButton = styled(Button).attrs({
+  variant: 'contained',
+  color: 'default',
+})`
   &&& {
     color: #000000;
     background-color: #bdbdbd;
@@ -53,16 +62,31 @@ export const TertiaryBaseButton = styled(Button).attrs({ variant: "contained", c
     font-size: 12px;
     text-transform: none;
   }
-`;
-export const TertiaryButton = ({ children, onClick, disabled, type, name, label, component }) => (
-  <TertiaryBaseButton name={name} label={label} onClick={onClick} disabled={disabled} type={type} component={component}>
+`
+export const TertiaryButton = ({
+  children,
+  onClick,
+  disabled,
+  type,
+  name,
+  label,
+  component,
+}) => (
+  <TertiaryBaseButton
+    name={name}
+    label={label}
+    onClick={onClick}
+    disabled={disabled}
+    type={type}
+    component={component}
+  >
     {children}
   </TertiaryBaseButton>
-);
+)
 
 export const ApprovedButton = ({ children, onClick }) => (
   <ApprovedBaseButton variant="contained" color="#01BE85" onClick={onClick}>
     {children}
     <DoneCircleIcon />
   </ApprovedBaseButton>
-);
+)

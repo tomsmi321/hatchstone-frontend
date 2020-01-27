@@ -1,11 +1,11 @@
 import React, { useState, useRef, useContext } from 'react'
-import { useHistory } from "react-router-dom";
-import styled from 'styled-components';
+import { useHistory } from 'react-router-dom'
+import styled from 'styled-components'
 import DropdownMenu from 'uiKit/DropdownMenu'
-import { ProgressBar } from 'uiKit/ProgressBar';
+import { ProgressBar } from 'uiKit/ProgressBar'
 import { AccountCircle, MoreHoriz } from 'uiKit/Icon'
-import { handleSendMessage } from '../../utils/request-utils';
-import { UserContext } from '../../contexts/UserContext';
+import { handleSendMessage } from '../../utils/request-utils'
+import { UserContext } from '../../contexts/UserContext'
 
 const Wrapper = styled.div`
   /* background-color: lightskyblue; */
@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: row;
   padding: 16px 40px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-bottom-left-radius: ${({ isLastItem }) => isLastItem && '4px'};
   border-bottom-right-radius: ${({ isLastItem }) => isLastItem && '4px'};
 `
@@ -37,7 +37,9 @@ const ProfileImage = styled.div`
   margin-right: 20px;
 `
 
-const AccountCircleIcon = styled(AccountCircle).attrs({ style: { fontSize: 42 } })`
+const AccountCircleIcon = styled(AccountCircle).attrs({
+  style: { fontSize: 42 },
+})`
   margin-left: -3px;
   margin-right: 17px;
   color: rgba(0, 0, 0, 0.4);
@@ -62,53 +64,56 @@ const WrapperProgressBar = styled.div`
 `
 
 const ClientItem = ({ client, isLastItem, appProgress }) => {
-    const [menuIsShowing, toggleMenuIsShowing] = useState(false)
-    const { currentUserProfile } = useContext(UserContext);
-    const menuIcon = useRef()
-    const history = useHistory()
-    const clientUserProfile = client;
-    const adminUserProfile = currentUserProfile;
+  const [menuIsShowing, toggleMenuIsShowing] = useState(false)
+  const { currentUserProfile } = useContext(UserContext)
+  const menuIcon = useRef()
+  const history = useHistory()
+  const clientUserProfile = client
+  const adminUserProfile = currentUserProfile
 
+  const toggleShowMenu = () => toggleMenuIsShowing(!menuIsShowing)
 
-    const toggleShowMenu = () => toggleMenuIsShowing(!menuIsShowing)
+  const clientName = `${client.firstName[0].toUpperCase() +
+    client.firstName.slice(1, client.firstName.length)} 
+                        ${client.lastName[0].toUpperCase() +
+                          client.lastName.slice(1, client.lastName.length)}`
 
-    const clientName = `${client.firstName[0].toUpperCase() + 
-                        client.firstName.slice(1, client.firstName.length)} 
-                        ${client.lastName[0].toUpperCase() + 
-                        client.lastName.slice(1, client.lastName.length)}`
-
-    return (
-        <Wrapper client={client} isLastItem={isLastItem}>
-            <WrapperClientInfo>
-                { client.profileImage ? <ProfileImage imageSrc={client.profileImage} /> : <AccountCircleIcon /> }
-                { clientName } 
-            </WrapperClientInfo>
-            <WrapperProgressBar>
-                <ProgressBar appProgress={appProgress}/>
-            </WrapperProgressBar>
-            <WrapperMoreIcon>
-                <MoreIcon onClick={toggleShowMenu} ref={menuIcon} />
-            </WrapperMoreIcon>
-            <DropdownMenu
-                anchorEl={menuIcon.current}
-                isOpen={menuIsShowing}
-                onClose={toggleShowMenu}
-                menuItems={[
-                  {
-                      onClick: () => history.push(`/client-details/${client.userId._id}`),
-                      label: 'View'
-                  },
-                  {
-                    onClick: () => {
-                      handleSendMessage(clientUserProfile, adminUserProfile);
-                      history.push(`/conversations/${adminUserProfile.userId._id}`)
-                    },
-                    label: 'Send a message'
-                  }
-                ]}
-            />
-        </Wrapper>
-    )
+  return (
+    <Wrapper client={client} isLastItem={isLastItem}>
+      <WrapperClientInfo>
+        {client.profileImage ? (
+          <ProfileImage imageSrc={client.profileImage} />
+        ) : (
+          <AccountCircleIcon />
+        )}
+        {clientName}
+      </WrapperClientInfo>
+      <WrapperProgressBar>
+        <ProgressBar appProgress={appProgress} />
+      </WrapperProgressBar>
+      <WrapperMoreIcon>
+        <MoreIcon onClick={toggleShowMenu} ref={menuIcon} />
+      </WrapperMoreIcon>
+      <DropdownMenu
+        anchorEl={menuIcon.current}
+        isOpen={menuIsShowing}
+        onClose={toggleShowMenu}
+        menuItems={[
+          {
+            onClick: () => history.push(`/client-details/${client.userId._id}`),
+            label: 'View',
+          },
+          {
+            onClick: () => {
+              handleSendMessage(clientUserProfile, adminUserProfile)
+              history.push(`/conversations/${adminUserProfile.userId._id}`)
+            },
+            label: 'Send a message',
+          },
+        ]}
+      />
+    </Wrapper>
+  )
 }
 
-export default ClientItem;
+export default ClientItem

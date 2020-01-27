@@ -1,10 +1,10 @@
 import React, { useState, useRef, useContext } from 'react'
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { AccountCircle, MoreHoriz } from 'uiKit/Icon'
 import DropdownMenu from 'uiKit/DropdownMenu'
-import { UserContext } from '../../contexts/UserContext';
-import { handleSendMessage } from '../../utils/request-utils';
+import { UserContext } from '../../contexts/UserContext'
+import { handleSendMessage } from '../../utils/request-utils'
 
 const Container = styled.div`
   margin-top: 10px;
@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const Header = styled.div`
   padding: 16px 40px;
-  background-color: #DEDEDE;
+  background-color: #dedede;
   font-weight: bold;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -25,7 +25,7 @@ const TableItem = styled.div`
   justify-content: space-between;
   flex-direction: row;
   padding: 16px 40px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-bottom-left-radius: ${({ isLastItem }) => isLastItem && '4px'};
   border-bottom-right-radius: ${({ isLastItem }) => isLastItem && '4px'};
 `
@@ -46,7 +46,9 @@ const ProfileImage = styled.div`
   margin-right: 20px;
 `
 
-const AccountCircleIcon = styled(AccountCircle).attrs({ style: { fontSize: 42 } })`
+const AccountCircleIcon = styled(AccountCircle).attrs({
+  style: { fontSize: 42 },
+})`
   margin-left: -3px;
   margin-right: 17px;
   color: rgba(0, 0, 0, 0.4);
@@ -61,21 +63,28 @@ const Client = ({ approvedClient, isLastItem }) => {
   const [menuIsShowing, toggleMenuIsShowing] = useState(false)
   const menuIcon = useRef()
   const history = useHistory()
-  const { currentUserProfile } = useContext(UserContext);
-  const clientUserProfile = approvedClient;
+  const { currentUserProfile } = useContext(UserContext)
+  const clientUserProfile = approvedClient
   const adminUserProfile = currentUserProfile
 
   const toggleShowMenu = () => toggleMenuIsShowing(!menuIsShowing)
 
-  const clientName = `${approvedClient.firstName[0].toUpperCase() + 
-                      approvedClient.firstName.slice(1, approvedClient.firstName.length)} 
-                      ${approvedClient.lastName[0].toUpperCase() + 
-                      approvedClient.lastName.slice(1, approvedClient.lastName.length)}`
+  const clientName = `${approvedClient.firstName[0].toUpperCase() +
+    approvedClient.firstName.slice(1, approvedClient.firstName.length)} 
+                      ${approvedClient.lastName[0].toUpperCase() +
+                        approvedClient.lastName.slice(
+                          1,
+                          approvedClient.lastName.length,
+                        )}`
 
   return (
     <TableItem approvedClient={approvedClient} isLastItem={isLastItem}>
       <ClientInfo>
-        { approvedClient.profileImage ? <ProfileImage imageSrc={approvedClient.profileImage} /> : <AccountCircleIcon /> }
+        {approvedClient.profileImage ? (
+          <ProfileImage imageSrc={approvedClient.profileImage} />
+        ) : (
+          <AccountCircleIcon />
+        )}
         {clientName}
       </ClientInfo>
       <MoreIcon onClick={toggleShowMenu} ref={menuIcon} />
@@ -85,16 +94,17 @@ const Client = ({ approvedClient, isLastItem }) => {
         onClose={toggleShowMenu}
         menuItems={[
           {
-            onClick: () => history.push(`/client-details/${approvedClient.userId._id}`),
-            label: 'View'
+            onClick: () =>
+              history.push(`/client-details/${approvedClient.userId._id}`),
+            label: 'View',
           },
           {
             onClick: () => {
-              handleSendMessage(clientUserProfile, adminUserProfile);
+              handleSendMessage(clientUserProfile, adminUserProfile)
               history.push(`/conversations/${adminUserProfile.userId._id}`)
             },
-            label: 'Send a message'
-          }
+            label: 'Send a message',
+          },
         ]}
       />
     </TableItem>
@@ -102,11 +112,17 @@ const Client = ({ approvedClient, isLastItem }) => {
 }
 
 const ClientsTable = ({ approvedClients }) => {
-  console.log(approvedClients);
+  console.log(approvedClients)
   return (
     <Container>
       <Header>Clients ({approvedClients.length})</Header>
-      { approvedClients.map((approvedClient, i) => <Client key={i} approvedClient={approvedClient} isLastItem={approvedClients.length - 1 === i} />)}
+      {approvedClients.map((approvedClient, i) => (
+        <Client
+          key={i}
+          approvedClient={approvedClient}
+          isLastItem={approvedClients.length - 1 === i}
+        />
+      ))}
     </Container>
   )
 }

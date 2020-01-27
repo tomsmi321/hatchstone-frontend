@@ -11,8 +11,8 @@ import { SimpleSelect } from "uiKit/SimpleSelect";
 import { StyledLaunchIcon } from 'uiKit/Icon';
 
 
-import { StepA } from "uiKit/Stepper";
-import SubmitDocuments from "./DocumentsUpload/SubmitDocuments";
+import { StepA } from 'uiKit/Stepper'
+import SubmitDocuments from './DocumentsUpload/SubmitDocuments'
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,7 +21,7 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   height: 100vh;
   background-color: #fafafa;
-`;
+`
 
 const UIKit = () => {
   return (
@@ -34,15 +34,15 @@ const UIKit = () => {
       <PrimaryLink>PrimaryLink</PrimaryLink>
       <SecondaryLink underline="always">SecondaryLink</SecondaryLink>
       <TextField label="Input field"></TextField>
-      <StepA inputSteps={["Sign Up", "Create Profile", "Submit Documents"]} />
+      <StepA inputSteps={['Sign Up', 'Create Profile', 'Submit Documents']} />
       <TextArea placeholder="Type your message here..." />
       <SimpleModal />
       <Footer />
       <DarkFooter />
-      <ProgressBar appProgress={25}/>
+      <ProgressBar appProgress={25} />
       <SimpleSelect />
     </Wrapper>
-  );
-};
+  )
+}
 
-export default UIKit;
+export default UIKit

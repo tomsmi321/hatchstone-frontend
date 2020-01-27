@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom'
 import { OUTER_APP_PATHS } from 'common/constants'
 
 const Wrapper = styled.div`
   height: 55px;
   width: 100vw;
   box-shadow: -1px -2px 0px rgba(0, 0, 0, 0.1);
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   font-style: normal;
   font-weight: normal;
   color: #000000;
@@ -19,9 +19,9 @@ const Wrapper = styled.div`
 `
 
 const DarkWrapper = styled(Wrapper)`
-  background: #1A1C1F;
+  background: #1a1c1f;
   box-shadow: none;
-  color: #FFFFFF;
+  color: #ffffff;
 `
 
 const Text = styled.div`
@@ -39,9 +39,9 @@ export const Footer = () => {
 }
 
 export const DarkFooter = () => {
-  return(
+  return (
     <DarkWrapper>
       <Text>© 2018-2019 Hatchstone Capital Pty Ltd</Text>
     </DarkWrapper>
-    )
+  )
 }

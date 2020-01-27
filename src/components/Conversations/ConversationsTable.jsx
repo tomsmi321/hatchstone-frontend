@@ -6,21 +6,21 @@ import { StyledLaunchIcon } from '../../uiKit/Icon';
 
 // fix this
 const WrapperOuter = styled.div`
-    /* background-color: lightpink; */
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    overflow: scroll;
+  /* background-color: lightpink; */
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  overflow: scroll;
 `
 const WrapperInner = styled.div`
-    /* background-color: lightyellow; */
-    width: 25.5vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    margin: 60px 2.3vw 0 12.5vw;
+  /* background-color: lightyellow; */
+  width: 25.5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 60px 2.3vw 0 12.5vw;
 `
 
 const WrapperSearchAndNewConvo = styled.div`
@@ -47,20 +47,32 @@ const WrapperLaunchIcon = styled.div`
 `
 
 const WrapperConvoItems = styled.div`
-    /* background-color: lightgreen; */
-    width: 100%;
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
+  /* background-color: lightgreen; */
+  width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
 `
 
-const ConversationsTable = ({ userConvos, admin, getCurrentMessages, currentMessagesLength }) => {
-    const [searchState, setSearchState] = useState('');
+const ConversationsTable = ({
+  userConvos,
+  admin,
+  getCurrentMessages,
+  currentMessagesLength,
+}) => {
+  const [searchState, setSearchState] = useState('')
 
-    const handleSearchChange = (e) => {
-        setSearchState(e.target.value);
-        console.log(searchState);
-    }
+  const handleSearchChange = (e) => {
+    setSearchState(e.target.value)
+    console.log(searchState)
+  }
+
+  const filteredUserConvos = userConvos.filter((userConvo) => {
+    const clientFullName = `${userConvo.participants[0].firstName +
+      ' ' +
+      userConvo.participants[0].lastName}`
+    return clientFullName.indexOf(searchState) !== -1
+  })
 
     const handleDisplayNewConvo = () => {
         console.log('in handleDisplayNewConvo - ConversationsTable');
@@ -100,4 +112,4 @@ const ConversationsTable = ({ userConvos, admin, getCurrentMessages, currentMess
     )
 }
 
-export default ConversationsTable;
+export default ConversationsTable

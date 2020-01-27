@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { SearchField } from 'uiKit/userInput/TextField'
 import ClientsTable from './ClientsTable'
-import { UsersContext } from '../../contexts/UsersContext';
-import { LoadSpinner } from '../../uiKit/LoadSpinner';
+import { UsersContext } from '../../contexts/UsersContext'
+import { LoadSpinner } from '../../uiKit/LoadSpinner'
 
 const Container = styled.div`
   margin: 60px auto 0px auto;
@@ -16,32 +16,36 @@ const SearchContainer = styled.div`
 `
 
 const ApprovedClientsPage = () => {
-  // consume context 
-  const { approvedClients, getApprovedClients, isLoading } = useContext(UsersContext);
+  // consume context
+  const { approvedClients, getApprovedClients, isLoading } = useContext(
+    UsersContext,
+  )
   // setting initial state for the search term in SearchContainer
-  const [searchState, setSearchState] = useState('');
+  const [searchState, setSearchState] = useState('')
 
   useEffect(() => {
-    console.log('in useEffect');
-    getApprovedClients();
+    console.log('in useEffect')
+    getApprovedClients()
   }, [])
 
   const handleSearchChange = (e) => {
-    setSearchState(e.target.value);
-    console.log(searchState);
+    setSearchState(e.target.value)
+    console.log(searchState)
   }
 
-  const filteredApprovedClients = approvedClients.filter(approvedClient => {
-    const clientFullName = `${approvedClient.firstName + ' ' + approvedClient.lastName}`
-    return clientFullName.indexOf(searchState) !== -1;
-  });
+  const filteredApprovedClients = approvedClients.filter((approvedClient) => {
+    const clientFullName = `${approvedClient.firstName +
+      ' ' +
+      approvedClient.lastName}`
+    return clientFullName.indexOf(searchState) !== -1
+  })
 
-  console.log('in render', isLoading);
+  console.log('in render', isLoading)
   return (
     <Container>
       {!isLoading ? (
         <>
-          { approvedClients.length ? (
+          {approvedClients.length ? (
             <>
               <SearchContainer label="search" onChange={handleSearchChange}>
                 <SearchField placeholder="Search your clients" />
@@ -52,7 +56,9 @@ const ApprovedClientsPage = () => {
             <div>There are no approved clients</div>
           )}
         </>
-      ) : (<LoadSpinner topMargin="38vh"/>)}
+      ) : (
+        <LoadSpinner topMargin="38vh" />
+      )}
     </Container>
   )
 }

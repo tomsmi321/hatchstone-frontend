@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from '@material-ui/core';
-import styled from 'styled-components';
+import React from 'react'
+import { Link } from '@material-ui/core'
+import styled from 'styled-components'
 
 const BaseLink = styled(Link)`
   &&& {
@@ -14,7 +14,9 @@ const PrimaryLink = ({ children, onClick }) => (
 )
 
 const SecondaryLink = ({ children, onClick }) => (
-<BaseLink underline="always" onClick={onClick}>{children}</BaseLink>
+  <BaseLink underline="always" onClick={onClick}>
+    {children}
+  </BaseLink>
 )
 
 export { PrimaryLink, SecondaryLink }

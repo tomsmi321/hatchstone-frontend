@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext } from 'react'
 import styled from 'styled-components'
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 import { ExpandMore, ExpandLess, AccountCircle } from 'uiKit/Icon'
 import DropdownMenu from 'uiKit/DropdownMenu'
 import { AuthContext } from '../../../contexts/AuthContext'
@@ -35,16 +35,21 @@ const ProfileDropdown = () => {
   // const [firstname, lastname] = ["Jack", "Graves"]
   // const {firstName, lastName } = currentUserProfile
   // const profilePhoto = null
-  const profilePhoto = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/850px-Missing_avatar.svg.png'
+  const profilePhoto =
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/850px-Missing_avatar.svg.png'
   const toggleExpandMenu = () => {
     setIsExpanded(!isExpanded)
   }
   return (
     <>
       <Container ref={container} onClick={toggleExpandMenu}>
-        { profilePhoto ? <ProfileImage imageSrc={profilePhoto} /> : <AccountCircle  style={{ fontSize: 36 }} />}
+        {profilePhoto ? (
+          <ProfileImage imageSrc={profilePhoto} />
+        ) : (
+          <AccountCircle style={{ fontSize: 36 }} />
+        )}
         <FullName>{`${currentUser.email}`}</FullName>
-        { isExpanded ? <ExpandLess/> : <ExpandMore />}
+        {isExpanded ? <ExpandLess /> : <ExpandMore />}
       </Container>
       <DropdownMenu
         anchorEl={container.current}
@@ -53,13 +58,17 @@ const ProfileDropdown = () => {
         menuItems={[
           {
             onClick: () => {
-              currentUser.admin ? history.push(`/edit-profile-admin/${currentUser._id}`) : history.push(`/edit-profile-client/${currentUser._id}`)
+              currentUser.admin
+                ? history.push(`/edit-profile-admin/${currentUser._id}`)
+                : history.push(`/edit-profile-client/${currentUser._id}`)
             },
-            label: 'Profile'
+            label: 'Profile',
           },
           {
-            onClick: () => { logout() },
-            label: 'Logout'
+            onClick: () => {
+              logout()
+            },
+            label: 'Logout',
           },
         ]}
       />

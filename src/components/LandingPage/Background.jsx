@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 import backgroundImage from 'assets/images/hatchstone-stock-image.jpeg'
 
 const Background = styled.div`
@@ -17,7 +17,7 @@ const BackgroundOverlay = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 700;
 `
 
