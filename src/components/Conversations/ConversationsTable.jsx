@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { SearchField } from 'uiKit/userInput/TextField';
 import ConvoItem from './ConvoItem';
 import { StyledLaunchIcon } from '../../uiKit/Icon';
+import NewConvoItem from './NewConvoItem';
 
 // fix this
 const WrapperOuter = styled.div`
@@ -11,7 +12,6 @@ const WrapperOuter = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
-  overflow: scroll;
 `
 const WrapperInner = styled.div`
   /* background-color: lightyellow; */
@@ -56,56 +56,94 @@ const WrapperConvoItems = styled.div`
 
 const ConversationsTable = ({
   userConvos,
+  getUserConvos,
+  currentUserProfile,
   admin,
   getCurrentMessages,
   currentMessagesLength,
+  getProfilesAdmin,
+  getProfilesClient,
+  userProfiles
 }) => {
   const [searchState, setSearchState] = useState('')
+  const [displayNewConvoItems, setDisplayNewConvoItems] = useState(false);
+ 
 
   const handleSearchChange = (e) => {
     setSearchState(e.target.value)
     console.log(searchState)
   }
 
-  const filteredUserConvos = userConvos.filter((userConvo) => {
-    const clientFullName = `${userConvo.participants[0].firstName +
-      ' ' +
-      userConvo.participants[0].lastName}`
-    return clientFullName.indexOf(searchState) !== -1
-  })
-
-    const handleDisplayNewConvo = () => {
-        console.log('in handleDisplayNewConvo - ConversationsTable');
+  const handleDisplayNewConvoItems = (admin, displayNewConvoItems) => {
+    setDisplayNewConvoItems(!displayNewConvoItems);
+    if(admin) {
+        getProfilesClient()
+    } else {
+        getProfilesAdmin()
     }
+  }
 
-    const filteredUserConvos = userConvos.filter(userConvo => {
-        const clientFullName = `${userConvo.participants[0].firstName + ' ' + userConvo.participants[0].lastName}`
-        return clientFullName.indexOf(searchState) !== -1;
-    });
+  const handleSearchFieldPlaceholder = (displayNewConvoItems) => {
+    if(displayNewConvoItems && admin) {
+        return 'Search for a client';
+    } else if(displayNewConvoItems && !admin) {
+        return 'Search for an admin';
+    } else {
+        return 'Search your conversations'
+    }
+  }
+
+  const filteredUserConvos = userConvos.filter(userConvo => {
+    const clientFullName = `${userConvo.participants[0].firstName + ' ' + userConvo.participants[0].lastName}`
+    return clientFullName.indexOf(searchState) !== -1;
+  });
+
+  const filteredUserProfiles = userProfiles.filter(userProfile => {
+    const clientFullName = `${userProfile.firstName + ' ' + userProfile.lastName}`
+    return clientFullName.indexOf(searchState) !== -1;
+  });
           
     return (
         <WrapperOuter>
             <WrapperInner>
                 <WrapperSearchAndNewConvo>
                     <WrapperSearchField >
-                        <SearchField placeholder="Search your conversations" label="search" onChange={handleSearchChange}/>
+                        <SearchField placeholder={handleSearchFieldPlaceholder(displayNewConvoItems)} label="search" onChange={handleSearchChange}/>
                     </WrapperSearchField>
-                    <WrapperLaunchIcon onClick={handleDisplayNewConvo}>
+                    <WrapperLaunchIcon onClick={() => {handleDisplayNewConvoItems(admin, displayNewConvoItems)}}>
                         <StyledLaunchIcon/>
                     </WrapperLaunchIcon>
                 </WrapperSearchAndNewConvo>
                 <WrapperConvoItems>
-                    {filteredUserConvos.length ? filteredUserConvos.map((userConvo, index) => {
-                        return (
-                            <ConvoItem 
-                                key={index} 
-                                userConvo={userConvo} 
-                                admin={admin}
-                                getCurrentMessages={getCurrentMessages}
-                                currentMessagesLength={currentMessagesLength}
-                            />
-                        )
-                    }): null}
+                    <>
+                        {displayNewConvoItems ? (
+                            filteredUserProfiles.map((userProfile, index) => {
+                                return (
+                                    <NewConvoItem 
+                                        key={index}
+                                        userProfile={userProfile}
+                                        admin={admin}
+                                        currentUserProfile={currentUserProfile}
+                                        setDisplayNewConvoItems={setDisplayNewConvoItems}
+                                        getUserConvos={getUserConvos}
+                                    /> 
+                                )
+                            })
+                            
+                        ) : (
+                            filteredUserConvos.map((userConvo, index) => {
+                                return (
+                                    <ConvoItem 
+                                        key={index} 
+                                        userConvo={userConvo} 
+                                        admin={admin}
+                                        getCurrentMessages={getCurrentMessages}
+                                        currentMessagesLength={currentMessagesLength}
+                                    />
+                                )
+                            })
+                        )}
+                    </>
                 </WrapperConvoItems>
             </WrapperInner>
         </WrapperOuter>
