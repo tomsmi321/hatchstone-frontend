@@ -24,6 +24,7 @@ const ConversationsPage = (props) => {
   const [currentConvoId, setCurrentConvoId] = useState(null)
   const [currentMessages, setCurrentMessages] = useState([])
   const [currentMessagesLength, setCurrentMessagesLength] = useState(0)
+  const [userProfiles, setUserProfiles] = useState([]); 
 
   const handModalClose = () => {
     setShowModal(false)
@@ -83,6 +84,31 @@ const ConversationsPage = (props) => {
     }
   }
 
+  const getProfilesAdmin = async () => {
+    console.log('in getProfilesAdmin');
+    try {
+      const result = await axios.get('/profiles/profilesAdmin');
+      if(result.data) {
+        setUserProfiles(result.data);
+      }
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
+  const getProfilesClient = async () => {
+    console.log('in getProfilesClient');
+    try {
+      const result = await axios.get('/profiles/profilesClient');
+      if(result.data) {
+        console.log(result.data);
+        setUserProfiles(result.data);
+      }
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     console.log('in useEffect - index')
     const userId = props.match.params.id
@@ -90,8 +116,6 @@ const ConversationsPage = (props) => {
     getProfile(userId)
   }, [currentMessagesLength, userConvosLength])
 
-  console.log('currentMessagesLength - index', currentMessagesLength)
-  console.log('currentUserProfile', currentUserProfile)
   return (
     <Wrapper>
       {/* remove below, for testing UserContext only */}
@@ -108,9 +132,15 @@ const ConversationsPage = (props) => {
 
           <ConversationsTable
             userConvos={userConvos}
+            currentUserProfile={currentUserProfile}
             admin={currentUserProfile.userId.admin}
             getCurrentMessages={getCurrentMessages}
             currentMessagesLength={currentMessagesLength}
+            getProfilesAdmin={getProfilesAdmin}
+            getProfilesClient={getProfilesClient}
+            userProfiles={userProfiles}
+            getUserConvos={getUserConvos}
+
           />
           <MessagesTable
             currentUserId={currentUserProfile.userId._id}

@@ -51,14 +51,17 @@ const MessagesTable = ({
         {/* align right should be set to true if the message is from the current user */}
         {/* <MessageItem alignRight={true}/> */}
       </WrapperMessageItems>
-      <NewMessage
-        createNewMessage={createNewMessage}
-        getCurrentMessages={getCurrentMessages}
-        currentUserId={currentUserId}
-        currentUserProfileId={currentUserProfileId}
-        currentConvoId={currentConvoId}
-        currentMessagesLength={currentMessagesLength}
-      />
+      {currentConvoId ? (
+         <NewMessage
+         createNewMessage={createNewMessage}
+         getCurrentMessages={getCurrentMessages}
+         currentUserId={currentUserId}
+         currentUserProfileId={currentUserProfileId}
+         currentConvoId={currentConvoId}
+         currentMessagesLength={currentMessagesLength}
+       />
+      ) : (null)}
+     
     </Wrapper>
   )
 }

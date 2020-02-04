@@ -5,7 +5,13 @@ import { capitaliseString } from '../../utils/formatting-util'
 
 const WrapperOuter = styled.div`
   /* background-color: lightcyan; */
-  background-color: #ffffff;
+background-color: ${({isActive}) => {
+    if(isActive){
+      return '#ebebeb'
+    } else {
+      return '#ffffff'
+    }
+  }};
   width: 100%;
   margin-bottom: 17px;
   padding: 8px;
@@ -16,6 +22,7 @@ const WrapperOuter = styled.div`
     background-color: #d4d4d4;
   }
 `
+// #ffffff
 
 const WrapperInner = styled.div`
   /* background-color: darksalmon; */
@@ -94,6 +101,7 @@ const ConvoItem = ({
   const [convoPartner, setConvoPartner] = useState({})
   const [convoSnippet, setConvoSnippet] = useState(null)
   const [convoLastMessageTime, setConvoLastMessageTime] = useState(null)
+  const [isActive, setIsActive] = useState(false);
 
   const getConvoPartner = (admin) => {
     console.log('in getConvoPartner - ConvoItem')
@@ -130,6 +138,7 @@ const ConvoItem = ({
     const convoId = userConvo._id
     const convoPartnerName = `${convoPartner.firstName} ${convoPartner.lastName}`
     getCurrentMessages(convoId, convoPartnerName)
+    setIsActive(!isActive)
   }
 
   useEffect(() => {
@@ -139,10 +148,10 @@ const ConvoItem = ({
     setConvoLastMessageTime(getConvoLastMessageTime(userConvo))
   }, [userConvo])
 
-  console.log('currentMessagesLength - ConvoItem', currentMessagesLength)
   const convoPartnerProfileImg = getConvoPartner(admin).profileImage
+
   return (
-    <WrapperOuter onClick={handleDisplayMessages}>
+    <WrapperOuter onClick={handleDisplayMessages} isActive={isActive}>
       <WrapperInner>
         <WrapperProfilePicture>
           {convoPartnerProfileImg ? (

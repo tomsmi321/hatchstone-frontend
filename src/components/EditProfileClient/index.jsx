@@ -273,7 +273,20 @@ const EditProfileClientPage = (props) => {
       history.push(`/conversations/${userId}`);
     };
 
+    const checkContainsDocType = (docType, docArr) => {
+      console.log('in checkContainsDocType');
+      for(let i = 0; i < docArr.length; i++) {
+        console.log(docArr[i].name);
+        console.log(docType); 
+        if(docArr[i].name === docType) {
+          return true
+        } else {
+          return false
+        }
+      }
+    }
 
+    console.log(documents);
     return (
       <PageWrapper>
         <form onSubmit={handleSubmit}>
@@ -355,16 +368,20 @@ const EditProfileClientPage = (props) => {
             <p style={{ margin: "10px" }}>Documents</p>
             <WrapperDocsFieldsOuter>
               {documents ? (documents.map((document,index) => {
-                if(documents.length < 3){
-                if(document.name === "Company Verification"  || document.name === "Director and Beneficial Owner Identification"  || document.name === "Section 708 Wholesale Investor Certification"){
-                  
                   return <DocumentField document={document}  userId={userId} key={index}/>
-                } else if (documents.length < 3) {
-                  return <ClientDocFieldA userId={userId}/>
-                }
-              } })
-               ) : (null) }
+                })) : (null) }
 
+              {documents && checkContainsDocType("Company Verification", documents) === false ? (
+                <ClientDocFieldA userId={userId}/>
+              ) : (null)}
+
+              {documents && checkContainsDocType("Director and Beneficial Owner Identification", documents) === false ? (
+                <ClientDocFieldB userId={userId}/>
+              ) : (null)}
+
+              {documents && checkContainsDocType("Section 708 Wholesale Investor Certification", documents) === false ? (
+                <ClientDocFieldC userId={userId}/>
+              ) : (null)}
             </WrapperDocsFieldsOuter>
             <WrapperUpdateButton>
               <PrimaryButton type="submit">Update</PrimaryButton>
@@ -379,3 +396,20 @@ const EditProfileClientPage = (props) => {
 }
 
 export default EditProfileClientPage
+
+
+
+{/* <WrapperDocsFieldsOuter>
+{documents ? (documents.map((document,index) => {
+  {console.log('in wrapper docs fields outer')}
+  if(documents.length){
+  if(document.name === "Company Verification"  || document.name === "Director and Beneficial Owner Identification"  || document.name === "Section 708 Wholesale Investor Certification"){
+    
+    return <DocumentField document={document}  userId={userId} key={index}/>
+  } else if (documents.length < 3) {
+    return <ClientDocFieldA userId={userId}/>
+  }
+} })
+ ) : (null) }
+
+</WrapperDocsFieldsOuter> */}
