@@ -67,7 +67,6 @@ const ConversationsTable = ({
 }) => {
   const [searchState, setSearchState] = useState('')
   const [displayNewConvoItems, setDisplayNewConvoItems] = useState(false);
- 
 
   const handleSearchChange = (e) => {
     setSearchState(e.target.value)
